@@ -1,0 +1,96 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<div class="flex-1 flex overflow-hidden">
+  <%- include('../partials/sidebar') %>
+
+  <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-slate-50/50">
+    <div class="max-w-6xl mx-auto space-y-6">
+      
+      <div class="flex items-center justify-between">
+        <a href="/aids" class="text-xs font-bold text-slate-500 hover:text-brand-800 transition flex items-center space-x-1">
+          <i class="bi bi-arrow-left"></i>
+          <span>Kembali ke Daftar Program</span>
+        </a>
+        <% if (['admin', 'petugas'].includes(currentUser.role)) { %>
+        <a href="/aids/disburse?program_id=<%= program.id %>" class="px-4 py-2 rounded-xl bg-brand-700 hover:bg-brand-600 text-white font-bold text-xs transition shadow-sm">
+          + Salurkan ke Petani
+        </a>
+        <% } %>
+      </div>
+
+      <!-- Program Overview Card -->
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="font-mono text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700"><%= program.kode_program %></span>
+              <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800"><%= program.sumber_dana %></span>
+            </div>
+            <h1 class="text-2xl font-extrabold text-slate-900 mt-2"><%= program.nama_program %></h1>
+            <p class="text-xs text-slate-500 mt-1">Tahun Anggaran <%= program.tahun_anggaran %> &bull; Jenis: <strong><%= program.jenis_bantuan %></strong></p>
+          </div>
+          <div class="text-right">
+            <span class="text-[10px] text-slate-400 font-bold uppercase block">Plafon Anggaran:</span>
+            <span class="text-xl font-extrabold text-amber-600 font-mono">Rp <%= parseFloat(program.anggaran_total).toLocaleString('id-ID') %></span>
+          </div>
+        </div>
+
+        <div class="mt-6 text-xs text-slate-600 leading-relaxed">
+          <h4 class="font-bold text-slate-800 mb-1">Deskripsi & Tujuan Program:</h4>
+          <p class="bg-slate-50 p-4 rounded-2xl border border-slate-100"><%= program.deskripsi %></p>
+        </div>
+      </div>
+
+      <!-- Recipients Table -->
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+          <div>
+            <h3 class="font-extrabold text-slate-900 text-base">Daftar Petani Penerima Bantuan (<%= recipients.length %> Petani)</h3>
+            <p class="text-xs text-slate-500">Penyaluran resmi yang telah diserahterimakan kepada petani OAP</p>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 text-slate-400 uppercase font-bold text-[10px] tracking-wider border-b border-slate-100">
+              <tr>
+                <th class="py-3 px-4">Nama Petani</th>
+                <th class="py-3 px-4">Nomor Kartu</th>
+                <th class="py-3 px-4">Wilayah</th>
+                <th class="py-3 px-4">Volume Bantuan</th>
+                <th class="py-3 px-4">Tanggal Penyaluran</th>
+                <th class="py-3 px-4 text-center">Status</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <% if (recipients && recipients.length > 0) { %>
+                <% recipients.forEach(r => { %>
+                <tr class="hover:bg-slate-50/60 transition">
+                  <td class="py-3.5 px-4 font-bold text-slate-900"><%= r.nama_petani %></td>
+                  <td class="py-3.5 px-4 font-mono text-slate-600"><%= r.nomor_kartu %></td>
+                  <td class="py-3.5 px-4 text-slate-600"><%= r.kampung %>, <%= r.distrik %></td>
+                  <td class="py-3.5 px-4 font-bold text-brand-800"><%= r.volume_bantuan %></td>
+                  <td class="py-3.5 px-4 text-slate-500"><%= r.tanggal_penyaluran %></td>
+                  <td class="py-3.5 px-4 text-center">
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 uppercase">
+                      <%= r.status_realisasi %>
+                    </span>
+                  </td>
+                </tr>
+                <% }) %>
+              <% } else { %>
+                <tr>
+                  <td colspan="6" class="py-12 text-center text-slate-400">Belum ada petani yang menerima penyaluran untuk program ini.</td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<%- include('../partials/footer') %>

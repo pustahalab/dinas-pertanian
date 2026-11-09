@@ -1,0 +1,169 @@
+<aside id="sidebar" class="w-64 bg-white border-r border-slate-200 flex-shrink-0 transition-transform duration-300 md:translate-x-0 -translate-x-full fixed md:static inset-y-0 left-0 z-30 pt-16 md:pt-0 no-print">
+  <div class="h-full flex flex-col justify-between overflow-y-auto px-4 py-6">
+    
+    <div class="space-y-6">
+      
+      <!-- User Summary in Mobile -->
+      <% if (currentUser) { %>
+      <div class="md:hidden p-3 bg-brand-50 rounded-2xl border border-brand-100 flex items-center space-x-3 mb-4">
+        <div class="w-10 h-10 rounded-full bg-brand-700 text-white font-bold flex items-center justify-center">
+          <%= currentUser.nama_lengkap.charAt(0) %>
+        </div>
+        <div class="overflow-hidden">
+          <p class="text-sm font-bold text-slate-900 truncate"><%= currentUser.nama_lengkap %></p>
+          <span class="inline-block text-xs uppercase px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold"><%= currentUser.role %></span>
+        </div>
+      </div>
+      <% } %>
+
+      <!-- Menu Section: Utama -->
+      <div>
+        <p class="px-3 text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Navigasi Utama</p>
+        <ul class="space-y-1">
+          
+          <li>
+            <a href="/dashboard" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium transition <%= currentPath === '/dashboard' ? 'bg-brand-50 text-brand-800 font-bold border border-brand-200' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' %>">
+              <i class="bi bi-grid-1x2-fill text-lg <%= currentPath === '/dashboard' ? 'text-brand-700' : 'text-slate-400' %>"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+
+          <% if (currentUser && ['admin', 'petugas', 'pimpinan'].includes(currentUser.role)) { %>
+          <li>
+            <a href="/farmers" class="flex items-center justify-between px-3 py-2.5 rounded-xl font-medium transition <%= currentPath.startsWith('/farmers') ? 'bg-brand-50 text-brand-800 font-bold border border-brand-200' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' %>">
+              <div class="flex items-center space-x-3">
+                <i class="bi bi-people-fill text-lg <%= currentPath.startsWith('/farmers') ? 'text-brand-700' : 'text-slate-400' %>"></i>
+                <span>Data Petani OAP</span>
+              </div>
+              <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-bold">500</span>
+            </a>
+          </li>
+          <% } %>
+
+          <% if (currentUser && ['admin', 'petugas', 'pimpinan'].includes(currentUser.role)) { %>
+          <li>
+            <a href="/cards/print-batch" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium transition <%= currentPath.startsWith('/cards') ? 'bg-brand-50 text-brand-800 font-bold border border-brand-200' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' %>">
+              <i class="bi bi-person-badge-fill text-lg <%= currentPath.startsWith('/cards') ? 'text-brand-700' : 'text-slate-400' %>"></i>
+              <span>Cetak Kartu Tani</span>
+            </a>
+          </li>
+          <% } %>
+
+          <li>
+            <a href="/groups" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium transition <%= currentPath.startsWith('/groups') ? 'bg-brand-50 text-brand-800 font-bold border border-brand-200' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' %>">
+              <i class="bi bi-diagram-3-fill text-lg <%= currentPath.startsWith('/groups') ? 'text-brand-700' : 'text-slate-400' %>"></i>
+              <span>Kelompok Tani</span>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+
+      <!-- Menu Section: Transportasi & Integrasi DAMRI -->
+      <div>
+        <p class="px-3 text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Transportasi Hasil Tani (DAMRI)</p>
+        <ul class="space-y-1">
+          
+          <% if (currentUser && ['admin', 'damri', 'petugas'].includes(currentUser.role)) { %>
+          <li>
+            <a href="/transport/scanner" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl font-semibold transition <%= currentPath === '/transport/scanner' ? 'bg-amber-500 text-white shadow-md shadow-amber-500/30' : 'text-amber-800 bg-amber-50/70 hover:bg-amber-100 border border-amber-200/60' %>">
+              <i class="bi bi-qr-code-scan text-lg <%= currentPath === '/transport/scanner' ? 'text-white' : 'text-amber-600' %>"></i>
+              <span>Scan QR Kartu Tani</span>
+            </a>
+          </li>
+          <% } %>
+
+          <li>
+            <a href="/transport/history" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium transition <%= currentPath === '/transport/history' ? 'bg-brand-50 text-brand-800 font-bold border border-brand-200' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' %>">
+              <i class="bi bi-truck-front-fill text-lg <%= currentPath === '/transport/history' ? 'text-brand-700' : 'text-slate-400' %>"></i>
+              <span>Riwayat Angkutan DAMRI</span>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+
+      <!-- Menu Section: Program Bantuan Otsus -->
+      <div>
+        <p class="px-3 text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Bantuan Otonomi Khusus</p>
+        <ul class="space-y-1">
+          
+          <li>
+            <a href="/aids" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium transition <%= currentPath.startsWith('/aids') ? 'bg-brand-50 text-brand-800 font-bold border border-brand-200' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' %>">
+              <i class="bi bi-gift-fill text-lg <%= currentPath.startsWith('/aids') ? 'text-brand-700' : 'text-slate-400' %>"></i>
+              <span>Program Bantuan Otsus</span>
+            </a>
+          </li>
+
+          <% if (currentUser && ['admin', 'petugas'].includes(currentUser.role)) { %>
+          <li>
+            <a href="/aids/disburse" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl font-medium transition <%= currentPath === '/aids/disburse' ? 'bg-brand-50 text-brand-800 font-bold border border-brand-200' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' %>">
+              <i class="bi bi-box-arrow-up-right text-lg <%= currentPath === '/aids/disburse' ? 'text-brand-700' : 'text-slate-400' %>"></i>
+              <span>Catat Penyaluran Bantuan</span>
+            </a>
+          </li>
+          <% } %>
+
+        </ul>
+      </div>
+
+      <!-- Menu Section: Laporan Eksekutif -->
+      <% if (currentUser && ['admin', 'petugas', 'pimpinan'].includes(currentUser.role)) { %>
+      <div>
+        <p class="px-3 text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Laporan & Ekspor</p>
+        <ul class="space-y-1">
+          <li>
+            <a href="/reports/farmers" class="flex items-center space-x-3 px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition">
+              <i class="bi bi-file-earmark-person-fill text-slate-400"></i>
+              <span>Laporan Petani Penerima</span>
+            </a>
+          </li>
+          <li>
+            <a href="/reports/transport" class="flex items-center space-x-3 px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition">
+              <i class="bi bi-file-earmark-bar-graph-fill text-slate-400"></i>
+              <span>Laporan Distribusi DAMRI</span>
+            </a>
+          </li>
+          <li>
+            <a href="/reports/aids" class="flex items-center space-x-3 px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition">
+              <i class="bi bi-file-earmark-spreadsheet-fill text-slate-400"></i>
+              <span>Laporan Realisasi Otsus</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <% } %>
+
+    </div>
+
+    <!-- Quick Role Switcher for Demo -->
+    <div class="pt-4 border-t border-slate-200">
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3">
+        <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center justify-between">
+          <span>Ganti Peran (Demo)</span>
+          <i class="bi bi-arrow-repeat text-slate-400"></i>
+        </p>
+        <div class="grid grid-cols-2 gap-1.5 text-xs">
+          <a href="/quick-login/admin" class="px-2 py-1.5 rounded-lg bg-white border border-slate-200 text-center font-semibold text-slate-700 hover:bg-emerald-50 hover:border-emerald-300 hover:text-emerald-800 transition">
+            Admin
+          </a>
+          <a href="/quick-login/petugas" class="px-2 py-1.5 rounded-lg bg-white border border-slate-200 text-center font-semibold text-slate-700 hover:bg-emerald-50 hover:border-emerald-300 hover:text-emerald-800 transition">
+            Petugas
+          </a>
+          <a href="/quick-login/pimpinan" class="px-2 py-1.5 rounded-lg bg-white border border-slate-200 text-center font-semibold text-slate-700 hover:bg-emerald-50 hover:border-emerald-300 hover:text-emerald-800 transition">
+            Pimpinan
+          </a>
+          <a href="/quick-login/damri" class="px-2 py-1.5 rounded-lg bg-white border border-slate-200 text-center font-semibold text-slate-700 hover:bg-amber-50 hover:border-amber-300 hover:text-amber-800 transition">
+            DAMRI
+          </a>
+        </div>
+        <div class="mt-1.5">
+          <a href="/quick-login/petani" class="block w-full px-2 py-1.5 rounded-lg bg-white border border-slate-200 text-center font-semibold text-slate-700 hover:bg-emerald-50 hover:border-emerald-300 hover:text-emerald-800 transition text-xs">
+            Petani OAP (Opice Arwam)
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</aside>

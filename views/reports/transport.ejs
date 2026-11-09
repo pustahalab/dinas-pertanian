@@ -1,0 +1,106 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<div class="flex-1 flex overflow-hidden">
+  <%- include('../partials/sidebar') %>
+
+  <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-slate-50/50">
+    <div class="max-w-7xl mx-auto space-y-6">
+      
+      <!-- Toolbar -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 no-print">
+        <div>
+          <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Laporan Rekapitulasi Transportasi DAMRI</h1>
+          <p class="text-xs text-slate-500 mt-1">Layanan pengangkutan komoditas hasil panen petani OAP ke pasar distribusi.</p>
+        </div>
+        <div class="flex items-center space-x-3">
+          <a href="/reports/transport?export=csv" class="px-4 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs transition flex items-center space-x-1.5 shadow-sm">
+            <i class="bi bi-file-earmark-spreadsheet text-blue-600"></i>
+            <span>Unduh CSV</span>
+          </a>
+          <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-brand-700 hover:bg-brand-600 text-white font-bold text-xs transition flex items-center space-x-1.5 shadow-sm">
+            <i class="bi bi-printer-fill"></i>
+            <span>Cetak Laporan</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Report Paper -->
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-10 print:shadow-none print:border-none print:p-0">
+        
+        <!-- Header Kop -->
+        <div class="border-b-4 border-double border-slate-800 pb-4 mb-6 text-center">
+          <h2 class="text-xs font-bold tracking-widest text-slate-800 uppercase">PEMERINTAH KABUPATEN BIAK NUMFOR & PERUM DAMRI CABANG BIAK</h2>
+          <h1 class="text-lg font-extrabold text-slate-900 uppercase tracking-tight mt-1">LAPORAN REKAPITULASI PENGANGKUTAN HASIL PANEN TANI TAHUN 2026</h1>
+          <p class="text-xs text-slate-600">Fasilitasi Subsidi Transportasi Pemasaran Hasil Pangan Program Otonomi Khusus</p>
+        </div>
+
+        <!-- Metrics -->
+        <div class="grid grid-cols-3 gap-4 mb-6 text-center text-xs border border-slate-200 rounded-2xl p-4 bg-slate-50">
+          <div>
+            <span class="text-slate-400 block font-bold text-[10px]">TOTAL PERJALANAN (TRIP):</span>
+            <span class="text-lg font-extrabold text-slate-900"><%= summary.total_trip %> Kali</span>
+          </div>
+          <div>
+            <span class="text-slate-400 block font-bold text-[10px]">TOTAL VOLUME DIANGKUT:</span>
+            <span class="text-lg font-extrabold text-emerald-700 font-mono"><%= parseFloat(summary.total_kg).toLocaleString('id-ID') %> Kg</span>
+          </div>
+          <div>
+            <span class="text-slate-400 block font-bold text-[10px]">PETANI TERLAYANI:</span>
+            <span class="text-lg font-extrabold text-blue-700"><%= summary.total_petani %> Orang</span>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="border-y-2 border-slate-800 bg-slate-50 text-[10px] uppercase font-bold text-slate-700">
+                <th class="py-2.5 px-3 border border-slate-300">Kode Perjalanan</th>
+                <th class="py-2.5 px-3 border border-slate-300">Waktu</th>
+                <th class="py-2.5 px-3 border border-slate-300">Petani Pengguna</th>
+                <th class="py-2.5 px-3 border border-slate-300">Asal Sentra</th>
+                <th class="py-2.5 px-3 border border-slate-300">Pasar Tujuan</th>
+                <th class="py-2.5 px-3 border border-slate-300">Komoditas</th>
+                <th class="py-2.5 px-3 border border-slate-300 text-right">Volume</th>
+                <th class="py-2.5 px-3 border border-slate-300">Armada DAMRI</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <% trips.forEach(t => { %>
+              <tr class="hover:bg-slate-50/50">
+                <td class="py-2 px-3 border border-slate-200 font-mono font-bold text-[10px] text-blue-700"><%= t.kode_perjalanan %></td>
+                <td class="py-2 px-3 border border-slate-200 text-[10px]"><%= new Date(t.tanggal_penggunaan).toLocaleDateString('id-ID') %></td>
+                <td class="py-2 px-3 border border-slate-200 font-bold"><%= t.nama_petani %></td>
+                <td class="py-2 px-3 border border-slate-200 text-[11px]"><%= t.titik_keberangkatan %></td>
+                <td class="py-2 px-3 border border-slate-200 font-medium text-slate-800"><%= t.titik_tujuan %></td>
+                <td class="py-2 px-3 border border-slate-200 font-bold text-brand-800"><%= t.komoditas %></td>
+                <td class="py-2 px-3 border border-slate-200 text-right font-mono font-bold"><%= t.volume_kg %> Kg</td>
+                <td class="py-2 px-3 border border-slate-200 text-[10px]"><%= t.nomor_armada %></td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-12 pt-8 flex justify-between items-start text-xs text-slate-800 break-inside-avoid">
+          <div class="text-center w-64">
+            <p>Manajer Operasional Perum DAMRI</p>
+            <div class="h-20"></div>
+            <p class="font-bold underline">YANCE RUMAKIEK</p>
+          </div>
+          <div class="text-center w-64">
+            <p>Biak, <%= new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) %></p>
+            <p class="font-bold">Plt. Kepala Dinas Pertanian & Ketahanan Pangan</p>
+            <div class="h-20"></div>
+            <p class="font-bold underline">drh. BAMBANG HAYANTO</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<%- include('../partials/footer') %>

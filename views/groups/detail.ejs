@@ -1,0 +1,90 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<div class="flex-1 flex overflow-hidden">
+  <%- include('../partials/sidebar') %>
+
+  <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-slate-50/50">
+    <div class="max-w-6xl mx-auto space-y-6">
+      
+      <div>
+        <a href="/groups" class="text-xs font-bold text-slate-500 hover:text-brand-800 transition flex items-center space-x-1">
+          <i class="bi bi-arrow-left"></i>
+          <span>Kembali ke Daftar Kelompok Tani</span>
+        </a>
+      </div>
+
+      <!-- Group Profile Card -->
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+          <div>
+            <span class="font-mono text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700"><%= group.kode_kelompok %></span>
+            <h1 class="text-2xl font-extrabold text-slate-900 mt-2"><%= group.nama_kelompok %></h1>
+            <p class="text-xs text-slate-500 mt-1">Kampung <%= group.kampung %>, Distrik <%= group.distrik %> &bull; Berdiri Tahun <%= group.tahun_berdiri %></p>
+          </div>
+          <div class="text-right">
+            <span class="text-[10px] text-slate-400 font-bold uppercase block">Ketua Kelompok Tani:</span>
+            <span class="text-base font-extrabold text-slate-900"><%= group.nama_ketua %></span>
+            <p class="text-xs text-emerald-700 font-bold">Komoditas: <%= group.komoditas_utama %></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Members Table -->
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+          <div>
+            <h3 class="font-extrabold text-slate-900 text-base">Daftar Anggota Kelompok Tani (<%= members.length %> Petani)</h3>
+            <p class="text-xs text-slate-500">Anggota yang terdaftar dalam basis data binaan</p>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 text-slate-400 uppercase font-bold text-[10px] tracking-wider border-b border-slate-100">
+              <tr>
+                <th class="py-3 px-4">Nama Petani</th>
+                <th class="py-3 px-4">Nomor Kartu</th>
+                <th class="py-3 px-4">Kampung</th>
+                <th class="py-3 px-4">Komoditas</th>
+                <th class="py-3 px-4">Luas Lahan</th>
+                <th class="py-3 px-4 text-center">Status</th>
+                <th class="py-3 px-4 text-right">Aksi</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <% if (members && members.length > 0) { %>
+                <% members.forEach(m => { %>
+                <tr class="hover:bg-slate-50/60 transition">
+                  <td class="py-3.5 px-4 font-bold text-slate-900"><%= m.nama_lengkap %></td>
+                  <td class="py-3.5 px-4 font-mono text-slate-600"><%= m.nomor_kartu %></td>
+                  <td class="py-3.5 px-4 text-slate-600"><%= m.kampung %></td>
+                  <td class="py-3.5 px-4 font-bold text-brand-800"><%= m.komoditas_utama %></td>
+                  <td class="py-3.5 px-4 text-slate-600"><%= m.luas_lahan %> Ha</td>
+                  <td class="py-3.5 px-4 text-center">
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 uppercase">
+                      <%= m.status_kartu %>
+                    </span>
+                  </td>
+                  <td class="py-3.5 px-4 text-right">
+                    <a href="/farmers/<%= m.id %>" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[11px] transition">
+                      Profil
+                    </a>
+                  </td>
+                </tr>
+                <% }) %>
+              <% } else { %>
+                <tr>
+                  <td colspan="7" class="py-12 text-center text-slate-400">Belum ada anggota terdaftar dalam kelompok ini.</td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<%- include('../partials/footer') %>

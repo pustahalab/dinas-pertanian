@@ -1,0 +1,160 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<div class="flex-1 flex overflow-hidden">
+  <%- include('../partials/sidebar') %>
+
+  <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-slate-50/50">
+    <div class="max-w-4xl mx-auto space-y-6">
+      
+      <div class="flex items-center justify-between">
+        <a href="/farmers" class="text-xs font-bold text-slate-500 hover:text-brand-800 transition flex items-center space-x-1">
+          <i class="bi bi-arrow-left"></i>
+          <span>Kembali ke Daftar Petani</span>
+        </a>
+      </div>
+
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8">
+        <div class="border-b border-slate-100 pb-5 mb-6">
+          <h1 class="text-xl font-extrabold text-slate-900">Pendaftaran Petani OAP Penerima Kartu Tani Baru</h1>
+          <p class="text-xs text-slate-500 mt-1">Lengkapi data identitas calon penerima bantuan Otonomi Khusus Kabupaten Biak Numfor.</p>
+        </div>
+
+        <form action="/farmers/create" method="POST" class="space-y-6 text-xs">
+          
+          <!-- Bagian 1: Identitas Pribadi -->
+          <div>
+            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">
+              1. Identitas Pribadi Petani
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Nama Lengkap Petani (OAP) *</label>
+                <input type="text" name="nama_lengkap" required placeholder="Contoh: PETRUS RUMBRAWER"
+                  class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-brand-500">
+              </div>
+
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Nomor Induk Kependudukan (NIK) *</label>
+                <input type="text" name="nik" required maxlength="16" placeholder="Contoh: 9106010101780001"
+                  class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-brand-500 font-mono">
+              </div>
+
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Tempat Lahir</label>
+                <input type="text" name="tempat_lahir" value="Biak Numfor"
+                  class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-brand-500">
+              </div>
+
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Tanggal Lahir</label>
+                <input type="date" name="tanggal_lahir"
+                  class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-brand-500">
+              </div>
+
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Jenis Kelamin</label>
+                <select name="jenis_kelamin" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-brand-500">
+                  <option value="L">Laki-laki</option>
+                  <option value="P">Perempuan</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Nomor Kontak / WhatsApp</label>
+                <input type="text" name="no_hp" placeholder="Contoh: 081248000000"
+                  class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-brand-500">
+              </div>
+            </div>
+          </div>
+
+          <!-- Bagian 2: Wilayah & Alamat -->
+          <div>
+            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">
+              2. Wilayah Domisili (Kabupaten Biak Numfor)
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Distrik *</label>
+                <select name="distrik" required class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-brand-500">
+                  <% districts.forEach(d => { %>
+                    <option value="<%= d.nama_distrik %>"><%= d.nama_distrik %></option>
+                  <% }) %>
+                </select>
+              </div>
+
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Kampung / Desa *</label>
+                <input type="text" name="kampung" required placeholder="Contoh: DOUSI / KOREM / SOSMAI"
+                  class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-brand-500">
+              </div>
+
+              <div class="sm:col-span-2">
+                <label class="block font-bold text-slate-700 mb-1">Alamat Lengkap</label>
+                <textarea name="alamat" rows="2" placeholder="Alamat tinggal atau lokasi kebun tani..."
+                  class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-brand-500"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bagian 3: Pertanian & Kelompok Tani -->
+          <div>
+            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">
+              3. Data Usaha Tani & Kelompok Tani
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Kelompok Tani</label>
+                <select name="kelompok_tani_id" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-brand-500">
+                  <option value="">-- Belum Tergabung Poktan --</option>
+                  <% groups.forEach(g => { %>
+                    <option value="<%= g.id %>"><%= g.nama_kelompok %> (<%= g.distrik %>)</option>
+                  <% }) %>
+                </select>
+              </div>
+
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Komoditas Unggulan *</label>
+                <select name="komoditas_utama" required class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-brand-500">
+                  <option value="Keladi Biak">Keladi Biak</option>
+                  <option value="Ubi Jalar (Petatas)">Ubi Jalar (Petatas)</option>
+                  <option value="Singkong (Kasbi)">Singkong (Kasbi)</option>
+                  <option value="Sayuran Lilin & Sawi">Sayuran Lilin & Sawi</option>
+                  <option value="Jagung Manis">Jagung Manis</option>
+                  <option value="Cabai Rawit">Cabai Rawit</option>
+                  <option value="Pisang Lokal">Pisang Lokal</option>
+                  <option value="Kacang Tanah">Kacang Tanah</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Luas Lahan Garapan (Ha)</label>
+                <input type="number" step="0.05" name="luas_lahan" value="0.50"
+                  class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-brand-500">
+              </div>
+
+              <div class="sm:col-span-3">
+                <label class="block font-bold text-slate-700 mb-1">Perkiraan Hasil Panen (Kg / Siklus)</label>
+                <input type="number" step="10" name="estimasi_panen_kg" value="350"
+                  class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-brand-500">
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-end space-x-3">
+            <a href="/farmers" class="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold hover:bg-slate-50 transition">
+              Batal
+            </a>
+            <button type="submit" class="px-6 py-2.5 rounded-xl bg-brand-700 hover:bg-brand-600 text-white font-bold transition shadow-md shadow-brand-700/20">
+              Simpan & Daftarkan Petani
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<%- include('../partials/footer') %>

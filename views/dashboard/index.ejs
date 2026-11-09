@@ -1,0 +1,327 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<div class="flex-1 flex overflow-hidden">
+  <%- include('../partials/sidebar') %>
+
+  <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-slate-50/50">
+    <div class="max-w-7xl mx-auto space-y-8">
+      
+      <!-- Welcome Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-gradient-to-r from-brand-900 via-brand-800 to-slate-900 p-6 sm:p-8 rounded-3xl text-white shadow-xl shadow-brand-950/10 relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
+        <div class="space-y-1 z-10">
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-400/20 text-emerald-300 text-xs font-semibold mb-2 border border-emerald-400/30">
+            <i class="bi bi-geo-alt-fill"></i>
+            <span>Kabupaten Biak Numfor - Provinsi Papua</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Selamat Datang, <%= currentUser.nama_lengkap %></h1>
+          <p class="text-emerald-200 text-sm max-w-2xl font-normal">
+            Sistem Informasi Manajemen Kartu Tani OAP & Layanan Transportasi DAMRI untuk Mendukung Program Bantuan Otonomi Khusus dan Akses Pemasaran Hasil Pertanian.
+          </p>
+        </div>
+        <div class="flex items-center space-x-3 z-10">
+          <% if (['admin', 'damri', 'petugas'].includes(currentUser.role)) { %>
+          <a href="/transport/scanner" class="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-brand-950 font-bold text-sm shadow-lg shadow-amber-500/20 transition duration-200">
+            <i class="bi bi-qr-code-scan text-base"></i>
+            <span>Buka Scanner QR</span>
+          </a>
+          <% } %>
+          <% if (['admin', 'petugas'].includes(currentUser.role)) { %>
+          <a href="/farmers/create" class="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-sm border border-white/20 transition">
+            <i class="bi bi-person-plus-fill"></i>
+            <span>Tambah Petani</span>
+          </a>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- KPI Summary Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        
+        <!-- Total Petani -->
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Petani Terdaftar</p>
+              <h3 class="text-3xl font-extrabold text-slate-900 mt-1"><%= kpi.total_petani %></h3>
+              <p class="text-xs text-emerald-600 font-semibold mt-1 flex items-center space-x-1">
+                <i class="bi bi-check-circle-fill"></i>
+                <span><%= kpi.petani_ditetapkan %> Aktif Ditetapkan</span>
+              </p>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-brand-700 flex items-center justify-center text-2xl">
+              <i class="bi bi-people-fill"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Antrean Verifikasi -->
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Verifikasi / Penetapan</p>
+              <h3 class="text-3xl font-extrabold text-amber-600 mt-1"><%= kpi.petani_pending %></h3>
+              <p class="text-xs text-slate-500 mt-1">Perlu tinjauan dinas</p>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-2xl">
+              <i class="bi bi-hourglass-split"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Transportasi DAMRI Trip -->
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Layanan Angkut DAMRI</p>
+              <h3 class="text-3xl font-extrabold text-blue-600 mt-1"><%= kpi.total_trip %> <span class="text-sm font-semibold text-slate-500">Trip</span></h3>
+              <p class="text-xs text-blue-700 font-medium mt-1">
+                Total <%= parseFloat(kpi.total_kg_terangkut).toLocaleString('id-ID') %> Kg Terdistribusi
+              </p>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-2xl">
+              <i class="bi bi-truck-front-fill"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bantuan Otsus -->
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Program Bantuan Otsus</p>
+              <h3 class="text-3xl font-extrabold text-brand-800 mt-1"><%= kpi.program_aktif %> <span class="text-sm font-semibold text-slate-500">Program</span></h3>
+              <p class="text-xs text-emerald-600 font-medium mt-1">
+                <%= kpi.total_penyaluran %> Penyaluran Realisasi
+              </p>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-2xl">
+              <i class="bi bi-gift-fill"></i>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Charts Section: Distrik & Komoditas -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Bar Chart: Distribusi Petani di 10 Distrik Biak Numfor -->
+        <div class="lg:col-span-2 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 class="font-extrabold text-slate-900 text-base">Sebaran Petani Penerima di 10 Distrik</h3>
+              <p class="text-xs text-slate-500">Data penerima bantuan Kartu Tani OAP Kabupaten Biak Numfor 2026</p>
+            </div>
+            <span class="text-xs font-bold bg-slate-100 text-slate-600 px-3 py-1 rounded-full">10 Distrik</span>
+          </div>
+          <div class="h-72">
+            <canvas id="districtChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Doughnut Chart: Komoditas Unggulan -->
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h3 class="font-extrabold text-slate-900 text-base">Komoditas Utama</h3>
+                <p class="text-xs text-slate-500">Hasil panen pangan binaan OAP</p>
+              </div>
+              <i class="bi bi-pie-chart-fill text-slate-400"></i>
+            </div>
+            <div class="h-60 relative flex items-center justify-center">
+              <canvas id="commodityChart"></canvas>
+            </div>
+          </div>
+          <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-500 text-center">
+            Komoditas dominan: <strong>Keladi Biak & Ubi Jalar (Petatas)</strong>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Pending Verifications & Recent DAMRI Trips Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- Table: Perlu Verifikasi / Penetapan -->
+        <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+          <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+            <div>
+              <h3 class="font-extrabold text-slate-900 text-base">Menunggu Verifikasi & Penetapan</h3>
+              <p class="text-xs text-slate-500">Calon penerima Kartu Tani yang memerlukan tindak lanjut</p>
+            </div>
+            <a href="/farmers?status=diajukan" class="text-xs font-bold text-brand-700 hover:text-brand-800">Lihat Semua &rarr;</a>
+          </div>
+          <div class="p-0 overflow-x-auto flex-1">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-50/80 text-slate-400 uppercase font-bold text-[10px]">
+                <tr>
+                  <th class="py-3 px-4">Nama Petani</th>
+                  <th class="py-3 px-4">Distrik / Kampung</th>
+                  <th class="py-3 px-4">Status</th>
+                  <th class="py-3 px-4 text-right">Aksi</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <% if (pendingReview && pendingReview.length > 0) { %>
+                  <% pendingReview.forEach(p => { %>
+                  <tr class="hover:bg-slate-50/60 transition">
+                    <td class="py-3 px-4 font-bold text-slate-900">
+                      <div><%= p.nama_lengkap %></div>
+                      <div class="text-[10px] text-slate-400 font-normal"><%= p.nomor_kartu %></div>
+                    </td>
+                    <td class="py-3 px-4 text-slate-600">
+                      <div><%= p.distrik %></div>
+                      <div class="text-[10px] text-slate-400"><%= p.kampung %></div>
+                    </td>
+                    <td class="py-3 px-4">
+                      <% if (p.status_verifikasi === 'diajukan') { %>
+                        <span class="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 font-bold text-[10px]">Diajukan</span>
+                      <% } else if (p.status_verifikasi === 'terverifikasi') { %>
+                        <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-bold text-[10px]">Terverifikasi</span>
+                      <% } %>
+                    </td>
+                    <td class="py-3 px-4 text-right">
+                      <a href="/farmers/<%= p.id %>" class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 hover:bg-emerald-100 font-bold text-[11px] transition">
+                        Periksa
+                      </a>
+                    </td>
+                  </tr>
+                  <% }) %>
+                <% } else { %>
+                  <tr>
+                    <td colspan="4" class="py-6 text-center text-slate-400">Semua data petani telah ditetapkan.</td>
+                  </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Table: Perjalanan Transportasi DAMRI Terbaru -->
+        <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+          <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+            <div>
+              <h3 class="font-extrabold text-slate-900 text-base">Aktivitas Angkutan DAMRI Terkini</h3>
+              <p class="text-xs text-slate-500">Pengiriman hasil pertanian menuju pasar distribusi</p>
+            </div>
+            <a href="/transport/history" class="text-xs font-bold text-brand-700 hover:text-brand-800">Riwayat Lengkap &rarr;</a>
+          </div>
+          <div class="p-0 overflow-x-auto flex-1">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-50/80 text-slate-400 uppercase font-bold text-[10px]">
+                <tr>
+                  <th class="py-3 px-4">Petani & Komoditas</th>
+                  <th class="py-3 px-4">Tujuan Pasar</th>
+                  <th class="py-3 px-4">Volume</th>
+                  <th class="py-3 px-4 text-right">Waktu</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <% if (recentTrips && recentTrips.length > 0) { %>
+                  <% recentTrips.forEach(t => { %>
+                  <tr class="hover:bg-slate-50/60 transition">
+                    <td class="py-3 px-4">
+                      <div class="font-bold text-slate-900"><%= t.nama_petani %></div>
+                      <div class="text-[10px] text-emerald-700 font-semibold"><%= t.komoditas %></div>
+                    </td>
+                    <td class="py-3 px-4 text-slate-600">
+                      <div class="font-medium"><%= t.titik_tujuan %></div>
+                      <div class="text-[10px] text-slate-400">Dari: <%= t.kampung_petani %></div>
+                    </td>
+                    <td class="py-3 px-4 font-bold text-slate-800">
+                      <%= t.volume_kg %> Kg
+                    </td>
+                    <td class="py-3 px-4 text-right text-slate-400 text-[11px]">
+                      <%= new Date(t.tanggal_penggunaan).toLocaleDateString('id-ID', { day: '2-digit', month: 'short' }) %>
+                    </td>
+                  </tr>
+                  <% }) %>
+                <% } else { %>
+                  <tr>
+                    <td colspan="4" class="py-6 text-center text-slate-400">Belum ada aktivitas angkutan hari ini.</td>
+                  </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- Chart.js Scripts -->
+<script>
+  // Data Distrik dari server
+  const districtsData = <%- JSON.stringify(districts) %>;
+  const commodityData = <%- JSON.stringify(commodities) %>;
+
+  // Render Bar Chart: Distrik
+  const ctxDist = document.getElementById('districtChart').getContext('2d');
+  new Chart(ctxDist, {
+    type: 'bar',
+    data: {
+      labels: districtsData.map(d => d.distrik),
+      datasets: [{
+        label: 'Jumlah Petani OAP',
+        data: districtsData.map(d => d.count),
+        backgroundColor: '#059669',
+        borderRadius: 8,
+        hoverBackgroundColor: '#047857'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: { color: '#f1f5f9' },
+          ticks: { font: { size: 10 } }
+        },
+        x: {
+          grid: { display: false },
+          ticks: { font: { size: 10, weight: '600' } }
+        }
+      }
+    }
+  });
+
+  // Render Doughnut Chart: Komoditas
+  const ctxComm = document.getElementById('commodityChart').getContext('2d');
+  new Chart(ctxComm, {
+    type: 'doughnut',
+    data: {
+      labels: commodityData.map(c => c.komoditas_utama),
+      datasets: [{
+        data: commodityData.map(c => c.count),
+        backgroundColor: [
+          '#059669', '#10b981', '#34d399', '#f59e0b', '#d97706', '#6366f1'
+        ],
+        borderWidth: 2,
+        borderColor: '#ffffff'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { boxWidth: 12, font: { size: 10 } }
+        }
+      },
+      cutout: '65%'
+    }
+  });
+</script>
+
+<%- include('../partials/footer') %>

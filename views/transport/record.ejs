@@ -1,0 +1,152 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<div class="flex-1 flex overflow-hidden">
+  <%- include('../partials/sidebar') %>
+
+  <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-slate-50/50">
+    <div class="max-w-4xl mx-auto space-y-6">
+      
+      <!-- Back Link -->
+      <div>
+        <a href="/transport/scanner" class="text-xs font-bold text-slate-500 hover:text-brand-800 transition flex items-center space-x-1">
+          <i class="bi bi-arrow-left"></i>
+          <span>Kembali ke Scanner DAMRI</span>
+        </a>
+      </div>
+
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8">
+        
+        <div class="flex items-center space-x-3 pb-6 border-b border-slate-100 mb-6">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500 text-brand-950 flex items-center justify-center font-extrabold text-2xl shadow-md">
+            <i class="bi bi-truck-front-fill"></i>
+          </div>
+          <div>
+            <h1 class="text-xl font-extrabold text-slate-900">Pencatatan Angkutan Hasil Tani (DAMRI)</h1>
+            <p class="text-xs text-slate-500">Layanan pengangkutan gratis komoditas pangan program Otonomi Khusus Papua 2026.</p>
+          </div>
+        </div>
+
+        <!-- Verified Farmer Badge -->
+        <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 mb-6 flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 rounded-xl bg-emerald-700 text-white flex items-center justify-center font-bold text-lg">
+              <i class="bi bi-person-check-fill"></i>
+            </div>
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="font-bold text-emerald-950 text-sm"><%= farmer.nama_lengkap %></span>
+                <span class="font-mono text-xs text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-md font-bold"><%= farmer.nomor_kartu %></span>
+              </div>
+              <p class="text-xs text-emerald-800 mt-0.5">
+                Kampung <%= farmer.kampung %>, Distrik <%= farmer.distrik %> &bull; Komoditas Asal: <strong><%= farmer.komoditas_utama %></strong>
+              </p>
+            </div>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-emerald-600 text-white font-extrabold text-[10px] uppercase tracking-wider">
+            KARTU VALID
+          </span>
+        </div>
+
+        <!-- Recording Form -->
+        <form action="/transport/record" method="POST" class="space-y-6 text-xs">
+          <input type="hidden" name="petani_id" value="<%= farmer.id %>">
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            
+            <!-- Titik Keberangkatan -->
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Titik Keberangkatan (Asal Komoditas) *</label>
+              <input type="text" name="titik_keberangkatan" required
+                value="Kampung <%= farmer.kampung %> (<%= farmer.distrik %>)"
+                class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-amber-500 font-medium">
+            </div>
+
+            <!-- Titik Tujuan (Pasar) -->
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Titik Tujuan / Pasar Distribusi *</label>
+              <select name="titik_tujuan" required class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-amber-500 font-semibold text-slate-800">
+                <% destinationMarkets.forEach(m => { %>
+                  <option value="<%= m %>"><%= m %></option>
+                <% }) %>
+              </select>
+            </div>
+
+            <!-- Komoditas yang Diangkut -->
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Komoditas yang Diangkut *</label>
+              <input type="text" name="komoditas" required
+                value="<%= farmer.komoditas_utama %>"
+                placeholder="Contoh: Keladi Biak / Sayur Lilin / Petatas"
+                class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-amber-500">
+            </div>
+
+            <!-- Volume / Berat (Kg) -->
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Berat / Volume Hasil Panen (Kg) *</label>
+              <input type="number" step="1" min="5" name="volume_kg" required value="75"
+                class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-amber-500 font-bold text-slate-900">
+            </div>
+
+            <!-- Jumlah & Jenis Kemasan -->
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Jumlah Kemasan / Wadah</label>
+              <input type="number" name="jumlah_kemasan" min="1" value="2"
+                class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-amber-500">
+            </div>
+
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Jenis Kemasan</label>
+              <select name="jenis_kemasan" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-amber-500">
+                <option value="Karung Goni / Plastik">Karung Goni / Plastik</option>
+                <option value="Noken Tradisional Papua">Noken Tradisional Papua</option>
+                <option value="Keranjang Bambu / Rotan">Keranjang Bambu / Rotan</option>
+                <option value="Peti Kayu Hortikultura">Peti Kayu Hortikultura</option>
+              </select>
+            </div>
+
+            <!-- Armada DAMRI & Driver -->
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Nomor Armada Bus DAMRI *</label>
+              <select name="nomor_armada" required class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-amber-500">
+                <option value="DAMRI-BIAK-01 (Rute Barat)">DAMRI-BIAK-01 (Rute Biak Barat)</option>
+                <option value="DAMRI-BIAK-02 (Rute Utara)">DAMRI-BIAK-02 (Rute Biak Utara / Warsa)</option>
+                <option value="DAMRI-BIAK-03 (Rute Timur)">DAMRI-BIAK-03 (Rute Biak Timur / Bosnik)</option>
+                <option value="DAMRI-BIAK-04 (Rute Lingkar)">DAMRI-BIAK-04 (Rute Lingkar Numfor)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Nama Driver / Petugas Bertugas</label>
+              <input type="text" name="nama_driver" required value="Petugas Operasional DAMRI"
+                class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-amber-500">
+            </div>
+
+            <!-- Catatan Operasional -->
+            <div class="sm:col-span-2">
+              <label class="block font-bold text-slate-700 mb-1">Catatan Operasional / Kondisi Panen</label>
+              <textarea name="catatan_operasional" rows="2" placeholder="Catatan operasional perjalanan, kondisi cuaca, atau penanganan khusus..."
+                class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-amber-500">Pengangkutan komoditas pangan segar petani OAP binaan Otsus.</textarea>
+            </div>
+
+          </div>
+
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-end space-x-3">
+            <a href="/transport/scanner" class="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold hover:bg-slate-50 transition">
+              Batal
+            </a>
+            <button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-brand-950 font-extrabold transition shadow-lg shadow-amber-500/20 flex items-center space-x-2">
+              <i class="bi bi-check-circle-fill"></i>
+              <span>Simpan Catatan Angkutan DAMRI</span>
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<%- include('../partials/footer') %>

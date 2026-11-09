@@ -1,0 +1,275 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<div class="flex-1 flex overflow-hidden">
+  <%- include('../partials/sidebar') %>
+
+  <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-slate-50/50">
+    <div class="max-w-6xl mx-auto space-y-6">
+      
+      <!-- Breadcrumb & Back -->
+      <div class="flex items-center justify-between">
+        <a href="/farmers" class="text-xs font-bold text-slate-500 hover:text-brand-800 transition flex items-center space-x-1">
+          <i class="bi bi-arrow-left"></i>
+          <span>Kembali ke Daftar Petani</span>
+        </a>
+        <div class="flex items-center space-x-2">
+          <a href="/cards/preview/<%= farmer.id %>" target="_blank" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-brand-950 font-bold text-xs transition flex items-center space-x-1.5 shadow-sm">
+            <i class="bi bi-printer-fill"></i>
+            <span>Cetak Kartu Tani</span>
+          </a>
+          <% if (['admin', 'petugas'].includes(currentUser.role)) { %>
+          <a href="/farmers/<%= farmer.id %>/edit" class="px-4 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs transition">
+            <i class="bi bi-pencil-fill text-slate-400 mr-1"></i> Ubah Data
+          </a>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- Farmer Main Info Header Card -->
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pb-6 border-b border-slate-100">
+          <div class="flex items-center space-x-4">
+            <div class="w-20 h-24 rounded-2xl bg-slate-100 border-2 border-brand-300 overflow-hidden shadow-md flex-shrink-0">
+              <img src="/img/default-avatar.png" alt="Foto Petani" class="w-full h-full object-cover">
+            </div>
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700">
+                  <%= farmer.nomor_kartu %>
+                </span>
+                <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200">
+                  <%= farmer.status_oap %>
+                </span>
+              </div>
+              <h1 class="text-2xl font-extrabold text-slate-900 mt-1"><%= farmer.nama_lengkap %></h1>
+              <p class="text-xs text-slate-500">
+                NIK: <strong class="font-mono text-slate-700"><%= farmer.nik %></strong> &bull; 
+                Kampung <%= farmer.kampung %>, Distrik <%= farmer.distrik %>
+              </p>
+            </div>
+          </div>
+
+          <!-- Status Card -->
+          <div class="flex flex-col items-end space-y-1">
+            <div class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Status Kartu & Verifikasi</div>
+            <div class="flex items-center space-x-2">
+              <span class="px-3 py-1 rounded-full text-xs font-extrabold uppercase
+                <%= farmer.status_verifikasi === 'ditetapkan' ? 'bg-emerald-100 text-emerald-800' : (farmer.status_verifikasi === 'terverifikasi' ? 'bg-amber-100 text-amber-800' : 'bg-blue-100 text-blue-800') %>">
+                <%= farmer.status_verifikasi %>
+              </span>
+              <span class="px-3 py-1 rounded-full text-xs font-extrabold uppercase
+                <%= farmer.status_kartu === 'aktif' ? 'bg-emerald-600 text-white' : 'bg-slate-300 text-slate-700' %>">
+                Kartu <%= farmer.status_kartu %>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Details Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 text-xs">
+          <div>
+            <h4 class="font-bold text-slate-400 uppercase tracking-wider text-[10px] mb-3">Identitas & Wilayah</h4>
+            <div class="space-y-2 text-slate-700">
+              <div class="flex justify-between py-1 border-b border-slate-50">
+                <span class="text-slate-400">Tempat, Tgl Lahir:</span>
+                <span class="font-semibold"><%= farmer.tempat_lahir %>, <%= farmer.tanggal_lahir || '-' %></span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-slate-50">
+                <span class="text-slate-400">Jenis Kelamin:</span>
+                <span class="font-semibold"><%= farmer.jenis_kelamin === 'L' ? 'Laki-laki' : 'Perempuan' %></span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-slate-50">
+                <span class="text-slate-400">Nomor Telepon:</span>
+                <span class="font-semibold"><%= farmer.no_hp || '-' %></span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-slate-50">
+                <span class="text-slate-400">Alamat Lengkap:</span>
+                <span class="font-semibold text-right"><%= farmer.alamat %></span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-slate-400 uppercase tracking-wider text-[10px] mb-3">Usaha Tani & Kelompok</h4>
+            <div class="space-y-2 text-slate-700">
+              <div class="flex justify-between py-1 border-b border-slate-50">
+                <span class="text-slate-400">Kelompok Tani:</span>
+                <span class="font-semibold text-brand-800"><%= farmer.nama_kelompok || 'Belum Terdaftar' %></span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-slate-50">
+                <span class="text-slate-400">Ketua Poktan:</span>
+                <span class="font-semibold"><%= farmer.ketua_poktan || '-' %></span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-slate-50">
+                <span class="text-slate-400">Komoditas Utama:</span>
+                <span class="font-extrabold text-amber-700"><%= farmer.komoditas_utama %></span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-slate-50">
+                <span class="text-slate-400">Luas Lahan:</span>
+                <span class="font-semibold"><%= farmer.luas_lahan %> Hektar</span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-slate-50">
+                <span class="text-slate-400">Estimasi Produksi:</span>
+                <span class="font-semibold"><%= farmer.estimasi_panen_kg %> Kg / Panen</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-slate-400 uppercase tracking-wider text-[10px] mb-3">Jejak Audit & Verifikasi</h4>
+            <div class="space-y-2 text-slate-700">
+              <div class="flex justify-between py-1 border-b border-slate-50">
+                <span class="text-slate-400">Verifikator Petugas:</span>
+                <span class="font-semibold"><%= farmer.nama_verifikator || '-' %></span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-slate-50">
+                <span class="text-slate-400">Tgl Verifikasi:</span>
+                <span class="font-semibold"><%= farmer.tanggal_verifikasi || '-' %></span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-slate-50">
+                <span class="text-slate-400">Pejabat Penetap:</span>
+                <span class="font-semibold"><%= farmer.nama_penetap || '-' %></span>
+              </div>
+              <div class="py-1">
+                <span class="text-slate-400 block mb-0.5">Catatan Verifikasi:</span>
+                <p class="text-slate-600 bg-slate-50 p-2 rounded-xl text-[11px] leading-relaxed">
+                  <%= farmer.catatan_verifikasi || 'Tidak ada catatan khusus.' %>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- WORKFLOW ACTIONS ACCORDING TO ROLES (VERIFIKASI & PENETAPAN) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Workflow 1: Verifikasi oleh Petugas PPL Lapangan -->
+        <% if (['admin', 'petugas'].includes(currentUser.role)) { %>
+        <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center font-bold text-lg">
+              <i class="bi bi-clipboard-check"></i>
+            </div>
+            <div>
+              <h3 class="font-extrabold text-slate-900 text-sm">Tahap 1: Verifikasi Lapangan Petugas</h3>
+              <p class="text-[11px] text-slate-500">Pemeriksaan fisik keberadaan petani, lahan garapan, dan dokumen OAP</p>
+            </div>
+          </div>
+
+          <form action="/farmers/<%= farmer.id %>/verify" method="POST" class="space-y-3">
+            <div>
+              <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Catatan Hasil Pemeriksaan Lapangan:</label>
+              <textarea name="catatan_verifikasi" rows="2" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-brand-500" placeholder="Tuliskan catatan hasil pemeriksaan lapangan..."></textarea>
+            </div>
+            <div class="flex space-x-2">
+              <button type="submit" name="action" value="verify" class="flex-1 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition">
+                <i class="bi bi-check-lg mr-1"></i> Verifikasi Data Valid
+              </button>
+              <button type="submit" name="action" value="reject" class="py-2 px-3 rounded-xl bg-slate-100 hover:bg-red-50 hover:text-red-700 text-slate-600 font-bold text-xs transition">
+                Tolak
+              </button>
+            </div>
+          </form>
+        </div>
+        <% } %>
+
+        <!-- Workflow 2: Penetapan Resmi Penerima Bantuan oleh Kepala Dinas (Pimpinan) -->
+        <% if (['admin', 'pimpinan'].includes(currentUser.role)) { %>
+        <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-brand-800 flex items-center justify-center font-bold text-lg">
+              <i class="bi bi-award-fill"></i>
+            </div>
+            <div>
+              <h3 class="font-extrabold text-slate-900 text-sm">Tahap 2: Penetapan Penerima (Kepala Dinas)</h3>
+              <p class="text-[11px] text-slate-500">Kewenangan pimpinan dinas untuk menerbitkan status penerima aktif Kartu Tani Otsus</p>
+            </div>
+          </div>
+
+          <form action="/farmers/<%= farmer.id %>/approve" method="POST" class="space-y-3">
+            <div>
+              <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Disposisi / Catatan Penetapan:</label>
+              <textarea name="catatan" rows="2" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-brand-500" placeholder="Contoh: Disetujui masuk kuota bantuan transportasi DAMRI Otsus 2026."></textarea>
+            </div>
+            <div class="flex space-x-2">
+              <button type="submit" name="action" value="approve" class="flex-1 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs transition shadow-md shadow-emerald-700/20">
+                <i class="bi bi-check2-circle mr-1"></i> Tetapkan & Terbitkan Kartu Tani
+              </button>
+              <button type="submit" name="action" value="reject" class="py-2 px-3 rounded-xl bg-red-100 hover:bg-red-200 text-red-800 font-bold text-xs transition">
+                Tolak Penetapan
+              </button>
+            </div>
+          </form>
+        </div>
+        <% } %>
+
+      </div>
+
+      <!-- History Tabs: Bantuan Otsus & Transportasi DAMRI -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- Bantuan Otsus -->
+        <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-extrabold text-slate-900 text-sm">Riwayat Bantuan Otonomi Khusus</h3>
+            <span class="text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded-full font-bold"><%= aids.length %> Penyaluran</span>
+          </div>
+
+          <div class="space-y-2.5">
+            <% if (aids && aids.length > 0) { %>
+              <% aids.forEach(a => { %>
+              <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100 text-xs flex items-center justify-between">
+                <div>
+                  <h5 class="font-bold text-slate-900"><%= a.nama_program %></h5>
+                  <p class="text-brand-800 font-semibold text-[11px]"><%= a.volume_bantuan %></p>
+                </div>
+                <div class="text-right">
+                  <span class="text-[10px] font-bold text-slate-400 block"><%= a.tanggal_penyaluran %></span>
+                  <span class="text-[10px] text-emerald-700 font-bold">TEREALISASI</span>
+                </div>
+              </div>
+              <% }) %>
+            <% } else { %>
+              <div class="py-6 text-center text-slate-400 text-xs">Belum ada penyaluran bantuan tercatat untuk petani ini.</div>
+            <% } %>
+          </div>
+        </div>
+
+        <!-- Transportasi DAMRI -->
+        <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-extrabold text-slate-900 text-sm">Riwayat Penggunaan Transportasi DAMRI</h3>
+            <span class="text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full font-bold"><%= trips.length %> Trip</span>
+          </div>
+
+          <div class="space-y-2.5">
+            <% if (trips && trips.length > 0) { %>
+              <% trips.forEach(t => { %>
+              <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100 text-xs flex items-center justify-between">
+                <div>
+                  <span class="font-mono text-[10px] text-blue-700 font-bold"><%= t.kode_perjalanan %></span>
+                  <h5 class="font-bold text-slate-900"><%= t.komoditas %> (<%= t.volume_kg %> Kg)</h5>
+                  <p class="text-[10px] text-slate-400">Tujuan: <%= t.titik_tujuan %></p>
+                </div>
+                <div class="text-right">
+                  <span class="text-[10px] font-bold text-slate-400 block"><%= new Date(t.tanggal_penggunaan).toLocaleDateString('id-ID') %></span>
+                  <span class="text-[10px] text-blue-700 font-bold uppercase"><%= t.status_perjalanan %></span>
+                </div>
+              </div>
+              <% }) %>
+            <% } else { %>
+              <div class="py-6 text-center text-slate-400 text-xs">Belum pernah menggunakan angkutan DAMRI.</div>
+            <% } %>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<%- include('../partials/footer') %>

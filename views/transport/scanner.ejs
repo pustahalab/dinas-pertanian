@@ -1,0 +1,244 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<div class="flex-1 flex overflow-hidden">
+  <%- include('../partials/sidebar') %>
+
+  <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-slate-50/50">
+    <div class="max-w-4xl mx-auto space-y-6">
+      
+      <!-- Top Title -->
+      <div class="text-center sm:text-left">
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold mb-2">
+          <i class="bi bi-truck-front-fill"></i>
+          <span>Layanan Transportasi DAMRI Perintis Kab. Biak Numfor</span>
+        </div>
+        <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Pemindaian QR Code Kartu Tani OAP</h1>
+        <p class="text-xs text-slate-500 mt-1">Arahkan kamera ke QR Code Kartu Tani untuk memeriksa keabsahan hak angkutan gratis komoditas ke pasar distribusi.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        
+        <!-- Live Camera Scanner Box -->
+        <div class="md:col-span-7 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 flex flex-col items-center">
+          <div class="w-full flex items-center justify-between mb-4">
+            <span class="text-xs font-bold text-slate-700 flex items-center space-x-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+              <span>Kamera Pemindai Aktif</span>
+            </span>
+            <div class="flex items-center space-x-2">
+              <button id="toggleCameraBtn" class="text-xs font-bold px-3 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
+                Ganti Kamera
+              </button>
+            </div>
+          </div>
+
+          <!-- Video Container -->
+          <div class="w-full bg-slate-900 rounded-2xl overflow-hidden aspect-square relative flex items-center justify-center border-2 border-emerald-500/50 shadow-inner">
+            <div id="qr-reader" class="w-full h-full"></div>
+          </div>
+
+          <!-- Scan status feedback -->
+          <div id="scanStatus" class="mt-4 text-xs font-semibold text-slate-500 text-center">
+            Posisikan QR Code di dalam kotak pemindai...
+          </div>
+        </div>
+
+        <!-- Manual Input / Quick Demo Card Search -->
+        <div class="md:col-span-5 space-y-6">
+          
+          <!-- Manual Search Form -->
+          <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6">
+            <h3 class="font-extrabold text-slate-900 text-sm mb-1">Verifikasi Manual</h3>
+            <p class="text-[11px] text-slate-400 mb-4">Gunakan input nomor kartu atau NIK jika kamera tidak tersedia.</p>
+
+            <form id="manualVerifyForm" class="space-y-3">
+              <div>
+                <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Nomor Kartu / NIK</label>
+                <input type="text" id="manualCardInput" required
+                  placeholder="Contoh: KT-OAP-2026-0001"
+                  class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-amber-500 font-mono">
+              </div>
+              <button type="submit" class="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-brand-950 font-extrabold text-xs transition shadow-sm">
+                Periksa Keabsahan Kartu
+              </button>
+            </form>
+          </div>
+
+          <!-- Quick Test Cards for Evaluators -->
+          <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6">
+            <h3 class="font-extrabold text-slate-900 text-sm mb-1">Contoh Kartu Uji Coba</h3>
+            <p class="text-[11px] text-slate-400 mb-3">Klik tombol untuk menguji respon validasi secara langsung:</p>
+
+            <div class="space-y-2">
+              <button onclick="checkCard('KT-OAP-2026-0001')" class="w-full text-left p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 transition flex items-center justify-between">
+                <div>
+                  <div class="text-xs font-bold text-emerald-950">KT-OAP-2026-0001 (OPICE ARWAM)</div>
+                  <div class="text-[10px] text-emerald-700">Kartu Aktif & Terverifikasi (Valid)</div>
+                </div>
+                <span class="text-xs text-emerald-600 font-bold">&rarr;</span>
+              </button>
+
+              <button onclick="checkCard('KT-OAP-2026-0002')" class="w-full text-left p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 transition flex items-center justify-between">
+                <div>
+                  <div class="text-xs font-bold text-emerald-950">KT-OAP-2026-0002 (ATRIS KMUR)</div>
+                  <div class="text-[10px] text-emerald-700">Petani Biak Barat (Valid)</div>
+                </div>
+                <span class="text-xs text-emerald-600 font-bold">&rarr;</span>
+              </button>
+
+              <button onclick="checkCard('KT-OAP-2026-0466')" class="w-full text-left p-2.5 rounded-xl bg-red-50 border border-red-200 hover:bg-red-100 transition flex items-center justify-between">
+                <div>
+                  <div class="text-xs font-bold text-red-950">KT-OAP-2026-0466 (KARTU DITOLAK)</div>
+                  <div class="text-[10px] text-red-700">Uji Coba Penolakan Akses (Invalid)</div>
+                </div>
+                <span class="text-xs text-red-600 font-bold">&rarr;</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Verification Result Modal / Popup -->
+      <div id="verifyModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 transform transition-all space-y-4">
+          
+          <div id="modalHeader" class="text-center pb-2">
+            <!-- Icon rendered by JS -->
+          </div>
+
+          <div id="modalBody" class="space-y-3 text-xs">
+            <!-- Details rendered by JS -->
+          </div>
+
+          <div id="modalActions" class="pt-2 flex space-x-2">
+            <!-- Actions rendered by JS -->
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- Scanner Script -->
+<script>
+  let html5QrcodeScanner = null;
+
+  async function checkCard(cardQuery) {
+    document.getElementById('scanStatus').innerText = 'Memverifikasi data ke server...';
+    try {
+      const res = await fetch(`/api/verify-card?card=${encodeURIComponent(cardQuery)}`);
+      const data = await res.json();
+      showResultModal(data);
+    } catch (err) {
+      alert('Terjadi kesalahan menghubungi server: ' + err.message);
+    } finally {
+      document.getElementById('scanStatus').innerText = 'Posisikan QR Code di dalam kotak pemindai...';
+    }
+  }
+
+  function showResultModal(res) {
+    const modal = document.getElementById('verifyModal');
+    const mHeader = document.getElementById('modalHeader');
+    const mBody = document.getElementById('modalBody');
+    const mActions = document.getElementById('modalActions');
+
+    modal.classList.remove('hidden');
+
+    if (res.valid) {
+      mHeader.innerHTML = `
+        <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto text-3xl mb-2">
+          <i class="bi bi-check-circle-fill"></i>
+        </div>
+        <h3 class="text-lg font-extrabold text-slate-900">KARTU TANI VALID</h3>
+        <p class="text-xs text-emerald-700 font-semibold">${res.message}</p>
+      `;
+
+      mBody.innerHTML = `
+        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 space-y-2">
+          <div class="flex justify-between">
+            <span class="text-slate-400">Nomor Kartu:</span>
+            <span class="font-mono font-bold text-slate-900">${res.data.nomor_kartu}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">Nama Petani:</span>
+            <span class="font-extrabold text-slate-900">${res.data.nama_lengkap}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">Distrik & Kampung:</span>
+            <span class="font-medium text-slate-700">${res.data.distrik} / ${res.data.kampung}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">Komoditas Utama:</span>
+            <span class="font-bold text-amber-700">${res.data.komoditas_utama}</span>
+          </div>
+        </div>
+      `;
+
+      mActions.innerHTML = `
+        <button onclick="document.getElementById('verifyModal').classList.add('hidden')" class="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold hover:bg-slate-50">
+          Tutup
+        </button>
+        <a href="/transport/record?petani_id=${res.data.id}" class="flex-1 py-2.5 rounded-xl bg-brand-700 hover:bg-brand-600 text-white font-bold text-center shadow-md">
+          Layani & Catat Angkutan DAMRI
+        </a>
+      `;
+    } else {
+      mHeader.innerHTML = `
+        <div class="w-16 h-16 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto text-3xl mb-2">
+          <i class="bi bi-x-circle-fill"></i>
+        </div>
+        <h3 class="text-lg font-extrabold text-red-900">AKSES DITOLAK</h3>
+        <p class="text-xs text-red-700 font-medium">${res.message}</p>
+      `;
+
+      mBody.innerHTML = `
+        <div class="bg-red-50 p-4 rounded-2xl border border-red-100 text-red-800 text-xs">
+          Petani tidak berhak atas fasilitas subsidi angkutan DAMRI gratis karena kartu belum disetujui / status non-aktif.
+        </div>
+      `;
+
+      mActions.innerHTML = `
+        <button onclick="document.getElementById('verifyModal').classList.add('hidden')" class="w-full py-2.5 rounded-xl bg-slate-800 text-white font-bold">
+          Tolak & Kembali
+        </button>
+      `;
+    }
+  }
+
+  // Handle Manual Form
+  document.getElementById('manualVerifyForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const val = document.getElementById('manualCardInput').value.trim();
+    if (val) checkCard(val);
+  });
+
+  // Initialize Html5Qrcode
+  window.addEventListener('DOMContentLoaded', () => {
+    if (typeof Html5QrcodeScanner !== 'undefined') {
+      html5QrcodeScanner = new Html5QrcodeScanner(
+        "qr-reader",
+        { fps: 10, qrbox: { width: 220, height: 220 } },
+        false
+      );
+      
+      html5QrcodeScanner.render((decodedText) => {
+        // Parse decoded text (can be JSON or plain string)
+        let query = decodedText;
+        try {
+          const parsed = JSON.parse(decodedText);
+          if (parsed.nomor_kartu) query = parsed.nomor_kartu;
+        } catch (e) {}
+        checkCard(query);
+      }, (err) => {
+        // scanning error or no qr in frame, ignore
+      });
+    }
+  });
+</script>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,210 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<div class="flex-1 flex overflow-hidden">
+  <%- include('../partials/sidebar') %>
+
+  <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-slate-50/50">
+    <div class="max-w-5xl mx-auto space-y-8">
+      
+      <!-- Welcome Hero -->
+      <div class="bg-gradient-to-r from-brand-900 to-emerald-800 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div class="space-y-2 text-center sm:text-left">
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 text-xs font-bold border border-amber-400/30">
+            <i class="bi bi-person-badge-fill"></i>
+            <span>Portal Petani Orang Asli Papua (OAP)</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Halo, <%= farmer ? farmer.nama_lengkap : currentUser.nama_lengkap %>!</h1>
+          <p class="text-emerald-200 text-sm">
+            Selamat datang di layanan digital Kartu Tani OAP Kabupaten Biak Numfor. Gunakan kartu ini untuk kemudahan akses bantuan dan transportasi hasil tani DAMRI.
+          </p>
+        </div>
+        <div>
+          <button onclick="document.getElementById('cardSection').scrollIntoView({ behavior: 'smooth' })" class="px-5 py-3 rounded-2xl bg-amber-500 hover:bg-amber-400 text-brand-950 font-extrabold text-sm shadow-lg shadow-amber-500/30 flex items-center space-x-2 transition">
+            <i class="bi bi-qr-code text-lg"></i>
+            <span>Tampilkan Kartu Tani</span>
+          </button>
+        </div>
+      </div>
+
+      <% if (farmer) { %>
+      <!-- DIGITAL KARTU TANI OAP (OFFICIAL GOVERNMENT CARD UI) -->
+      <div id="cardSection" class="space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-lg font-extrabold text-slate-900">Kartu Tani OAP Digital</h2>
+            <p class="text-xs text-slate-500">Tunjukkan kartu digital ini kepada petugas DAMRI untuk akses angkut hasil panen gratis</p>
+          </div>
+          <a href="/cards/preview/<%= farmer.id %>" target="_blank" class="text-xs font-bold px-3 py-1.5 rounded-xl border border-brand-300 text-brand-800 bg-emerald-50 hover:bg-emerald-100 transition flex items-center space-x-1.5">
+            <i class="bi bi-printer-fill"></i>
+            <span>Cetak Kartu Resmi</span>
+          </a>
+        </div>
+
+        <!-- Official Card Container -->
+        <div class="max-w-xl mx-auto rounded-3xl p-6 sm:p-7 shadow-2xl relative overflow-hidden text-white"
+             style="background: linear-gradient(135deg, #022c22 0%, #064e3b 50%, #065f46 100%); border: 3px solid #d97706;">
+          
+          <!-- Decorative Watermark & Papuan Motif Corner -->
+          <div class="absolute -right-12 -bottom-12 w-48 h-48 rounded-full bg-amber-500/10 blur-xl pointer-events-none"></div>
+          <div class="absolute top-2 right-4 text-[10px] tracking-widest text-amber-300/80 font-bold uppercase">
+            PEMERINTAH KABUPATEN BIAK NUMFOR
+          </div>
+
+          <!-- Card Header -->
+          <div class="flex items-center space-x-3 border-b border-emerald-600/40 pb-4 mb-5">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-400 to-amber-600 flex items-center justify-center text-brand-950 font-extrabold text-2xl shadow-md">
+              <i class="bi bi-flower1"></i>
+            </div>
+            <div>
+              <div class="text-xs font-bold text-amber-400 tracking-wider uppercase">DINAS PERTANIAN DAN KETAHANAN PANGAN</div>
+              <div class="text-base sm:text-lg font-extrabold tracking-tight text-white">KARTU TANI OAP (ORANG ASLI PAPUA)</div>
+              <div class="text-[10px] text-emerald-300">Bantuan Program Otonomi Khusus & Angkutan DAMRI 2026</div>
+            </div>
+          </div>
+
+          <!-- Card Body: Photo, Info, and QR Code -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 items-center">
+            
+            <!-- Farmer Photo & Status -->
+            <div class="flex flex-col items-center sm:items-start space-y-2">
+              <div class="w-24 h-28 rounded-2xl bg-slate-200 border-2 border-amber-400 overflow-hidden shadow-md flex items-center justify-center">
+                <img src="/img/default-avatar.png" alt="Foto Petani" class="w-full h-full object-cover">
+              </div>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase <%= farmer.status_kartu === 'aktif' ? 'bg-emerald-400 text-brand-950' : 'bg-red-400 text-slate-900' %> shadow">
+                <%= farmer.status_kartu === 'aktif' ? '● AKTIF / VALID' : '● NON-AKTIF' %>
+              </span>
+            </div>
+
+            <!-- Farmer Data -->
+            <div class="sm:col-span-1 space-y-1 text-xs">
+              <div>
+                <span class="text-[10px] text-emerald-300 uppercase block">Nomor Kartu:</span>
+                <span class="font-mono font-bold text-sm tracking-wide text-amber-300"><%= farmer.nomor_kartu %></span>
+              </div>
+              <div>
+                <span class="text-[10px] text-emerald-300 uppercase block">Nama Lengkap:</span>
+                <span class="font-extrabold text-white text-sm"><%= farmer.nama_lengkap %></span>
+              </div>
+              <div>
+                <span class="text-[10px] text-emerald-300 uppercase block">Wilayah:</span>
+                <span class="font-medium text-slate-200"><%= farmer.kampung %>, <%= farmer.distrik %></span>
+              </div>
+              <div>
+                <span class="text-[10px] text-emerald-300 uppercase block">Komoditas Utama:</span>
+                <span class="font-bold text-amber-300"><%= farmer.komoditas_utama %></span>
+              </div>
+            </div>
+
+            <!-- QR Code -->
+            <div class="flex flex-col items-center justify-center p-2 rounded-2xl bg-white shadow-inner">
+              <img src="/uploads/qrcodes/<%= farmer.nomor_kartu %>.png" 
+                   onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<%= encodeURIComponent(farmer.nomor_kartu) %>'"
+                   alt="QR Code" class="w-28 h-28 rounded-xl object-contain">
+              <span class="text-[9px] font-mono text-slate-700 font-bold mt-1 tracking-tight">SCAN TRANSPORTASI</span>
+            </div>
+
+          </div>
+
+          <!-- Card Footer -->
+          <div class="mt-5 pt-3 border-t border-emerald-600/30 flex items-center justify-between text-[10px] text-emerald-200/80">
+            <span>NIK: <%= farmer.nik %></span>
+            <span>Masa Berlaku: Selama Program Otsus</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Riwayat Bantuan Otsus & Transportasi DAMRI Tabs / Sections -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- Riwayat Bantuan Diterima -->
+        <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 class="font-extrabold text-slate-900 text-base">Riwayat Bantuan Otsus</h3>
+              <p class="text-xs text-slate-500">Bantuan pertanian yang telah disalurkan kepada Anda</p>
+            </div>
+            <span class="w-8 h-8 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center">
+              <i class="bi bi-gift-fill"></i>
+            </span>
+          </div>
+
+          <div class="space-y-3">
+            <% if (aids && aids.length > 0) { %>
+              <% aids.forEach(a => { %>
+              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex items-start justify-between">
+                <div>
+                  <h4 class="font-bold text-slate-900 text-sm"><%= a.nama_program %></h4>
+                  <p class="text-xs text-brand-700 font-bold mt-0.5"><%= a.volume_bantuan %></p>
+                  <p class="text-[11px] text-slate-400 mt-1">Lokasi: <%= a.lokasi_penyaluran %></p>
+                </div>
+                <div class="text-right">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                    <%= a.status_realisasi.toUpperCase() %>
+                  </span>
+                  <div class="text-[10px] text-slate-400 mt-1"><%= a.tanggal_penyaluran %></div>
+                </div>
+              </div>
+              <% }) %>
+            <% } else { %>
+              <div class="py-8 text-center text-slate-400 text-xs">Belum ada riwayat bantuan tersalurkan.</div>
+            <% } %>
+          </div>
+        </div>
+
+        <!-- Riwayat Angkutan DAMRI -->
+        <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 class="font-extrabold text-slate-900 text-base">Riwayat Penggunaan DAMRI</h3>
+              <p class="text-xs text-slate-500">Hasil panen yang diangkut ke pasar menggunakan Kartu Tani</p>
+            </div>
+            <span class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center">
+              <i class="bi bi-truck-front-fill"></i>
+            </span>
+          </div>
+
+          <div class="space-y-3">
+            <% if (trips && trips.length > 0) { %>
+              <% trips.forEach(t => { %>
+              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex items-start justify-between">
+                <div>
+                  <div class="flex items-center space-x-2">
+                    <span class="font-mono text-xs font-bold text-blue-700"><%= t.kode_perjalanan %></span>
+                    <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full">Subsidi Otsus</span>
+                  </div>
+                  <h4 class="font-bold text-slate-900 text-sm mt-1"><%= t.komoditas %> (<%= t.volume_kg %> Kg)</h4>
+                  <p class="text-[11px] text-slate-500 mt-0.5">Tujuan: <strong><%= t.titik_tujuan %></strong></p>
+                  <p class="text-[10px] text-slate-400">Armada: <%= t.nomor_armada %></p>
+                </div>
+                <div class="text-right">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800">
+                    <%= t.status_perjalanan.toUpperCase() %>
+                  </span>
+                  <div class="text-[10px] text-slate-400 mt-1">
+                    <%= new Date(t.tanggal_penggunaan).toLocaleDateString('id-ID') %>
+                  </div>
+                </div>
+              </div>
+              <% }) %>
+            <% } else { %>
+              <div class="py-8 text-center text-slate-400 text-xs">Belum ada riwayat perjalanan transportasi DAMRI.</div>
+            <% } %>
+          </div>
+        </div>
+
+      </div>
+
+      <% } else { %>
+      <div class="bg-white p-8 rounded-3xl border border-slate-200 text-center text-slate-500">
+        <i class="bi bi-info-circle text-3xl text-slate-400 mb-2 block"></i>
+        <p>Data profil petani Anda belum terhubung dengan akun ini. Hubungi administrator dinas.</p>
+      </div>
+      <% } %>
+
+    </div>
+  </main>
+</div>
+
+<%- include('../partials/footer') %>

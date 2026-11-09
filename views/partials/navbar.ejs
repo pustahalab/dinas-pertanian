@@ -1,0 +1,57 @@
+<header class="bg-brand-900 border-b border-brand-800 text-white sticky top-0 z-40 shadow-md no-print">
+  <div class="px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      
+      <!-- Logo & System Brand -->
+      <div class="flex items-center space-x-3">
+        <button id="sidebarToggle" type="button" class="md:hidden p-2 rounded-lg text-emerald-200 hover:text-white hover:bg-brand-800 focus:outline-none">
+          <i class="bi bi-list text-2xl"></i>
+        </button>
+        <a href="/dashboard" class="flex items-center space-x-3 group">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-950/40 text-brand-950 font-extrabold text-xl">
+            <i class="bi bi-tree-fill"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="font-extrabold text-lg tracking-tight text-white group-hover:text-emerald-300 transition">SIM-KARTANI</span>
+              <span class="text-xs px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-semibold border border-amber-500/30">Otsus Papua</span>
+            </div>
+            <p class="text-xs text-emerald-300/80 font-medium hidden sm:block">Dinas Pertanian dan Ketahanan Pangan Kab. Biak Numfor</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Quick Action & User Profile -->
+      <div class="flex items-center space-x-3 sm:space-x-4">
+        
+        <% if (currentUser) { %>
+          <!-- Role Badge -->
+          <div class="hidden sm:flex items-center space-x-2 bg-brand-950/60 border border-emerald-700/50 rounded-full px-3 py-1">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-xs font-semibold text-emerald-200 uppercase tracking-wider"><%= currentUser.role %></span>
+          </div>
+
+          <!-- User Info Dropdown Trigger -->
+          <div class="flex items-center space-x-3 border-l border-brand-800 pl-3">
+            <div class="text-right hidden md:block">
+              <div class="text-sm font-bold text-white leading-tight"><%= currentUser.nama_lengkap %></div>
+              <div class="text-xs text-emerald-300"><%= currentUser.jabatan || 'Aparatur Pertanian' %></div>
+            </div>
+            <div class="w-9 h-9 rounded-full bg-emerald-600/60 border border-emerald-400/40 flex items-center justify-center font-bold text-white shadow">
+              <%= currentUser.nama_lengkap.charAt(0) %>
+            </div>
+            <a href="/logout" class="p-2 text-emerald-200 hover:text-red-300 hover:bg-brand-800 rounded-lg transition" title="Keluar / Logout">
+              <i class="bi bi-box-arrow-right text-lg"></i>
+            </a>
+          </div>
+        <% } else { %>
+          <a href="/login" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm px-4 py-2 rounded-xl transition shadow">
+            Masuk ke Sistem
+          </a>
+        <% } %>
+
+      </div>
+
+    </div>
+  </div>
+</header>

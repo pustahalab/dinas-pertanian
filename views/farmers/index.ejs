@@ -1,0 +1,205 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<div class="flex-1 flex overflow-hidden">
+  <%- include('../partials/sidebar') %>
+
+  <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-slate-50/50">
+    <div class="max-w-7xl mx-auto space-y-6">
+      
+      <!-- Top Action Bar -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Data Petani Penerima Kartu Tani OAP</h1>
+          <p class="text-xs text-slate-500 mt-1">Daftar petani Orang Asli Papua (OAP) penerima bantuan program Otonomi Khusus Kabupaten Biak Numfor.</p>
+        </div>
+        <div class="flex items-center space-x-2">
+          <a href="/reports/farmers?export=csv" class="px-4 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition flex items-center space-x-2 shadow-sm">
+            <i class="bi bi-file-earmark-spreadsheet text-emerald-600 text-sm"></i>
+            <span>Ekspor CSV / Excel</span>
+          </a>
+          <a href="/cards/print-batch" class="px-4 py-2.5 rounded-xl border border-emerald-300 bg-emerald-50 hover:bg-emerald-100 text-brand-900 text-xs font-bold transition flex items-center space-x-2">
+            <i class="bi bi-printer text-brand-700 text-sm"></i>
+            <span>Cetak Lembar Kartu</span>
+          </a>
+          <% if (['admin', 'petugas'].includes(currentUser.role)) { %>
+          <a href="/farmers/create" class="px-4 py-2.5 rounded-xl bg-brand-700 hover:bg-brand-600 text-white text-xs font-bold transition flex items-center space-x-2 shadow-md shadow-brand-700/20">
+            <i class="bi bi-person-plus-fill"></i>
+            <span>Tambah Petani Baru</span>
+          </a>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- Filter & Search Toolbar -->
+      <div class="bg-white p-4 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+        <form action="/farmers" method="GET" class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
+          
+          <!-- Search input -->
+          <div class="sm:col-span-5 relative">
+            <i class="bi bi-search absolute left-3.5 top-3 text-slate-400 text-sm"></i>
+            <input type="text" name="search" value="<%= search %>"
+              placeholder="Cari nama petani, nomor kartu, atau NIK..."
+              class="w-full pl-9 pr-4 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 outline-none">
+          </div>
+
+          <!-- Distrik filter -->
+          <div class="sm:col-span-3">
+            <select name="distrik" class="w-full px-3 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 outline-none">
+              <option value="all">Semua Distrik (10 Distrik)</option>
+              <% districts.forEach(d => { %>
+                <option value="<%= d.nama_distrik %>" <%= selectedDistrik === d.nama_distrik ? 'selected' : '' %>>
+                  Distrik <%= d.nama_distrik %>
+                </option>
+              <% }) %>
+            </select>
+          </div>
+
+          <!-- Status filter -->
+          <div class="sm:col-span-3">
+            <select name="status" class="w-full px-3 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 outline-none">
+              <option value="all">Semua Status Verifikasi</option>
+              <option value="ditetapkan" <%= selectedStatus === 'ditetapkan' ? 'selected' : '' %>>Ditetapkan (Kartu Aktif)</option>
+              <option value="terverifikasi" <%= selectedStatus === 'terverifikasi' ? 'selected' : '' %>>Terverifikasi Lapangan</option>
+              <option value="diajukan" <%= selectedStatus === 'diajukan' ? 'selected' : '' %>>Diajukan (Baru)</option>
+              <option value="ditolak" <%= selectedStatus === 'ditolak' ? 'selected' : '' %>>Ditolak</option>
+            </select>
+          </div>
+
+          <!-- Submit button -->
+          <div class="sm:col-span-1">
+            <button type="submit" class="w-full py-2.5 px-3 rounded-xl bg-brand-700 hover:bg-brand-600 text-white font-bold text-xs transition flex items-center justify-center">
+              <i class="bi bi-funnel-fill"></i>
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Table Card -->
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+        <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between text-xs text-slate-500">
+          <span>Menampilkan <strong><%= farmers.length %></strong> dari <strong><%= total %></strong> data petani</span>
+          <span>Halaman <strong><%= page %></strong> dari <strong><%= totalPages %></strong></span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50/80 text-slate-400 uppercase font-bold text-[10px] tracking-wider border-b border-slate-100">
+              <tr>
+                <th class="py-3 px-4 w-12 text-center">No</th>
+                <th class="py-3 px-4">Nomor Kartu</th>
+                <th class="py-3 px-4">Nama Lengkap & NIK</th>
+                <th class="py-3 px-4">Distrik & Kampung</th>
+                <th class="py-3 px-4">Komoditas & Lahan</th>
+                <th class="py-3 px-4 text-center">Status Verifikasi</th>
+                <th class="py-3 px-4 text-center">Kartu Tani</th>
+                <th class="py-3 px-4 text-right">Aksi</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <% if (farmers && farmers.length > 0) { %>
+                <% farmers.forEach((f, idx) => { %>
+                <tr class="hover:bg-slate-50/60 transition group">
+                  <td class="py-3.5 px-4 text-center text-slate-400 font-mono">
+                    <%= (page - 1) * limit + idx + 1 %>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <span class="font-mono font-bold text-slate-800 bg-slate-100 px-2 py-1 rounded-md text-[11px]"><%= f.nomor_kartu %></span>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <div class="font-extrabold text-slate-900 group-hover:text-brand-800 transition"><%= f.nama_lengkap %></div>
+                    <div class="text-[10px] text-slate-400 font-mono">NIK: <%= f.nik %></div>
+                  </td>
+                  <td class="py-3.5 px-4 text-slate-600">
+                    <div class="font-bold text-slate-800"><%= f.distrik %></div>
+                    <div class="text-[11px] text-slate-500">Kampung <%= f.kampung %></div>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <div class="font-semibold text-brand-800"><%= f.komoditas_utama %></div>
+                    <div class="text-[10px] text-slate-400"><%= f.luas_lahan %> Ha | Est. <%= f.estimasi_panen_kg %> Kg</div>
+                  </td>
+                  <td class="py-3.5 px-4 text-center">
+                    <% if (f.status_verifikasi === 'ditetapkan') { %>
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                        Ditetapkan
+                      </span>
+                    <% } else if (f.status_verifikasi === 'terverifikasi') { %>
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">
+                        Terverifikasi
+                      </span>
+                    <% } else if (f.status_verifikasi === 'diajukan') { %>
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800">
+                        Diajukan
+                      </span>
+                    <% } else { %>
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-red-100 text-red-800">
+                        Ditolak
+                      </span>
+                    <% } %>
+                  </td>
+                  <td class="py-3.5 px-4 text-center">
+                    <% if (f.status_kartu === 'aktif') { %>
+                      <span class="inline-flex items-center space-x-1 text-emerald-600 font-bold text-[11px]">
+                        <i class="bi bi-check-circle-fill"></i>
+                        <span>Aktif</span>
+                      </span>
+                    <% } else { %>
+                      <span class="inline-flex items-center space-x-1 text-slate-400 font-semibold text-[11px]">
+                        <i class="bi bi-dash-circle"></i>
+                        <span>Non-aktif</span>
+                      </span>
+                    <% } %>
+                  </td>
+                  <td class="py-3.5 px-4 text-right space-x-1">
+                    <a href="/cards/preview/<%= f.id %>" target="_blank" class="p-1.5 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs font-bold inline-block" title="Lihat Kartu">
+                      <i class="bi bi-qr-code"></i>
+                    </a>
+                    <a href="/farmers/<%= f.id %>" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-brand-50 hover:text-brand-800 text-slate-700 text-xs font-bold inline-block transition">
+                      Detail
+                    </a>
+                  </td>
+                </tr>
+                <% }) %>
+              <% } else { %>
+                <tr>
+                  <td colspan="8" class="py-12 text-center text-slate-400">
+                    <i class="bi bi-search text-3xl mb-2 block"></i>
+                    <span>Tidak ada data petani yang sesuai dengan filter pencarian.</span>
+                  </td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <% if (totalPages > 1) { %>
+        <div class="px-6 py-4 bg-slate-50/60 border-t border-slate-100 flex items-center justify-between text-xs">
+          <div>
+            <% if (page > 1) { %>
+              <a href="/farmers?page=<%= page - 1 %>&search=<%= search %>&distrik=<%= selectedDistrik %>&status=<%= selectedStatus %>" class="px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-slate-700 font-bold transition">
+                &larr; Sebelumnya
+              </a>
+            <% } %>
+          </div>
+          <div class="text-slate-500 font-medium">
+            Halaman <%= page %> dari <%= totalPages %>
+          </div>
+          <div>
+            <% if (page < totalPages) { %>
+              <a href="/farmers?page=<%= page + 1 %>&search=<%= search %>&distrik=<%= selectedDistrik %>&status=<%= selectedStatus %>" class="px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-slate-700 font-bold transition">
+                Selanjutnya &rarr;
+              </a>
+            <% } %>
+          </div>
+        </div>
+        <% } %>
+
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<%- include('../partials/footer') %>

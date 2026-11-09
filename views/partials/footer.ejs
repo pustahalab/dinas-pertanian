@@ -1,0 +1,70 @@
+<footer class="bg-white border-t border-slate-200 mt-auto py-6 px-4 sm:px-6 lg:px-8 text-xs text-slate-500 no-print">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="flex items-center space-x-2">
+      <div class="w-6 h-6 rounded-lg bg-emerald-700 text-white flex items-center justify-center font-bold text-xs">
+        <i class="bi bi-shield-check"></i>
+      </div>
+      <span><strong>SIM-KARTANI BIAK NUMFOR</strong> &copy; 2026. Dinas Pertanian dan Ketahanan Pangan Kabupaten Biak Numfor.</span>
+    </div>
+    <div class="flex items-center space-x-4">
+      <span class="inline-flex items-center space-x-1.5 text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">
+        <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+        <span>Program Bantuan Otonomi Khusus Papua</span>
+      </span>
+      <span>Integrasi Layanan Angkutan DAMRI</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast Flash Messages -->
+<% if (flashSuccess) { %>
+<div id="toastSuccess" class="fixed bottom-5 right-5 z-50 bg-emerald-900 text-white border-l-4 border-emerald-400 px-5 py-4 rounded-xl shadow-2xl flex items-center space-x-3 transition-all duration-300 transform translate-y-0">
+  <i class="bi bi-check-circle-fill text-emerald-400 text-xl"></i>
+  <div>
+    <h4 class="font-bold text-sm">Berhasil!</h4>
+    <p class="text-xs text-emerald-100"><%= flashSuccess %></p>
+  </div>
+  <button onclick="this.parentElement.remove()" class="text-emerald-300 hover:text-white ml-3">
+    <i class="bi bi-x-lg text-sm"></i>
+  </button>
+</div>
+<script>
+  setTimeout(() => {
+    const t = document.getElementById('toastSuccess');
+    if (t) t.remove();
+  }, 5000);
+</script>
+<% } %>
+
+<% if (flashError) { %>
+<div id="toastError" class="fixed bottom-5 right-5 z-50 bg-red-900 text-white border-l-4 border-red-400 px-5 py-4 rounded-xl shadow-2xl flex items-center space-x-3 transition-all duration-300 transform translate-y-0">
+  <i class="bi bi-exclamation-triangle-fill text-red-400 text-xl"></i>
+  <div>
+    <h4 class="font-bold text-sm">Peringatan!</h4>
+    <p class="text-xs text-red-100"><%= flashError %></p>
+  </div>
+  <button onclick="this.parentElement.remove()" class="text-red-300 hover:text-white ml-3">
+    <i class="bi bi-x-lg text-sm"></i>
+  </button>
+</div>
+<script>
+  setTimeout(() => {
+    const t = document.getElementById('toastError');
+    if (t) t.remove();
+  }, 6000);
+</script>
+<% } %>
+
+<script>
+  // Mobile sidebar toggle
+  const sidebarBtn = document.getElementById('sidebarToggle');
+  const sidebar = document.getElementById('sidebar');
+  if (sidebarBtn && sidebar) {
+    sidebarBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('-translate-x-full');
+    });
+  }
+</script>
+
+</body>
+</html>

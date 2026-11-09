@@ -1,0 +1,166 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<div class="flex-1 flex overflow-hidden">
+  <%- include('../partials/sidebar') %>
+
+  <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-slate-50/50">
+    <div class="max-w-7xl mx-auto space-y-6">
+      
+      <!-- Title & Action -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Riwayat Operasional Transportasi DAMRI</h1>
+          <p class="text-xs text-slate-500 mt-1">Data log perjalanan pengangkutan hasil panen petani OAP ke pasar distribusi di Biak Numfor.</p>
+        </div>
+        <div class="flex items-center space-x-2">
+          <a href="/reports/transport?export=csv" class="px-4 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition flex items-center space-x-2 shadow-sm">
+            <i class="bi bi-file-earmark-spreadsheet text-blue-600 text-sm"></i>
+            <span>Ekspor CSV</span>
+          </a>
+          <% if (['admin', 'damri', 'petugas'].includes(currentUser.role)) { %>
+          <a href="/transport/scanner" class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-brand-950 text-xs font-extrabold transition flex items-center space-x-2 shadow-md shadow-amber-500/20">
+            <i class="bi bi-qr-code-scan"></i>
+            <span>Scan QR Baru</span>
+          </a>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- Quick Metrics -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Perjalanan Terlayani</p>
+          <h4 class="text-2xl font-extrabold text-slate-900 mt-1"><%= metrics.total_trip %> Trip</h4>
+          <span class="text-[11px] text-blue-600 font-semibold">Armada DAMRI Perintis Biak</span>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Komoditas Terangkut</p>
+          <h4 class="text-2xl font-extrabold text-brand-700 mt-1"><%= parseFloat(metrics.total_kg).toLocaleString('id-ID') %> Kg</h4>
+          <span class="text-[11px] text-emerald-600 font-semibold">Hasil Panen Segar OAP</span>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Petani Penerima Manfaat</p>
+          <h4 class="text-2xl font-extrabold text-purple-700 mt-1"><%= metrics.total_petani_terlayani %> Petani</h4>
+          <span class="text-[11px] text-purple-600 font-semibold">Bebas Ongkos Transportasi (Otsus)</span>
+        </div>
+      </div>
+
+      <!-- Filter Box -->
+      <div class="bg-white p-4 rounded-3xl border border-slate-200 shadow-sm">
+        <form action="/transport/history" method="GET" class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
+          
+          <div class="sm:col-span-6 relative">
+            <i class="bi bi-search absolute left-3.5 top-3 text-slate-400 text-sm"></i>
+            <input type="text" name="search" value="<%= search %>"
+              placeholder="Cari nama petani, nomor kartu, kode perjalanan, atau komoditas..."
+              class="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none">
+          </div>
+
+          <div class="sm:col-span-5">
+            <select name="pasar" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none">
+              <option value="all">Semua Titik Tujuan / Pasar</option>
+              <option value="Pasar Tani Fandoi Biak" <%= selectedPasar === 'Pasar Tani Fandoi Biak' ? 'selected' : '' %>>Pasar Tani Fandoi Biak</option>
+              <option value="Pasar Darfuar Biak" <%= selectedPasar === 'Pasar Darfuar Biak' ? 'selected' : '' %>>Pasar Darfuar Biak</option>
+              <option value="Pasar Bosnik Biak Timur" <%= selectedPasar === 'Pasar Bosnik Biak Timur' ? 'selected' : '' %>>Pasar Bosnik Biak Timur</option>
+              <option value="Terminal Pasar Sentral Biak" <%= selectedPasar === 'Terminal Pasar Sentral Biak' ? 'selected' : '' %>>Terminal Pasar Sentral Biak</option>
+              <option value="Pusat Distribusi Pangan Samofa" <%= selectedPasar === 'Pusat Distribusi Pangan Samofa' ? 'selected' : '' %>>Pusat Distribusi Pangan Samofa</option>
+            </select>
+          </div>
+
+          <div class="sm:col-span-1">
+            <button type="submit" class="w-full py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-brand-950 font-extrabold text-xs transition">
+              Cari
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- History Table -->
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50/80 text-slate-400 uppercase font-bold text-[10px] tracking-wider border-b border-slate-100">
+              <tr>
+                <th class="py-3.5 px-4">Kode Trip</th>
+                <th class="py-3.5 px-4">Petani Pengguna</th>
+                <th class="py-3.5 px-4">Titik Asal & Tujuan</th>
+                <th class="py-3.5 px-4">Komoditas & Muatan</th>
+                <th class="py-3.5 px-4">Armada DAMRI</th>
+                <th class="py-3.5 px-4">Waktu</th>
+                <th class="py-3.5 px-4 text-center">Status</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <% if (trips && trips.length > 0) { %>
+                <% trips.forEach(t => { %>
+                <tr class="hover:bg-slate-50/60 transition">
+                  <td class="py-3.5 px-4 font-mono font-bold text-blue-700">
+                    <%= t.kode_perjalanan %>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <div class="font-bold text-slate-900"><%= t.nama_petani %></div>
+                    <div class="text-[10px] text-slate-400 font-mono"><%= t.nomor_kartu %></div>
+                  </td>
+                  <td class="py-3.5 px-4 text-slate-600">
+                    <div class="font-semibold text-slate-800"><%= t.titik_tujuan %></div>
+                    <div class="text-[10px] text-slate-400">Dari: <%= t.titik_keberangkatan %></div>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <div class="font-bold text-brand-800"><%= t.komoditas %></div>
+                    <div class="text-[10px] text-slate-500 font-semibold"><%= t.volume_kg %> Kg (<%= t.jumlah_kemasan %> <%= t.jenis_kemasan %>)</div>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <div class="text-slate-800 font-medium"><%= t.nomor_armada %></div>
+                    <div class="text-[10px] text-slate-400"><%= t.nama_driver %></div>
+                  </td>
+                  <td class="py-3.5 px-4 text-slate-500 text-[11px]">
+                    <%= new Date(t.tanggal_penggunaan).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) %>
+                  </td>
+                  <td class="py-3.5 px-4 text-center">
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800 uppercase">
+                      <%= t.status_perjalanan %>
+                    </span>
+                  </td>
+                </tr>
+                <% }) %>
+              <% } else { %>
+                <tr>
+                  <td colspan="7" class="py-12 text-center text-slate-400">Belum ada catatan perjalanan yang sesuai.</td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <% if (totalPages > 1) { %>
+        <div class="px-6 py-4 bg-slate-50/60 border-t border-slate-100 flex items-center justify-between text-xs">
+          <div>
+            <% if (page > 1) { %>
+              <a href="/transport/history?page=<%= page - 1 %>&search=<%= search %>&pasar=<%= selectedPasar %>" class="px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-slate-700 font-bold transition">
+                &larr; Sebelumnya
+              </a>
+            <% } %>
+          </div>
+          <div class="text-slate-500 font-medium">Halaman <%= page %> dari <%= totalPages %></div>
+          <div>
+            <% if (page < totalPages) { %>
+              <a href="/transport/history?page=<%= page + 1 %>&search=<%= search %>&pasar=<%= selectedPasar %>" class="px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-slate-700 font-bold transition">
+                Selanjutnya &rarr;
+              </a>
+            <% } %>
+          </div>
+        </div>
+        <% } %>
+
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<%- include('../partials/footer') %>

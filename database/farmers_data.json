@@ -1,0 +1,3002 @@
+[
+  {
+    "no": 1,
+    "nama": "OPICE ARWAM",
+    "kampung": "DOUSI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 2,
+    "nama": "ATRIS KMUR",
+    "kampung": "DOUSI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 3,
+    "nama": "SEFNAT KMUR",
+    "kampung": "DOUSI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 4,
+    "nama": "REGINA RUMBRAWER",
+    "kampung": "DOUSI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 5,
+    "nama": "DANIEL WARWER",
+    "kampung": "DOUSI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 6,
+    "nama": "YOHANA WANMA",
+    "kampung": "DOUSI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 7,
+    "nama": "SAMPARY S. KMUR",
+    "kampung": "DOUSI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 8,
+    "nama": "SUSANA TERIANA WANMA",
+    "kampung": "DOUSI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 9,
+    "nama": "YUSTINA ABIDONDIFU",
+    "kampung": "DOUSI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 10,
+    "nama": "YEHESKIEL KMUR",
+    "kampung": "DOUSI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 11,
+    "nama": "YOHANA WANGGOBER",
+    "kampung": "SOSMAI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 12,
+    "nama": "YULANDA BURAKO",
+    "kampung": "SOSMAI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 13,
+    "nama": "DINA FINCE MAKMAKER",
+    "kampung": "SOSMAI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 14,
+    "nama": "MARGINA SERAPENDI",
+    "kampung": "SOSMAI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 15,
+    "nama": "HERDOMINA MIOSIDO",
+    "kampung": "SOSMAI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 16,
+    "nama": "YULIANCE ARWAM",
+    "kampung": "SOSMAI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 17,
+    "nama": "YENI RITA AWOM",
+    "kampung": "SOSMAI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 18,
+    "nama": "MARIA W BAB",
+    "kampung": "SOSMAI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 19,
+    "nama": "MAKDALENA KMUR",
+    "kampung": "SOSMAI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 20,
+    "nama": "HAGAR PARIARIBO",
+    "kampung": "SOSMAI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 21,
+    "nama": "SINCE KAPISA",
+    "kampung": "WARBERIK",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 22,
+    "nama": "DORTEA RUMAIKEW",
+    "kampung": "WARBERIK",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 23,
+    "nama": "ANACE MSEN",
+    "kampung": "WARBERIK",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 24,
+    "nama": "DORINCE MARYAR",
+    "kampung": "WARBERIK",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 25,
+    "nama": "MARIA AWAK",
+    "kampung": "WARBERIK",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 26,
+    "nama": "DIANA FAIRYO",
+    "kampung": "WARBERIK",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 27,
+    "nama": "MARGARETA SANYAR",
+    "kampung": "WARBERIK",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 28,
+    "nama": "ANTONETA MAKMAKER",
+    "kampung": "WARBERIK",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 29,
+    "nama": "APLENA ARFAYAN",
+    "kampung": "WARBERIK",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 30,
+    "nama": "AGUSTA RUMBEWAS",
+    "kampung": "WARBERIK",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 31,
+    "nama": "EMA MANUPUTI",
+    "kampung": "MARISEN",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 32,
+    "nama": "ETTY ROSMINA WOSPAKRIK",
+    "kampung": "MARISEN",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 33,
+    "nama": "ANA OBINARU",
+    "kampung": "MARISEN",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 34,
+    "nama": "LINDA ORISU",
+    "kampung": "MARISEN",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 35,
+    "nama": "SALOMINA SADA",
+    "kampung": "MARISEN",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 36,
+    "nama": "MIRYAM SADA",
+    "kampung": "MARISEN",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 37,
+    "nama": "MARIA MAYOR",
+    "kampung": "MARISEN",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 38,
+    "nama": "YENNI FRICE MAKER",
+    "kampung": "MARISEN",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 39,
+    "nama": "DORCE SERAPENDI",
+    "kampung": "MARISEN",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 40,
+    "nama": "LUDIANA ADAMINA KAPITARAUW",
+    "kampung": "MARISEN",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 41,
+    "nama": "ALEDA ANNIKE AWAK",
+    "kampung": "YOMDORI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 42,
+    "nama": "ADOLFINCE MARISAN",
+    "kampung": "YOMDORI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 43,
+    "nama": "SELFIANA MAYOR",
+    "kampung": "YOMDORI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 44,
+    "nama": "MINCE RAYAR",
+    "kampung": "YOMDORI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 45,
+    "nama": "EVA DIANA ADADIKAM",
+    "kampung": "YOMDORI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 46,
+    "nama": "KALASINA OBINARU",
+    "kampung": "YOMDORI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 47,
+    "nama": "YULI BURDAM",
+    "kampung": "YOMDORI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 48,
+    "nama": "HULDA YARANGGA",
+    "kampung": "YOMDORI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 49,
+    "nama": "SELFIANA WAKUM",
+    "kampung": "YOMDORI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 50,
+    "nama": "HELENA BOSEREN",
+    "kampung": "YOMDORI",
+    "distrik": "BIAK BARAT"
+  },
+  {
+    "no": 51,
+    "nama": "ALEKS POMBOS",
+    "kampung": "WANDOS",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 52,
+    "nama": "SANDELINA KAFIAR",
+    "kampung": "WANDOS",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 53,
+    "nama": "SILPA WOMPERE",
+    "kampung": "WANDOS",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 54,
+    "nama": "KLEMENS BOSEREN",
+    "kampung": "WANDOS",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 55,
+    "nama": "YUNITHA POMBOS",
+    "kampung": "WANDOS",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 56,
+    "nama": "SERGIUS BOSEREN",
+    "kampung": "WANDOS",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 57,
+    "nama": "BENYAMIN POMBOS",
+    "kampung": "WANDOS",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 58,
+    "nama": "LAMEK POMBOS",
+    "kampung": "WANDOS",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 59,
+    "nama": "ISAK POMBOS",
+    "kampung": "WANDOS",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 60,
+    "nama": "DEMETRIUS POMBOS",
+    "kampung": "WANDOS",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 61,
+    "nama": "FENIKE WOMSIWOR",
+    "kampung": "WANDOS",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 62,
+    "nama": "LINIKE MNIBER",
+    "kampung": "WANDOS",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 63,
+    "nama": "HELENA INGGABOU",
+    "kampung": "WANDOS",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 64,
+    "nama": "WENA SOBUBER",
+    "kampung": "WANDOS",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 65,
+    "nama": "FERDINAND RAYAR",
+    "kampung": "WANDOS",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 66,
+    "nama": "ROSARIA RUMAROPEN",
+    "kampung": "KARUIBERIK",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 67,
+    "nama": "ROSNI MAMBOBO",
+    "kampung": "KARUIBERIK",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 68,
+    "nama": "TRESYA ASYEREM",
+    "kampung": "KARUIBERIK",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 69,
+    "nama": "AGUSTINA SERMUMES",
+    "kampung": "KARUIBERIK",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 70,
+    "nama": "ROSIA NORIWARI",
+    "kampung": "KARUIBERIK",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 71,
+    "nama": "MARIA MARSYOM",
+    "kampung": "KARUIBERIK",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 72,
+    "nama": "ANETA APIEM",
+    "kampung": "KARUIBERIK",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 73,
+    "nama": "FRANSINA RUMBIAK",
+    "kampung": "KARUIBERIK",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 74,
+    "nama": "MARIA RUMPAISUM",
+    "kampung": "KARUIBERIK",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 75,
+    "nama": "MARYANA RUMBRAPUK",
+    "kampung": "KARUIBERIK",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 76,
+    "nama": "YULIANUS MANINEMWARBA",
+    "kampung": "SANSUNDI",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 77,
+    "nama": "RANO K. MANINEMWARBA",
+    "kampung": "SANSUNDI",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 78,
+    "nama": "FESTUS POMBOS",
+    "kampung": "SANSUNDI",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 79,
+    "nama": "BETSI MANINEMWARBA",
+    "kampung": "SANSUNDI",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 80,
+    "nama": "MIKA POMBOS",
+    "kampung": "SANSUNDI",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 81,
+    "nama": "PERMENAS POMBOS",
+    "kampung": "SANSUNDI",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 82,
+    "nama": "DAVID MARYEN",
+    "kampung": "SANSUNDI",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 83,
+    "nama": "FRIDA MANINEMWARBA",
+    "kampung": "SANSUNDI",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 84,
+    "nama": "MARKUS MANINEMWARBA",
+    "kampung": "SANSUNDI",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 85,
+    "nama": "SPENYEL MANINEMWARBA",
+    "kampung": "SANSUNDI",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 86,
+    "nama": "GUSTAF MANINEMWARBA",
+    "kampung": "SANSUNDI",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 87,
+    "nama": "YASON MANINEMWARBA",
+    "kampung": "SANSUNDI",
+    "distrik": "BONDIFUAR"
+  },
+  {
+    "no": 88,
+    "nama": "SELINA MSIREN",
+    "kampung": "MANIRI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 89,
+    "nama": "RUTH RUMERE",
+    "kampung": "MANIRI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 90,
+    "nama": "OKTOVINA MAMORIBO",
+    "kampung": "MANIRI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 91,
+    "nama": "YULIANA MAKUKER (1)",
+    "kampung": "MANIRI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 92,
+    "nama": "MARTHA WABISER",
+    "kampung": "MANIRI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 93,
+    "nama": "SALOMINA KARARBO",
+    "kampung": "MANIRI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 94,
+    "nama": "SELFIANA MAMORIBO",
+    "kampung": "MANIRI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 95,
+    "nama": "DORSILA MAKUKER",
+    "kampung": "MANIRI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 96,
+    "nama": "ROBEKA WARWER",
+    "kampung": "MANIRI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 97,
+    "nama": "MERRY BRANSIK",
+    "kampung": "MANIRI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 98,
+    "nama": "YAKOMINA RUMERE",
+    "kampung": "MANIRI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 99,
+    "nama": "DOLFINA OFIAS",
+    "kampung": "MANIRI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 100,
+    "nama": "MARIA MAMORIBO",
+    "kampung": "MANIRI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 101,
+    "nama": "NERSILA MSIREN",
+    "kampung": "MANIRI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 102,
+    "nama": "REGINA KAWER",
+    "kampung": "MANIRI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 103,
+    "nama": "OKTOVINA ORBOI",
+    "kampung": "MANIRI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 104,
+    "nama": "YULIANA MAKUKER (2)",
+    "kampung": "MANIRI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 105,
+    "nama": "NOVITA MAKUKER",
+    "kampung": "MANIRI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 106,
+    "nama": "ROBEKA MANSOBEN",
+    "kampung": "MANIRI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 107,
+    "nama": "RUTH WOMPERE",
+    "kampung": "MANIRI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 108,
+    "nama": "MILKA KARMA",
+    "kampung": "SAWAI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 109,
+    "nama": "INSEREN PAUM KARMA",
+    "kampung": "SAWAI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 110,
+    "nama": "HUBERTINA RUMBRAPUK",
+    "kampung": "SAWAI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 111,
+    "nama": "LINCE RUMBINO",
+    "kampung": "SAWAI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 112,
+    "nama": "BESTINA MARSYOM",
+    "kampung": "SAWAI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 113,
+    "nama": "SOFICE RUMBINO",
+    "kampung": "SAWAI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 114,
+    "nama": "RUTH WABISER",
+    "kampung": "SAWAI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 115,
+    "nama": "RUTH RUMBINO",
+    "kampung": "SAWAI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 116,
+    "nama": "YERMIAS WABISER",
+    "kampung": "SAWAI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 117,
+    "nama": "OTTO WABISER",
+    "kampung": "SAWAI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 118,
+    "nama": "WELLEM KORANO",
+    "kampung": "KOYOMI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 119,
+    "nama": "RONY YARANGGA",
+    "kampung": "KOYOMI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 120,
+    "nama": "LENORCE RUMAINUM",
+    "kampung": "KOYOMI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 121,
+    "nama": "YUSTUS RUMAR",
+    "kampung": "KOYOMI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 122,
+    "nama": "ANA MARANDOF",
+    "kampung": "KOYOMI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 123,
+    "nama": "AMINCE RUMAR",
+    "kampung": "KOYOMI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 124,
+    "nama": "DAUD RUMABAR",
+    "kampung": "KOYOMI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 125,
+    "nama": "SEMUEL BARANSANO",
+    "kampung": "KOYOMI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 126,
+    "nama": "ALBERD BARANSANO",
+    "kampung": "KOYOMI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 127,
+    "nama": "SEPTINUS BARANSANO",
+    "kampung": "KOYOMI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 128,
+    "nama": "HEIN BARANSANO",
+    "kampung": "KOYOMI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 129,
+    "nama": "ANCE MANDOAREN",
+    "kampung": "KOYOMI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 130,
+    "nama": "MATEUS BARANSANO",
+    "kampung": "KOYOMI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 131,
+    "nama": "YOSINA INFANDI",
+    "kampung": "KOYOMI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 132,
+    "nama": "LINDA KORANO",
+    "kampung": "KOYOMI",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 133,
+    "nama": "ANTOMINA BOSEREN",
+    "kampung": "INSWAMBESI SUP",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 134,
+    "nama": "DELILA OFIAS",
+    "kampung": "INSWAMBESI SUP",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 135,
+    "nama": "BARBARINA MNUBEFOR",
+    "kampung": "INSWAMBESI SUP",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 136,
+    "nama": "AMELIA BOSEREN",
+    "kampung": "INSWAMBESI SUP",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 137,
+    "nama": "RENSI BOSEREN",
+    "kampung": "INSWAMBESI SUP",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 138,
+    "nama": "IDA DORTHEA WORKRAR",
+    "kampung": "INSWAMBESI SUP",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 139,
+    "nama": "DELINA MARAN",
+    "kampung": "INSWAMBESI SUP",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 140,
+    "nama": "LINCE KMUR",
+    "kampung": "INSWAMBESI SUP",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 141,
+    "nama": "DORSILA RUMBIN",
+    "kampung": "INSWAMBESI SUP",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 142,
+    "nama": "KAROLINA BOSEREN",
+    "kampung": "INSWAMBESI SUP",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 143,
+    "nama": "PAULINCE BOSEREN",
+    "kampung": "INSWAMBESI SUP",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 144,
+    "nama": "PENINA BOSEREN",
+    "kampung": "INSWAMBESI SUP",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 145,
+    "nama": "HERMELINA ANES",
+    "kampung": "INSWAMBESI SUP",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 146,
+    "nama": "MARTHA FAKNIK",
+    "kampung": "INSWAMBESI SUP",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 147,
+    "nama": "OKTOVINA BOSEREN",
+    "kampung": "INSWAMBESI SUP",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 148,
+    "nama": "BELANDINA BOSEREN",
+    "kampung": "INSWAMBESI SUP",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 149,
+    "nama": "YAKOMINA R.RUMABAR",
+    "kampung": "INSWAMBESI SUP",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 150,
+    "nama": "YAKOMINA BOSEREN",
+    "kampung": "INSWAMBESI SUP",
+    "distrik": "WARSA"
+  },
+  {
+    "no": 151,
+    "nama": "MATHIAS YOSEP SARWAMU",
+    "kampung": "RIMBA JAYA",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 152,
+    "nama": "ANDARMINGGUS SOLEMAN MAMBOBO",
+    "kampung": "RIMBA JAYA",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 153,
+    "nama": "FERDINAND MAMBOBO",
+    "kampung": "RIMBA JAYA",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 154,
+    "nama": "LUIS STEVANUS YESKIEL MAMBOBI",
+    "kampung": "RIMBA JAYA",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 155,
+    "nama": "MARTHINA KURNI",
+    "kampung": "RIMBA JAYA",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 156,
+    "nama": "EUNIKE LOUWISSA RONSUMBRE",
+    "kampung": "RIMBA JAYA",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 157,
+    "nama": "YOHANA RUMANSARA",
+    "kampung": "RIMBA JAYA",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 158,
+    "nama": "ALBERTHUS RUMANSARA",
+    "kampung": "RIMBA JAYA",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 159,
+    "nama": "YULIANUS INUR",
+    "kampung": "RIMBA JAYA",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 160,
+    "nama": "ELISABETH MARIA RUMPAIDUS",
+    "kampung": "RIMBA JAYA",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 161,
+    "nama": "ZAKHARIAS MELIANUS MORIN",
+    "kampung": "RIMBA JAYA",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 162,
+    "nama": "MARTEN RUMKABAS",
+    "kampung": "RIMBA JAYA",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 163,
+    "nama": "HEIN RUMKOREM",
+    "kampung": "RIMBA JAYA",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 164,
+    "nama": "ERIKA MAYA USIOR",
+    "kampung": "RIMBA JAYA",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 165,
+    "nama": "SILO MESA SARCE MORIN",
+    "kampung": "RIMBA JAYA",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 166,
+    "nama": "YACOB BARTH MORIN",
+    "kampung": "RIMBA JAYA",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 167,
+    "nama": "ESAU BRABAR",
+    "kampung": "RIMBA JAYA",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 168,
+    "nama": "AGUSTINUS RUMANSARA",
+    "kampung": "RIMBA JAYA",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 169,
+    "nama": "DEWI KAFIAR",
+    "kampung": "YENBEROK",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 170,
+    "nama": "SEPTER USIOR",
+    "kampung": "YENBEROK",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 171,
+    "nama": "AGRICE MOFU",
+    "kampung": "ORWER",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 172,
+    "nama": "RENSI RUMKOREM",
+    "kampung": "ORWER",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 173,
+    "nama": "FINCE FAIDIBAN",
+    "kampung": "KAJASBO",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 174,
+    "nama": "ERNA AMSAMSIUM",
+    "kampung": "KAJASBO",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 175,
+    "nama": "ANI N. RONSUMBRE",
+    "kampung": "KAJASBO",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 176,
+    "nama": "NOVELA RUMPUMBO",
+    "kampung": "KAJASBO",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 177,
+    "nama": "MARICE YAWAN",
+    "kampung": "KAJASBO",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 178,
+    "nama": "RITA SABAROFEK",
+    "kampung": "KAJASBO",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 179,
+    "nama": "TRINA LAUCE RUMPUMBO",
+    "kampung": "KAJASBO",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 180,
+    "nama": "BOMASI RUMANASEN",
+    "kampung": "KAJASBO",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 181,
+    "nama": "YACOBICE RUMANASEN",
+    "kampung": "KAJASBO",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 182,
+    "nama": "LEVINA FAIDIBAN",
+    "kampung": "WADERBO",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 183,
+    "nama": "MARYANGKE YENSENEM",
+    "kampung": "WADERBO",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 184,
+    "nama": "MAKDALENA ARFAYAN",
+    "kampung": "WADERBO",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 185,
+    "nama": "ORPA WADER",
+    "kampung": "WADERBO",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 186,
+    "nama": "KALASINA RUMANASEN",
+    "kampung": "WADERBO",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 187,
+    "nama": "ANSINA RUMKOREM",
+    "kampung": "WADERBO",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 188,
+    "nama": "ANETHA RUMBIAK",
+    "kampung": "WONIKI",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 189,
+    "nama": "SUSANA SUSI RUMBIAK",
+    "kampung": "WONIKI",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 190,
+    "nama": "IRIANI RUMANSARA",
+    "kampung": "WONIKI",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 191,
+    "nama": "DAMARIS RUMANSARA",
+    "kampung": "WONIKI",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 192,
+    "nama": "FREDIKA WADER",
+    "kampung": "BINDUSI",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 193,
+    "nama": "MIRYAM WARNARES",
+    "kampung": "BINDUSI",
+    "distrik": "BIAK TIMUR"
+  },
+  {
+    "no": 194,
+    "nama": "NORMA MARANDOF",
+    "kampung": "BAKRIBO",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 195,
+    "nama": "ORPA SABAROFEK",
+    "kampung": "BAKRIBO",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 196,
+    "nama": "AGUSTINUS RUMBINO",
+    "kampung": "BAKRIBO",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 197,
+    "nama": "DEMARCE RUMABAR",
+    "kampung": "BAKRIBO",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 198,
+    "nama": "YOSEPIN LANITAMAN",
+    "kampung": "BAKRIBO",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 199,
+    "nama": "VONNY R. ABIDONDIFU",
+    "kampung": "BAKRIBO",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 200,
+    "nama": "ALEXANDERINA MARYEN",
+    "kampung": "BAKRIBO",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 201,
+    "nama": "DINA RUMPAIDUS",
+    "kampung": "BAKRIBO",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 202,
+    "nama": "OBETH BURUMI",
+    "kampung": "ANGGOPI",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 203,
+    "nama": "FERNANDO AWAK",
+    "kampung": "ANGGOPI",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 204,
+    "nama": "MERRY K. AWAK",
+    "kampung": "ANGGOPI",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 205,
+    "nama": "ELSIA MAYOR",
+    "kampung": "ANGGOPI",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 206,
+    "nama": "LISSA ICE BURUMI",
+    "kampung": "ANGGOPI",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 207,
+    "nama": "DESSY DORTHEA SOMBUK",
+    "kampung": "ANGGOPI",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 208,
+    "nama": "DONALD KOIBUR",
+    "kampung": "WADIBU",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 209,
+    "nama": "SARLOTA KOIBUR",
+    "kampung": "WADIBU",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 210,
+    "nama": "YOHANA KOIBUR",
+    "kampung": "WADIBU",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 211,
+    "nama": "KETTY MANIAGASI",
+    "kampung": "WADIBU",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 212,
+    "nama": "DEMAS KOIBUR",
+    "kampung": "WADIBU",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 213,
+    "nama": "IVONI USIOR",
+    "kampung": "WADIBU",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 214,
+    "nama": "PENEHAS RUMBRAPUK",
+    "kampung": "WADIBU",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 215,
+    "nama": "MARTINCE KOIBUR",
+    "kampung": "WADIBU",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 216,
+    "nama": "ALFONSINA ERDINA SROYER",
+    "kampung": "WADIBU",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 217,
+    "nama": "ANTHONIUS AWEK",
+    "kampung": "ANGGADUBER",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 218,
+    "nama": "CHALVINUS AWEK",
+    "kampung": "ANGGADUBER",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 219,
+    "nama": "ANJELA AIBEMBROK",
+    "kampung": "ANGGADUBER",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 220,
+    "nama": "ANIKE RUMERE",
+    "kampung": "ANGGADUBER",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 221,
+    "nama": "MINCE RAWAR",
+    "kampung": "ANGGADUBER",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 222,
+    "nama": "ATALIA MAMBIEUW",
+    "kampung": "ANGGADUBER",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 223,
+    "nama": "BOY AWEK",
+    "kampung": "ANGGADUBER",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 224,
+    "nama": "ALFIAN ANSEK",
+    "kampung": "SAURI",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 225,
+    "nama": "WALENTHINA KAMPA",
+    "kampung": "SAURI",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 226,
+    "nama": "YULIANCE ABIDONDIFU",
+    "kampung": "SAURI",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 227,
+    "nama": "AGUSTA KAMPA",
+    "kampung": "SAURI",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 228,
+    "nama": "MARIA ANSEK",
+    "kampung": "SAURI",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 229,
+    "nama": "DORMINA FAIRYO",
+    "kampung": "SAURI",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 230,
+    "nama": "MINCE ARWAKON",
+    "kampung": "SAURI",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 231,
+    "nama": "YOHAN ARFAYAN",
+    "kampung": "MAKMAKERBO",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 232,
+    "nama": "MIRYAM KOIBUR",
+    "kampung": "MAKMAKERBO",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 233,
+    "nama": "YOSEFINA ANSEK",
+    "kampung": "MAKMAKERBO",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 234,
+    "nama": "SAMUEL S. RUMAROPEN",
+    "kampung": "MAKMAKERBO",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 235,
+    "nama": "ALBERTINA MAKMAKER",
+    "kampung": "MAKMAKERBO",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 236,
+    "nama": "SANCE SINCE MAKMAKER",
+    "kampung": "MAKMAKERBO",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 237,
+    "nama": "NOLINCE NAOMI KAFIAR",
+    "kampung": "MAKMAKERBO",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 238,
+    "nama": "MARIANA SARA MAKMAKER",
+    "kampung": "MAKMAKERBO",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 239,
+    "nama": "TABITA DORKAS FARWAS",
+    "kampung": "MAKMAKERBO",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 240,
+    "nama": "LENI MAKMAKER",
+    "kampung": "MAKMAKERBO",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 241,
+    "nama": "MARTHA MAKMAKER",
+    "kampung": "MAKMAKERBO",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 242,
+    "nama": "PAPUANI ARFAYAN",
+    "kampung": "MAKMAKERBO",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 243,
+    "nama": "ROSITA ARFAYAN",
+    "kampung": "MAKMAKERBO",
+    "distrik": "ORIDEK"
+  },
+  {
+    "no": 244,
+    "nama": "KALARCE AYER",
+    "kampung": "SUNERI",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 245,
+    "nama": "NOVELDA ASYEREM",
+    "kampung": "SUNERI",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 246,
+    "nama": "FLORA KORWA",
+    "kampung": "SUNERI",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 247,
+    "nama": "SANTIKA SOFICE OPADA",
+    "kampung": "SUNERI",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 248,
+    "nama": "PENINA ASYEREM",
+    "kampung": "SUNERI",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 249,
+    "nama": "ERIC BOY ASYEREM",
+    "kampung": "SUNERI",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 250,
+    "nama": "ANTHON KREY",
+    "kampung": "SUNERI",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 251,
+    "nama": "FINCE KORWA",
+    "kampung": "SUNERI",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 252,
+    "nama": "NOAK GABRIEL KORWA",
+    "kampung": "SUNERI",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 253,
+    "nama": "YERMIAS FAMNAW",
+    "kampung": "SUNERI",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 254,
+    "nama": "LUIS ASYEREM",
+    "kampung": "SUNERI",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 255,
+    "nama": "MUSA FREDRIK FAMNAW",
+    "kampung": "SUNERI",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 256,
+    "nama": "DEMITRIUS AYER",
+    "kampung": "MOIBAKEN",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 257,
+    "nama": "NOAK O PENASIFU",
+    "kampung": "MOIBAKEN",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 258,
+    "nama": "YOSIAS AMON MAMBRASAR",
+    "kampung": "MOIBAKEN",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 259,
+    "nama": "TIMOTIUS PENASIFU",
+    "kampung": "MOIBAKEN",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 260,
+    "nama": "YUNUS PAULUS MORIN",
+    "kampung": "MOIBAKEN",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 261,
+    "nama": "MANASE SAKARIA OPADA",
+    "kampung": "MOIBAKEN",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 262,
+    "nama": "YERMIAS PENASIFU",
+    "kampung": "MOIBAKEN",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 263,
+    "nama": "YERMIAS SYABES",
+    "kampung": "MOIBAKEN",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 264,
+    "nama": "BERNARD ASYEREM",
+    "kampung": "MOIBAKEN",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 265,
+    "nama": "NIKO OPADA",
+    "kampung": "MOIBAKEN",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 266,
+    "nama": "REPTO FRENGKY OPADA",
+    "kampung": "MOIBAKEN",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 267,
+    "nama": "LESA OPADA",
+    "kampung": "MOIBAKEN",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 268,
+    "nama": "DOMINGGAS PADUR",
+    "kampung": "SYABES",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 269,
+    "nama": "DORCE ADUR",
+    "kampung": "SYABES",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 270,
+    "nama": "NELCE YARANGGA",
+    "kampung": "SYABES",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 271,
+    "nama": "LINDA MANDIBO",
+    "kampung": "SYABES",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 272,
+    "nama": "SINCE ARWAM",
+    "kampung": "SYABES",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 273,
+    "nama": "RAHEL OJABA",
+    "kampung": "SYABES",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 274,
+    "nama": "MARTHA MSIREN",
+    "kampung": "SYABES",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 275,
+    "nama": "MINCE MANSMOR",
+    "kampung": "SYABES",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 276,
+    "nama": "ANACE MANSMOR",
+    "kampung": "SYABES",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 277,
+    "nama": "LAMBERTINA MNUMANDU",
+    "kampung": "SYABES",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 278,
+    "nama": "AGUSTA PARIARIBO",
+    "kampung": "SYABES",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 279,
+    "nama": "SISKA DAWAN",
+    "kampung": "SYABES",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 280,
+    "nama": "DORKAS DJABA",
+    "kampung": "SYABES",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 281,
+    "nama": "NELWAN BUKORSYOM",
+    "kampung": "SAMBER SUP",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 282,
+    "nama": "MAGRICE MIRINO",
+    "kampung": "SAMBER SUP",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 283,
+    "nama": "MARICE MANGGARA",
+    "kampung": "SAMBER SUP",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 284,
+    "nama": "SANERARO MIRINO",
+    "kampung": "SAMBER SUP",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 285,
+    "nama": "NICO MIRINO",
+    "kampung": "SAMBER SUP",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 286,
+    "nama": "SAMSUL BAKRI",
+    "kampung": "SAMBER SUP",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 287,
+    "nama": "ELISABET WOMSIWOR",
+    "kampung": "SAMBER SUP",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 288,
+    "nama": "RYSHAD RUMBRAWER",
+    "kampung": "SAMBER SUP",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 289,
+    "nama": "ARIS TARKUS URBASA",
+    "kampung": "SAMBER SUP",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 290,
+    "nama": "YOSEP BUKORPIOPER",
+    "kampung": "SAMBER SUP",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 291,
+    "nama": "HENOK BUKORSYOM",
+    "kampung": "SAMBER SUP",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 292,
+    "nama": "RONAL MEOKBUN",
+    "kampung": "SAMBER SUP",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 293,
+    "nama": "EDION MEOKBUN",
+    "kampung": "SAMBER SUP",
+    "distrik": "YENDIDORI"
+  },
+  {
+    "no": 294,
+    "nama": "SEBRINA FERONIKA SROYER",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 295,
+    "nama": "IRENE MANSNANDIFU",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 296,
+    "nama": "LEONORA MARTINCE MOFU",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 297,
+    "nama": "LIDIA DIMARA",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 298,
+    "nama": "OKTOFINA KORWA",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 299,
+    "nama": "PETRONNELA MAYOR",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 300,
+    "nama": "ADELCE KAFIAR",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 301,
+    "nama": "NOVELA SANYAR",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 302,
+    "nama": "VERA V. MSEN",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 303,
+    "nama": "YUBELINA MAYOR",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 304,
+    "nama": "YULIANUS MANSNANDIFU",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 305,
+    "nama": "DANIEL KREY",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 306,
+    "nama": "DELCE DIMARA",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 307,
+    "nama": "MINA MAYOR",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 308,
+    "nama": "YUSUF MIOKBUN",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 309,
+    "nama": "LUSIA FERONIKA MAYOR",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 310,
+    "nama": "AFILA MARGARETH MAYOR",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 311,
+    "nama": "AMANDA MAYOR",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 312,
+    "nama": "EUNIKE MARISAN",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 313,
+    "nama": "SUSANA MAYOR",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 314,
+    "nama": "DAVID MNSEN",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 315,
+    "nama": "CHARLES NOVEL MAYOR",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 316,
+    "nama": "ELIAKIM MNSEN",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 317,
+    "nama": "ERASTUS SILVANUS DIMARA",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 318,
+    "nama": "FRANS RANDONGKIR",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 319,
+    "nama": "ABDON MAYOR",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 320,
+    "nama": "ABIRAM MANSNANDIFU",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 321,
+    "nama": "ANTONIUS MAYOR",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 322,
+    "nama": "ELFIARA KLEFINA MAYOR",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 323,
+    "nama": "ANNA LODY MANSNANDIFU",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 324,
+    "nama": "DELILA MISPA MAYOR",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 325,
+    "nama": "FONI DIMARA",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 326,
+    "nama": "MARICE DIMARA",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 327,
+    "nama": "NELLA MAYOR",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 328,
+    "nama": "SELINA MAYOR",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 329,
+    "nama": "AKWILA MANSNANDIFU",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 330,
+    "nama": "ELISA MSEN",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 331,
+    "nama": "NOAK MANDIBONDIBO",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 332,
+    "nama": "SIMON PETRUS MAYOR",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 333,
+    "nama": "YOSUA FESPER DIMARA",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 334,
+    "nama": "ANNA MARICE SWOM",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 335,
+    "nama": "JOHNI WILLEM MIOKBUN",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 336,
+    "nama": "LEVINA SIMBIAK",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 337,
+    "nama": "LEVINUS MAYOR",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 338,
+    "nama": "YULIANA MAGDALENA MAYOR",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 339,
+    "nama": "ANNA MAYOR",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 340,
+    "nama": "DAUD KORWA",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 341,
+    "nama": "FRANSIS DIMARA",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 342,
+    "nama": "JONI DIMARA",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 343,
+    "nama": "MIRYAM DIMARA",
+    "kampung": "SAMBAWOFUAR",
+    "distrik": "SAMOFA"
+  },
+  {
+    "no": 344,
+    "nama": "ADOLFINA SAWEK",
+    "kampung": "ROSAYENDI",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 345,
+    "nama": "MINCE KAFIAR",
+    "kampung": "ROSAYENDI",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 346,
+    "nama": "NOVITA PRAWAR",
+    "kampung": "KOREM",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 347,
+    "nama": "FRANSINA DIMARA",
+    "kampung": "KOREM",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 348,
+    "nama": "WELMINCE KAFIAR",
+    "kampung": "MAMBESAK",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 349,
+    "nama": "KORNELIA BOSEREN",
+    "kampung": "SARWOM",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 350,
+    "nama": "MARTHA KAFIAR",
+    "kampung": "SARWOM",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 351,
+    "nama": "YEMIMA MSIREN",
+    "kampung": "SARWOM",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 352,
+    "nama": "SELVINA PRAWAR",
+    "kampung": "SARWOM",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 353,
+    "nama": "ANI RANDONGKIR",
+    "kampung": "SARWOM",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 354,
+    "nama": "MARICE MARANDOF",
+    "kampung": "SARWOM",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 355,
+    "nama": "KORINA R OJABA",
+    "kampung": "SARWOM",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 356,
+    "nama": "AGUSTINA M MNUSWAN",
+    "kampung": "SARWOM",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 357,
+    "nama": "MARIA MANINEMWARBA",
+    "kampung": "SARWOM",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 358,
+    "nama": "FRANSINA OSMNDO",
+    "kampung": "SARWOM",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 359,
+    "nama": "DELINA DIMARA",
+    "kampung": "SARWOM",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 360,
+    "nama": "ICE RUMBRAWER",
+    "kampung": "SARWOM",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 361,
+    "nama": "WINIFRED OSMNDO",
+    "kampung": "SARWOM",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 362,
+    "nama": "LISSIAS Y OSMNDO",
+    "kampung": "SARWOM",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 363,
+    "nama": "NOVITA KAFIAR",
+    "kampung": "SARWOM",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 364,
+    "nama": "BATSEBA Y BAAB",
+    "kampung": "WARI",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 365,
+    "nama": "YAKOMINA KAPISA",
+    "kampung": "WARI",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 366,
+    "nama": "FERA MARAN",
+    "kampung": "WAROMI",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 367,
+    "nama": "WELMINA IRYOUW",
+    "kampung": "WAROMI",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 368,
+    "nama": "IDA L WOMSIWOR",
+    "kampung": "WARSANSAN",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 369,
+    "nama": "MARGARETHA ARFYSAU",
+    "kampung": "WARSANSAN",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 370,
+    "nama": "BEATRIKS BRANSIK",
+    "kampung": "WARSANSAN",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 371,
+    "nama": "MARIA RUMBRAPUK",
+    "kampung": "WARSANSAN",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 372,
+    "nama": "AMELIA MSIREN",
+    "kampung": "WARSANSAN",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 373,
+    "nama": "NELY SWOM",
+    "kampung": "WARSANSAN",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 374,
+    "nama": "MARIANA PAIS",
+    "kampung": "WARSANSAN",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 375,
+    "nama": "KORNELIA KAFIAR",
+    "kampung": "DOFIO WAFOR",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 376,
+    "nama": "ANIKE AP",
+    "kampung": "DOFIO WAFOR",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 377,
+    "nama": "ESTER WADIBAR",
+    "kampung": "DOFIO WAFOR",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 378,
+    "nama": "SELINA WOMPERE",
+    "kampung": "DOFIO WAFOR",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 379,
+    "nama": "MARYANA WABISER",
+    "kampung": "DOFIO WAFOR",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 380,
+    "nama": "LAMBERTH FAKNIK",
+    "kampung": "DOFIO WAFOR",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 381,
+    "nama": "FINCE RUMBRAPUK",
+    "kampung": "WARKIMBON",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 382,
+    "nama": "MARGARETHA MAKUKER",
+    "kampung": "WARKIMBON",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 383,
+    "nama": "MARIKE ARONGGEAR",
+    "kampung": "WARKIMBON",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 384,
+    "nama": "ANALINCE MSIREN",
+    "kampung": "WARKIMBON",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 385,
+    "nama": "DINA RUMERE",
+    "kampung": "WARKIMBON",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 386,
+    "nama": "HENDRIK RUMBRAPUK",
+    "kampung": "WARKIMBON",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 387,
+    "nama": "HENGGELINA BOSEREN",
+    "kampung": "WARKIMBON",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 388,
+    "nama": "CICILIA RUMBRAPUK",
+    "kampung": "WARKIMBON",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 389,
+    "nama": "FRANSINA RUMBRAPUK",
+    "kampung": "WARKIMBON",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 390,
+    "nama": "AGUSTINA PARIARIBO",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 391,
+    "nama": "DEREK AGUSTINUS MNUMANDU",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 392,
+    "nama": "DORAH RUTH MNUMANDU",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 393,
+    "nama": "ESTERLINA LINCE KAPITARAUW",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 394,
+    "nama": "ESTEVINA BAAB",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 395,
+    "nama": "FLORA M.MNUMANDU",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 396,
+    "nama": "FRIDA MERGICE ASYEREM",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 397,
+    "nama": "LOISA MANIMWARBA",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 398,
+    "nama": "MARTINA KAFIAR",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 399,
+    "nama": "RIBKA RUMBRAWER",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 400,
+    "nama": "TINA HERLINA RUMKABU",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 401,
+    "nama": "YUSTINA KAPISA",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 402,
+    "nama": "ORPA PAIS",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 403,
+    "nama": "PAULINA RUMBIN",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 404,
+    "nama": "ADAMINA ARWIMBAR",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 405,
+    "nama": "AGUSTINA RUMBRAWER",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 406,
+    "nama": "KRISTINA ARSAI",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 407,
+    "nama": "SILPA KAPISA",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 408,
+    "nama": "SARA MAIREBO",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 409,
+    "nama": "ROSA KAPITARAUW",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 410,
+    "nama": "NELINCE PAIS",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 411,
+    "nama": "LOISA MANIMWARBA",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 412,
+    "nama": "OKTOVINA RUMBRAWER",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 413,
+    "nama": "REGINA HELMERINA BAAB",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 414,
+    "nama": "MIA MARIA ARWIMBAR",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 415,
+    "nama": "MIRYAM ARWIMBAR",
+    "kampung": "NERMNU",
+    "distrik": "BIAK UTARA"
+  },
+  {
+    "no": 416,
+    "nama": "ABRAHAM KMUR",
+    "kampung": "SASWARBO",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 417,
+    "nama": "SOSTENES DIMARA",
+    "kampung": "SASWARBO",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 418,
+    "nama": "DEREK KMUR",
+    "kampung": "SASWARBO",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 419,
+    "nama": "ANDRIAS KMUR",
+    "kampung": "SASWARBO",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 420,
+    "nama": "SOLEMAN DIMARA",
+    "kampung": "SASWARBO",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 421,
+    "nama": "YUNIA KMUR",
+    "kampung": "SASWARBO",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 422,
+    "nama": "LOWICE KMUR",
+    "kampung": "SASWARBO",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 423,
+    "nama": "YULIUS KMUR",
+    "kampung": "SASWARBO",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 424,
+    "nama": "AGUSTIAN LINDA SIMBIAK",
+    "kampung": "SASWARBO",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 425,
+    "nama": "ICE APROMBIS",
+    "kampung": "SASWARBO",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 426,
+    "nama": "APLENA KMUR",
+    "kampung": "SASWARBO",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 427,
+    "nama": "MERGION KMUR",
+    "kampung": "SASWARBO",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 428,
+    "nama": "FELIX APROMBIS",
+    "kampung": "RAMDORI",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 429,
+    "nama": "MARINA KORWA",
+    "kampung": "RAMDORI",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 430,
+    "nama": "DIDRI SAWOR",
+    "kampung": "RAMDORI",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 431,
+    "nama": "YULIA MANSOBEN",
+    "kampung": "RAMDORI",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 432,
+    "nama": "YULIA MANSOBEN",
+    "kampung": "RAMDORI",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 433,
+    "nama": "SELSYUS APROMBIS",
+    "kampung": "RAMDORI",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 434,
+    "nama": "AMSAL APROMBIS",
+    "kampung": "RAMDORI",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 435,
+    "nama": "ERENS APROMBIS",
+    "kampung": "RAMDORI",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 436,
+    "nama": "ISAI KARARBO",
+    "kampung": "RAMDORI",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 437,
+    "nama": "LUTHER KMUR",
+    "kampung": "ANDOINA",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 438,
+    "nama": "YOSINA KMUR",
+    "kampung": "ANDOINA",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 439,
+    "nama": "MELAN HERLINA FAIRNAP",
+    "kampung": "ANDOINA",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 440,
+    "nama": "ALIANCE MANGGAPROUW",
+    "kampung": "ANDOINA",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 441,
+    "nama": "SELINA KMUR",
+    "kampung": "ANDOINA",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 442,
+    "nama": "ROBEKA ARWAKON",
+    "kampung": "ANDOINA",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 443,
+    "nama": "YULINCE KARARBO",
+    "kampung": "ANDOINA",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 444,
+    "nama": "YUSTINA BUKORPIOPER",
+    "kampung": "ANDOINA",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 445,
+    "nama": "ELYAKHIM FAIRNAP",
+    "kampung": "ANDOINA",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 446,
+    "nama": "ABSALOM ABIDONDIFU",
+    "kampung": "SWAIPAK",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 447,
+    "nama": "HENGKI WOSPAKRIK",
+    "kampung": "SWAIPAK",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 448,
+    "nama": "MELKIAS AP",
+    "kampung": "SWAIPAK",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 449,
+    "nama": "MATREDA MANGGAPROUW",
+    "kampung": "SWAIPAK",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 450,
+    "nama": "INSORAKI ABIDONDIFU",
+    "kampung": "SWAIPAK",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 451,
+    "nama": "SULCCE AP",
+    "kampung": "SWAIPAK",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 452,
+    "nama": "METUSALAK ABIDONDIFU",
+    "kampung": "SWAIPAK",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 453,
+    "nama": "YULIANCE AP",
+    "kampung": "SWAIPAK",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 454,
+    "nama": "NELSON WOSPAKRIK",
+    "kampung": "SWAIPAK",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 455,
+    "nama": "YERMIAS AP",
+    "kampung": "SWAIPAK",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 456,
+    "nama": "NELA ARWAM",
+    "kampung": "SARWA",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 457,
+    "nama": "YOSINA KARARBO",
+    "kampung": "SARWA",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 458,
+    "nama": "FERONIKA LOWISA SANADI",
+    "kampung": "SARWA",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 459,
+    "nama": "MOSINA MARISAN",
+    "kampung": "SARWA",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 460,
+    "nama": "SOFICE MARISAN",
+    "kampung": "SARWA",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 461,
+    "nama": "ESTER MARISAN",
+    "kampung": "SARWA",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 462,
+    "nama": "EDITHA MNUBEFOR",
+    "kampung": "SARWA",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 463,
+    "nama": "FINCE MARISAN",
+    "kampung": "SARWA",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 464,
+    "nama": "YESAYA MARISAN",
+    "kampung": "SARWA",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 465,
+    "nama": "LEUNARD MARISAN",
+    "kampung": "SARWA",
+    "distrik": "SWANDIWE"
+  },
+  {
+    "no": 466,
+    "nama": "DINA RUMBRAPUK",
+    "kampung": "WARBINSI",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 467,
+    "nama": "NOAK PARIARIBO",
+    "kampung": "WARBINSI",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 468,
+    "nama": "HUGO ANES",
+    "kampung": "WARBINSI",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 469,
+    "nama": "BETIANA ANES",
+    "kampung": "WARBINSI",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 470,
+    "nama": "LAURENS KARARBO",
+    "kampung": "WARBINSI",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 471,
+    "nama": "ISAK KARARBO",
+    "kampung": "WARBINSI",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 472,
+    "nama": "KORES ANES",
+    "kampung": "WARBINSI",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 473,
+    "nama": "DENUS ANES",
+    "kampung": "WARBINSI",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 474,
+    "nama": "MANASE ANES",
+    "kampung": "WARBINSI",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 475,
+    "nama": "AMBROTUS ANES",
+    "kampung": "WARBINSI",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 476,
+    "nama": "YANSEN ANES",
+    "kampung": "WARBINSI",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 477,
+    "nama": "SONI WILSON MNUWOM",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 478,
+    "nama": "MUSA MNUWOM",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 479,
+    "nama": "DOLTINUS MNUWOM",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 480,
+    "nama": "ARUS MNUWOM",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 481,
+    "nama": "SEPTINUS MNUWOM",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 482,
+    "nama": "PAULUS MNUWOM",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 483,
+    "nama": "AYUB MNUWOM",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 484,
+    "nama": "YULYANIUS PUMBERIAK",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 485,
+    "nama": "REGINA AUES",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 486,
+    "nama": "MARFETA MNUWOM",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 487,
+    "nama": "YULIUS MNUWOM",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 488,
+    "nama": "EVA KSIREN",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 489,
+    "nama": "ELIAS MNUWOM",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 490,
+    "nama": "PAULUS MNUWOM",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 491,
+    "nama": "ROSITA MNUWOM",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 492,
+    "nama": "AGUS MNUWOM",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 493,
+    "nama": "IMANUEL WORWAR",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 494,
+    "nama": "DORUS MNUWOM",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 495,
+    "nama": "MUSA MNUWOM",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 496,
+    "nama": "EKA MNUWOM",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 497,
+    "nama": "MARYETA MNUWOM",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 498,
+    "nama": "LASARCEE WORWAR",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 499,
+    "nama": "MARIA AWEMU",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  },
+  {
+    "no": 500,
+    "nama": "AYUB MNUWOM",
+    "kampung": "ROIDIFU",
+    "distrik": "ANDEY"
+  }
+]

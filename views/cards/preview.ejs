@@ -1,0 +1,102 @@
+<%- include('../partials/header') %>
+
+<div class="min-h-screen bg-slate-100 flex flex-col items-center justify-center p-4 sm:p-8">
+  
+  <!-- Print & Back Actions -->
+  <div class="mb-6 flex items-center space-x-3 no-print">
+    <button onclick="window.history.back()" class="px-4 py-2 rounded-xl bg-white border border-slate-300 text-slate-700 font-bold text-xs hover:bg-slate-50 shadow-sm transition">
+      <i class="bi bi-arrow-left mr-1"></i> Kembali
+    </button>
+    <button onclick="window.print()" class="px-5 py-2 rounded-xl bg-brand-700 hover:bg-brand-600 text-white font-bold text-xs shadow-md shadow-brand-700/20 transition flex items-center space-x-1.5">
+      <i class="bi bi-printer-fill"></i>
+      <span>Cetak Kartu Tani Fisik</span>
+    </button>
+  </div>
+
+  <!-- Physical / Digital Official Card (ISO 7810 ID-1 standard aspect ratio: 85.60 mm x 53.98 mm) -->
+  <div class="w-full max-w-lg rounded-3xl p-6 sm:p-7 shadow-2xl relative overflow-hidden text-white"
+       style="background: linear-gradient(135deg, #022c22 0%, #064e3b 50%, #065f46 100%); border: 3px solid #d97706;">
+    
+    <!-- Header Institution -->
+    <div class="flex items-center space-x-3 border-b border-emerald-600/40 pb-3 mb-4">
+      <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-400 to-amber-600 flex items-center justify-center text-brand-950 font-extrabold text-2xl shadow-md">
+        <i class="bi bi-flower1"></i>
+      </div>
+      <div>
+        <div class="text-[10px] font-bold text-amber-400 tracking-wider uppercase">PEMERINTAH KABUPATEN BIAK NUMFOR</div>
+        <div class="text-sm sm:text-base font-extrabold tracking-tight text-white">DINAS PERTANIAN DAN KETAHANAN PANGAN</div>
+        <div class="text-[9px] text-emerald-300">Program Bantuan Otonomi Khusus & Transportasi DAMRI 2026</div>
+      </div>
+    </div>
+
+    <!-- Title Badge -->
+    <div class="flex items-center justify-between mb-4">
+      <div class="px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-extrabold tracking-wide uppercase">
+        KARTU TANI OAP (ORANG ASLI PAPUA)
+      </div>
+      <div class="text-xs font-mono font-bold text-emerald-200">
+        <%= farmer.nomor_kartu %>
+      </div>
+    </div>
+
+    <!-- Main Content: Photo, Info, and QR Code -->
+    <div class="grid grid-cols-12 gap-4 items-center">
+      
+      <!-- Photo -->
+      <div class="col-span-3 flex flex-col items-center">
+        <div class="w-20 h-24 rounded-2xl bg-slate-200 border-2 border-amber-400 overflow-hidden shadow-md">
+          <img src="/img/default-avatar.png" alt="Foto" class="w-full h-full object-cover">
+        </div>
+        <span class="mt-1.5 px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase <%= farmer.status_kartu === 'aktif' ? 'bg-emerald-400 text-brand-950' : 'bg-red-400 text-slate-900' %>">
+          <%= farmer.status_kartu === 'aktif' ? 'AKTIF' : 'NON-AKTIF' %>
+        </span>
+      </div>
+
+      <!-- Farmer Details -->
+      <div class="col-span-6 space-y-1 text-xs">
+        <div>
+          <span class="text-[9px] text-emerald-300 uppercase block">Nama Petani:</span>
+          <span class="font-extrabold text-white text-sm"><%= farmer.nama_lengkap %></span>
+        </div>
+        <div>
+          <span class="text-[9px] text-emerald-300 uppercase block">NIK:</span>
+          <span class="font-mono text-slate-200 text-xs"><%= farmer.nik %></span>
+        </div>
+        <div>
+          <span class="text-[9px] text-emerald-300 uppercase block">Distrik / Kampung:</span>
+          <span class="text-slate-200"><%= farmer.distrik %> / <%= farmer.kampung %></span>
+        </div>
+        <div>
+          <span class="text-[9px] text-emerald-300 uppercase block">Kelompok / Komoditas:</span>
+          <span class="font-bold text-amber-300"><%= farmer.komoditas_utama %></span>
+        </div>
+      </div>
+
+      <!-- High-res QR Code -->
+      <div class="col-span-3 flex flex-col items-center justify-center p-2 rounded-2xl bg-white shadow-inner">
+        <img src="<%= qrDataUrl %>" alt="QR Code" class="w-20 h-20 rounded-lg object-contain">
+        <span class="text-[8px] font-mono font-bold text-slate-700 mt-1">VERIFIKASI</span>
+      </div>
+
+    </div>
+
+    <!-- Official Stamp / Signature Area -->
+    <div class="mt-5 pt-3 border-t border-emerald-600/30 flex items-center justify-between text-[9px] text-emerald-200/80">
+      <div>
+        <span>Biak Numfor, Papua &bull; Otsus Pertanian</span>
+      </div>
+      <div class="text-right">
+        <span>Plt. Kepala Dinas Pertanian: <strong>drh. BAMBANG HAYANTO</strong></span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Hint note -->
+  <p class="text-xs text-slate-400 mt-4 text-center max-w-md no-print">
+    Kartu ini resmi digunakan sebagai identitas digital petani dan tanda bukti sah layanan subsidi angkutan hasil panen bus DAMRI Kabupaten Biak Numfor.
+  </p>
+
+</div>
+
+<%- include('../partials/footer') %>
