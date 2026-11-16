@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <title>Proposal Pengembangan SIM-KARTANI & Rencana Anggaran Biaya (RAB)</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=Fira+Code:wght@400;500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Fira+Code:wght@400;500&display=swap');
 
     @page {
       size: A4;
-      margin: 18mm 18mm 18mm 20mm;
+      margin: 15mm 18mm 15mm 20mm;
       @bottom-right {
         content: counter(page);
         font-family: 'Plus Jakarta Sans', sans-serif;
@@ -25,8 +25,8 @@
 
     body {
       font-family: 'Lora', Georgia, serif;
-      font-size: 10pt;
-      line-height: 1.6;
+      font-size: 9.5pt;
+      line-height: 1.5;
       color: #1e293b;
       margin: 0;
       padding: 0;
@@ -35,7 +35,7 @@
 
     .doc-container {
       width: 210mm;
-      margin: 25px auto;
+      margin: 20px auto;
       background: white;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
       position: relative;
@@ -44,10 +44,13 @@
     .page {
       width: 210mm;
       min-height: 297mm;
-      padding: 22mm 22mm 22mm 25mm;
+      padding: 20mm 20mm 18mm 22mm;
       position: relative;
       background: white;
       page-break-after: always;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
     }
 
     .page:last-child {
@@ -80,22 +83,22 @@
     }
 
     h1 {
-      font-size: 15pt;
+      font-size: 14pt;
       font-weight: 800;
       color: #092c4c;
       line-height: 1.3;
-      margin: 0 0 8px 0;
+      margin: 0 0 6px 0;
       letter-spacing: -0.3px;
     }
 
     h2 {
-      font-size: 11.5pt;
+      font-size: 11pt;
       font-weight: 700;
       color: #092c4c;
       border-bottom: 2px solid #0284c7;
-      padding-bottom: 4px;
-      margin-top: 24px;
-      margin-bottom: 12px;
+      padding-bottom: 3px;
+      margin-top: 18px;
+      margin-bottom: 10px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       display: flex;
@@ -107,23 +110,23 @@
       content: "";
       display: inline-block;
       width: 4px;
-      height: 14px;
+      height: 13px;
       background: #0284c7;
       border-radius: 2px;
     }
 
     h3 {
-      font-size: 10.5pt;
+      font-size: 10pt;
       font-weight: 700;
       color: #0f172a;
-      margin-top: 14px;
+      margin-top: 12px;
       margin-bottom: 6px;
     }
 
     p {
-      margin: 8px 0;
+      margin: 6px 0;
       text-align: justify;
-      text-indent: 28px;
+      text-indent: 26px;
     }
 
     .no-indent {
@@ -136,7 +139,7 @@
       flex-direction: column;
       justify-content: space-between;
       height: 297mm;
-      padding: 30mm 25mm 25mm 25mm;
+      padding: 25mm 22mm 22mm 24mm;
       border-top: 10px solid #092c4c;
       border-bottom: 10px solid #0284c7;
       position: relative;
@@ -145,44 +148,44 @@
 
     .cover-tagline {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 9pt;
+      font-size: 8.5pt;
       font-weight: 700;
       letter-spacing: 2px;
       color: #0284c7;
       text-transform: uppercase;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
 
     .cover-title {
-      font-size: 22pt;
+      font-size: 20pt;
       font-weight: 800;
       color: #092c4c;
       line-height: 1.25;
-      margin: 0 0 14px 0;
-      letter-spacing: -0.5px;
+      margin: 0 0 12px 0;
+      letter-spacing: -0.4px;
     }
 
     .cover-subtitle {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 11pt;
+      font-size: 10.5pt;
       font-weight: 500;
       color: #475569;
-      line-height: 1.5;
-      max-width: 90%;
-      margin-bottom: 25px;
+      line-height: 1.45;
+      max-width: 95%;
+      margin-bottom: 20px;
     }
 
     .cover-badge-row {
       display: flex;
-      gap: 10px;
-      margin-bottom: 40px;
+      gap: 8px;
+      margin-bottom: 30px;
     }
 
     .cover-badge {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 8pt;
       font-weight: 600;
-      padding: 5px 12px;
+      padding: 4px 10px;
       border-radius: 20px;
       background: #e0f2fe;
       color: #0369a1;
@@ -192,8 +195,8 @@
     .cover-meta-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      padding: 20px;
+      gap: 16px;
+      padding: 16px;
       background: white;
       border: 1px solid #e2e8f0;
       border-radius: 8px;
@@ -202,33 +205,33 @@
 
     .cover-meta-item label {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8pt;
+      font-size: 7.5pt;
       font-weight: 700;
       text-transform: uppercase;
       color: #64748b;
       letter-spacing: 0.5px;
       display: block;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
     .cover-meta-item p {
       text-indent: 0;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 9.5pt;
+      font-size: 9pt;
       font-weight: 600;
       color: #0f172a;
       margin: 0;
-      line-height: 1.4;
+      line-height: 1.35;
     }
 
     .cover-footer {
       border-top: 1px solid #cbd5e1;
-      padding-top: 15px;
+      padding-top: 12px;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 8.5pt;
+      font-size: 8pt;
       color: #64748b;
     }
 
@@ -238,8 +241,8 @@
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid #e2e8f0;
-      padding-bottom: 6px;
-      margin-bottom: 18px;
+      padding-bottom: 5px;
+      margin-bottom: 14px;
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 7.5pt;
       font-weight: 600;
@@ -249,15 +252,12 @@
     }
 
     .running-footer {
-      position: absolute;
-      bottom: 14mm;
-      left: 25mm;
-      right: 22mm;
+      margin-top: auto;
+      padding-top: 6px;
+      border-top: 1px solid #e2e8f0;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-top: 1px solid #e2e8f0;
-      padding-top: 6px;
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 7.5pt;
       color: #94a3b8;
@@ -267,13 +267,14 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 10px 0 14px 0;
-      font-size: 8.5pt;
+      margin: 8px 0 12px 0;
+      font-size: 8pt;
       font-family: 'Plus Jakarta Sans', sans-serif;
+      line-height: 1.35;
     }
 
     th, td {
-      padding: 6px 8px;
+      padding: 5px 7px;
       border: 1px solid #cbd5e1;
       vertical-align: middle;
     }
@@ -283,7 +284,7 @@
       color: #0f172a;
       font-weight: 700;
       text-align: center;
-      font-size: 8.5pt;
+      font-size: 8pt;
     }
 
     tr:nth-child(even) td {
@@ -304,7 +305,7 @@
       background: #092c4c !important;
       color: white !important;
       font-weight: 800;
-      font-size: 9.5pt;
+      font-size: 9pt;
       border-color: #092c4c;
     }
 
@@ -313,11 +314,11 @@
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-left: 4px solid #0284c7;
-      padding: 10px 14px;
-      margin: 10px 0;
+      padding: 8px 12px;
+      margin: 8px 0;
       border-radius: 0 6px 6px 0;
-      font-size: 9pt;
-      line-height: 1.5;
+      font-size: 8.5pt;
+      line-height: 1.45;
     }
 
     .callout p {
@@ -335,20 +336,20 @@
     .benefit-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin: 12px 0;
+      gap: 10px;
+      margin: 10px 0;
     }
 
     .benefit-card {
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 6px;
-      padding: 10px 12px;
+      padding: 8px 10px;
     }
 
     .benefit-card h4 {
-      margin: 0 0 4px 0;
-      font-size: 9pt;
+      margin: 0 0 3px 0;
+      font-size: 8.5pt;
       color: #0284c7;
       font-weight: 700;
     }
@@ -356,9 +357,9 @@
     .benefit-card p {
       margin: 0;
       text-indent: 0;
-      font-size: 8.5pt;
+      font-size: 8pt;
       color: #334155;
-      line-height: 1.4;
+      line-height: 1.35;
     }
 
     /* ARCHITECTURE DIAGRAM / CODE BLOCK */
@@ -366,10 +367,10 @@
       background: #0f172a;
       color: #38bdf8;
       font-family: 'Fira Code', monospace;
-      font-size: 8pt;
-      padding: 12px;
+      font-size: 7.5pt;
+      padding: 10px;
       border-radius: 6px;
-      margin: 10px 0;
+      margin: 8px 0;
       line-height: 1.35;
       overflow-x: hidden;
       white-space: pre;
@@ -377,19 +378,20 @@
 
     /* LISTS */
     ol, ul {
-      margin: 6px 0 10px 0;
-      padding-left: 20px;
-      font-size: 9pt;
+      margin: 4px 0 8px 0;
+      padding-left: 18px;
+      font-size: 8.5pt;
+      line-height: 1.45;
     }
 
     li {
-      margin-bottom: 4px;
+      margin-bottom: 3px;
       text-align: justify;
     }
 
     /* SIGNATURE BLOCK */
     .sig-wrapper {
-      margin-top: 30px;
+      margin-top: 15px;
       display: flex;
       justify-content: flex-end;
     }
@@ -397,11 +399,12 @@
     .sig-box {
       width: 320px;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 9pt;
+      font-size: 8.5pt;
+      line-height: 1.4;
     }
 
     .sig-space {
-      height: 60px;
+      height: 50px;
     }
 
     .print-button {
@@ -434,7 +437,9 @@
 
   <div class="doc-container">
 
-    <!-- HALAMAN 1: COVER ELEGAN & PROFESIONAL -->
+    <!-- ========================================== -->
+    <!-- HALAMAN 1: COVER ELEGAN & PROFESIONAL      -->
+    <!-- ========================================== -->
     <div class="page cover-page">
       <div>
         <div class="cover-tagline">Dokumen Usulan Teknis & Anggaran Investasi Sistem</div>
@@ -466,7 +471,7 @@
         </div>
         <div class="cover-meta-item">
           <label>Afiliasi Akademisi & Kontak</label>
-          <p>Dosen Prodi Sistem Informasi, Unika Atma Jaya<br>Web: <strong>dennyjcs.com</strong> | Pos-el: <strong>denny.jean@atmajaya.ac.id</strong></p>
+          <p>Dosen Prodi Sistem Informasi, Unika Atma Jaya Jakarta<br>Laman: <strong>dennyjcs.com</strong> | Pos-el: <strong>denny.jean@atmajaya.ac.id</strong></p>
         </div>
         <div class="cover-meta-item">
           <label>Total Anggaran (RAB)</label>
@@ -479,12 +484,14 @@
       </div>
 
       <div class="cover-footer">
-        <div>Kabupaten Biak Numfor &bull; Program Prioritas Otonomi Khusus (Otsus) Pertanian</div>
+        <div>Pemerintah Kabupaten Biak Numfor &bull; Program Prioritas Otonomi Khusus (Otsus) Pertanian</div>
         <div>Tahun Anggaran 2026/2027</div>
       </div>
     </div>
 
-    <!-- HALAMAN 2: RINGKASAN EKSEKUTIF & PENDAHULUAN -->
+    <!-- ========================================== -->
+    <!-- HALAMAN 2: RINGKASAN EKSEKUTIF & BAB I     -->
+    <!-- ========================================== -->
     <div class="page">
       <div class="running-header">
         <span>SIM-KARTANI BIAK NUMFOR &bull; DOKUMEN PROPOSAL TEKNIS</span>
@@ -500,7 +507,7 @@
       </p>
 
       <div class="callout callout-highlight">
-        <p><strong>Nilai Investasi & Durasi:</strong> Total usulan anggaran kegiatan adalah sebesar <strong>Rp 247.450.000,- (Dua Ratus Empat Puluh Tujuh Juta Empat Ratus Lima Puluh Ribu Rupiah)</strong> untuk masa pelaksanaan intensif selama <strong>4 (empat) bulan kalender</strong> hingga serah terima lisensi penuh, pelatihan operator (*TOT*), dan pendampingan implementasi lapangan.</p>
+        <p><strong>Nilai Investasi & Durasi:</strong> Total usulan anggaran kegiatan adalah sebesar <strong>Rp 247.450.000,- (Dua Ratus Empat Puluh Tujuh Juta Empat Ratus Lima Puluh Ribu Rupiah)</strong> untuk masa pelaksanaan intensif selama <strong>4 (empat) bulan kalender</strong> hingga serah terima lisensi penuh, pelatihan operator (<em>Training of Trainers / TOT</em>), dan pendampingan implementasi lapangan.</p>
       </div>
 
       <h2>BAB I: PENDAHULUAN</h2>
@@ -532,15 +539,16 @@
       </div>
     </div>
 
-    <!-- HALAMAN 3: ARSITEKTUR SOLUSI & ALUR DAMRI -->
+    <!-- =================================================== -->
+    <!-- HALAMAN 3: BAB II ARSITEKTUR TEKNOLOGI & BAB III    -->
+    <!-- =================================================== -->
     <div class="page">
       <div class="running-header">
         <span>SIM-KARTANI BIAK NUMFOR &bull; DOKUMEN PROPOSAL TEKNIS</span>
-        <span>BAB II: ARSITEKTUR SOLUSI & TEKNOLOGI</span>
+        <span>BAB II: ARSITEKTUR & BAB III: TIM AHLI</span>
       </div>
 
       <h2>BAB II: RANCANG BANGUN & SPESIFIKASI TEKNOLOGI</h2>
-      
       <p>
         Arsitektur sistem dibangun dengan standar <em>enterprise-grade</em>, mengutamakan performa tinggi, efisiensi bandwidth (mengingat fluktuasi jaringan internet di distrik kepulauan), serta keamanan data mutakhir.
       </p>
@@ -587,14 +595,13 @@
          [ Tersimpan ke Manifes Rute ] ──> [ Dashboard Eksekutif Kadis ]
       </div>
 
-      <h3>Keamanan & Audit Trail Sistem</h3>
       <p>
-        Sistem dilengkapi dengan keamanan berlapis: pengacakan kata sandi menggunakan algoritma <code>scrypt</code> dengan salt 128-bit, sesi berbasis signed HTTP-only cookies, proteksi penuh terhadap SQL Injection (*Prepared Statements*), Cross-Site Scripting (XSS), serta pencatatan otomatis seluruh rekam jejak aktivitas (*audit log*) operator, PPL, dan pengemudi DAMRI.
+        Sistem dilengkapi keamanan berlapis: hashing kata sandi dengan algoritma <code>scrypt</code> salt 128-bit, sesi berbasis <em>signed HTTP-only cookies</em>, proteksi injeksi SQL (<em>Prepared Statements</em>), Cross-Site Scripting (XSS), serta pencatatan jejak audit (<em>audit log</em>) otomatis.
       </p>
 
       <h2>BAB III: SUSUNAN TIM AHLI INTI</h2>
       <p>
-        Pekerjaan ini dilaksanakan oleh Tim Tenaga Ahli Profesional yang memiliki rekam jejak kuat di bidang rekayasa perangkat lunak dan pemahaman mendalam atas proses bisnis pertanian di Kabupaten Biak Numfor:
+        Kegiatan rancang bangun dan implementasi ini dipimpin langsung oleh Ir. Denny Jean Cross Sihombing, S.T., M.T. didukung oleh tim rekayasa perangkat lunak inti yang berpengalaman:
       </p>
       
       <table>
@@ -611,13 +618,13 @@
             <td class="text-center font-bold">1</td>
             <td><strong>Ketua Tim / Lead Software Architect</strong></td>
             <td><strong>Ir. Denny Jean Cross Sihombing, S.T., M.T.</strong></td>
-            <td>Magister Teknik Informatika/Sistem Informasi, Dosen Tetap Prodi SI Unika Atma Jaya Jakarta. Penanggung jawab keseluruhan manajemen proyek, koordinasi kelembagaan dinas, arsitektur enterprise, kendali mutu, dan supervisi metodologi.</td>
+            <td>Magister Teknik Informatika/Sistem Informasi, Dosen Tetap Sistem Informasi Unika Atma Jaya Jakarta. Penanggung jawab keseluruhan manajemen proyek, koordinasi kelembagaan dinas, arsitektur enterprise, kendali mutu, dan supervisi metodologi.</td>
           </tr>
           <tr>
             <td class="text-center font-bold">2</td>
             <td><strong>System Analyst & Business Process Specialist</strong></td>
             <td><strong>Dian Violin Kapisa</strong></td>
-            <td>Sarjana Sistem Informasi, peneliti domain spesifik pertanian Biak Numfor. Bertanggung jawab atas analisis alur dinas-DAMRI, validasi basis data 500+ petani OAP, use case, dan modul pengujian.</td>
+            <td>Sarjana Sistem Informasi, peneliti domain spesifik pertanian Biak Numfor. Bertanggung jawab atas analisis alur dinas-DAMRI, validasi data 500+ petani OAP, use case, dan modul pengujian.</td>
           </tr>
           <tr>
             <td class="text-center font-bold">3</td>
@@ -634,7 +641,9 @@
       </div>
     </div>
 
-    <!-- HALAMAN 4: JADWAL KERJA & RAB DETAIL -->
+    <!-- =================================================== -->
+    <!-- HALAMAN 4: BAB IV JADWAL & BAB V RAB KOMPONEN 1 & 2 -->
+    <!-- =================================================== -->
     <div class="page">
       <div class="running-header">
         <span>SIM-KARTANI BIAK NUMFOR &bull; DOKUMEN PROPOSAL TEKNIS</span>
@@ -643,7 +652,7 @@
 
       <h2>BAB IV: JADWAL PELAKSANAAN PROYEK (4 BULAN KALENDER)</h2>
       <p>
-        Pelaksanaan kegiatan dirancang efektif dan intensif selama <strong>4 (empat) bulan kalender</strong> dengan tahapan jadwal pelaksanaan sebagai berikut:
+        Pelaksanaan kegiatan dirancang efektif dan terstruktur selama <strong>4 (empat) bulan kalender</strong> dengan tahapan jadwal pelaksanaan sebagai berikut:
       </p>
 
       <table>
@@ -714,7 +723,7 @@
           </tr>
           <tr>
             <td class="text-center">9</td>
-            <td>Pelatihan Operator (*Training of Trainers / TOT*), Modul Panduan, & Video Tutorial</td>
+            <td>Pelatihan Operator (<em>Training of Trainers / TOT</em>), Modul Panduan, & Video Tutorial</td>
             <td></td><td></td><td></td>
             <td class="text-center font-bold" style="background:#e0f2fe; color:#0369a1;">&block;&block;&block;</td>
           </tr>
@@ -839,11 +848,13 @@
       </div>
     </div>
 
-    <!-- HALAMAN 5: RAB LANJUTAN, REKAPITULASI & PENGESAHAN -->
+    <!-- =================================================== -->
+    <!-- HALAMAN 5: RAB KOMPONEN 3 & 4, REKAP & PENGESAHAN   -->
+    <!-- =================================================== -->
     <div class="page">
       <div class="running-header">
         <span>SIM-KARTANI BIAK NUMFOR &bull; DOKUMEN PROPOSAL TEKNIS</span>
-        <span>BAB V: REKAPITULASI RAB & PENGESAHAN</span>
+        <span>BAB V: REKAPITULASI RAB & LEMBAR PENGESAHAN</span>
       </div>
 
       <h3>Komponen 3: Operasional Lapangan, Koordinasi, & Perjalanan Dinas ke Biak Numfor</h3>
@@ -929,7 +940,7 @@
           </tr>
           <tr>
             <td class="text-center">4.3</td>
-            <td>Pembuatan Video Panduan Penggunaan (*Video Tutorial Animasi & Live Demo*)</td>
+            <td>Pembuatan Video Panduan Penggunaan (Video Tutorial Animasi & Live Demo)</td>
             <td class="text-center">1</td>
             <td class="text-center">Paket</td>
             <td class="text-right">4.500.000</td>
@@ -986,14 +997,14 @@
             <td class="text-center">8,00%</td>
           </tr>
           <tr class="grandtotal-row">
-            <td colspan="2" class="text-right font-bold" style="padding: 10px;">TOTAL KESELURUHAN ANGGARAN BIAYA (RAB)</td>
-            <td class="text-right font-bold" style="padding: 10px; font-size: 10.5pt;">Rp 247.450.000</td>
-            <td class="text-center font-bold" style="padding: 10px;">100,00%</td>
+            <td colspan="2" class="text-right font-bold" style="padding: 8px;">TOTAL KESELURUHAN ANGGARAN BIAYA (RAB)</td>
+            <td class="text-right font-bold" style="padding: 8px; font-size: 10pt;">Rp 247.450.000</td>
+            <td class="text-center font-bold" style="padding: 8px;">100,00%</td>
           </tr>
         </tbody>
       </table>
 
-      <p class="no-indent" style="font-weight: bold; font-style: italic; color: #092c4c; margin-top: 4px;">
+      <p class="no-indent" style="font-weight: bold; font-style: italic; color: #092c4c; margin-top: 4px; font-size: 8.5pt;">
         Terbilang: Dua Ratus Empat Puluh Tujuh Juta Empat Ratus Lima Puluh Ribu Rupiah.
       </p>
 
