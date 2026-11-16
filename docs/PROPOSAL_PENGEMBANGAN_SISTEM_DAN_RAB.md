@@ -85,15 +85,15 @@ Akan tetapi, dalam pelaksanaannya terdapat tantangan mendasar:
 
 ### 1.3 Rumusan Masalah
 1. Bagaimana merancang dan membangun sistem informasi manajemen basis data petani OAP yang terpadu, mutakhir, dan terlindungi hak aksesnya di lingkungan Dinas Pertanian Kabupaten Biak Numfor?
-2. Bagaimana merancang kartu identitas petani digital dan fisik yang dilengkapi nomor registrasi unik serta QR Code terenkripsi yang mampu divalidasi secara seketika (*realtime*) di lapangan?
-3. Bagaimana mengintegrasikan mekanisme verifikasi kartu tani dengan alur operasional pengangkutan komoditas DAMRI sehingga tercatat data manifes rute, komoditas, dan tonase hasil panen?
+2. Bagaimana merancang kartu identitas petani digital murni berbasis aplikasi yang dilengkapi nomor registrasi unik serta QR Code dinamis terenkripsi yang mampu divalidasi seketika (*realtime*) di lapangan tanpa bergantung pada kartu fisik PVC?
+3. Bagaimana mengintegrasikan mekanisme verifikasi kartu tani digital dengan alur operasional pengangkutan komoditas DAMRI menggunakan kamera smartphone petugas DAMRI sehingga tercatat data manifes rute, komoditas, dan tonase hasil panen secara paperless?
 4. Bagaimana menyajikan dashboard pemantauan eksekutif dan laporan akuntabilitas program bantuan Otsus bagi pimpinan daerah?
 
 ### 1.4 Maksud, Tujuan, dan Sasaran
 * **Maksud**: Terwujudnya kemitraan strategis tridharma perguruan tinggi antara Program Studi Sistem Informasi Unika Atma Jaya Jakarta dengan Dinas Pertanian dan Ketahanan Pangan Kabupaten Biak Numfor dalam mendigitalisasi layanan pertanian dan transportasi logistik pascapanen.
 * **Tujuan**:
   1. Membangun perangkat lunak SIM-KARTANI berbasis web terintegrasi dan responsif mobile.
-  2. Menyediakan instrumen penerbitan Kartu Tani OAP digital serta cetak massal (*batch print*).
+  2. Menyediakan instrumen identitas digital Kartu Tani OAP murni berbasis aplikasi web mobile dengan QR Code unik terenkripsi.
   3. Menyediakan modul pemindai QR Code untuk petugas DAMRI guna validasi cepat hak subsidi angkutan.
   4. Mencatat kronologis penyaluran program bantuan Otsus (bibit, pupuk, alsintan, dan subsidi ongkos angkut).
   5. Menyediakan laporan siap audit (*audit trail & exportable reports*).
@@ -106,7 +106,7 @@ Akan tetapi, dalam pelaksanaannya terdapat tantangan mendasar:
 Ruang lingkup pekerjaan pengembangan perangkat lunak mencakup:
 1. **Modul Manajemen Data Petani & Kelompok Tani**: Registrasi data identitas, NIK, wilayah (10 Distrik, 47+ Kampung), luas lahan, kelompok tani, dan komoditas utama.
 2. **Modul Verifikasi & Penetapan Bertingkat**: Alur kerja verifikasi lapangan oleh Penyuluh Pertanian Lapangan (PPL) dan persetujuan penetapan resmi oleh Kepala Dinas/Kepala Bidang.
-3. **Modul Penerbitan Kartu Tani Digital & QR Code Engine**: Pembuatan QR Code dinamis berbasis token kriptografis beresolusi tinggi beserta fitur cetak lembar fisik massal.
+3. **Modul Penerbitan Kartu Tani Digital & QR Code Engine**: Pembuatan QR Code dinamis berbasis token kriptografis beresolusi tinggi pada aplikasi mobile/web portal petani OAP secara *paperless*.
 4. **Modul Scanner Lapangan & Operasional DAMRI**: Pemindai QR berbasis web kamera ponsel (*HTML5 Camera Scanner*), validasi status kartu, dan pencatatan muatan perjalanan (*trip manifest*).
 5. **Modul Portal Mandiri Petani OAP**: Akses mandiri bagi petani untuk melihat kartu digital, QR Code, riwayat bantuan yang diterima, dan riwayat trip angkutan DAMRI.
 6. **Modul Program Bantuan & Penyaluran Otsus**: Pencatatan anggaran, pagu, jenis bantuan, kuota, dan riwayat serah terima fisik kepada penerima manfaat.
@@ -204,20 +204,17 @@ Proyek direncanakan berlangsung selama **6 (enam) bulan kalender** dengan jadwal
 
 ## BAB V: RENCANA ANGGARAN BIAYA (RAB) LENGKAP
 
-Rencana Anggaran Biaya (RAB) disusun berdasarkan standar biaya masukan pemerintah daerah, prinsip efisiensi, akuntabilitas, dan ketercapaian target luaran yang bernilai guna tinggi bagi Pemerintah Kabupaten Biak Numfor.
+Rencana Anggaran Biaya (RAB) disusun berdasarkan prinsip efisiensi, akuntabilitas, standar biaya masukan yang wajar, serta penyesuaian kebutuhan riil di lapangan. Sesuai dengan spesifikasi modernisasi digital, sistem dirancang murni berbasis aplikasi (*paperless & digital-native*) menggunakan identitas digital dan pemindai QR Code kamera smartphone, sehingga tidak memerlukan biaya pengadaan kartu fisik PVC maupun perangkat keras percetakan tambahan.
 
 ### 5.1 Rincian Biaya per Komponen Kegiatan
 
-#### Komponen 1: Honorarium Tenaga Ahli & Tim Pengembang
+#### Komponen 1: Honorarium Tenaga Ahli Inti
 | No | Uraian Tenaga Ahli | Volume | Satuan | Biaya Satuan (Rp) | Subtotal (Rp) |
 |:--:|---|:---:|:---:|---:|---:|
-| 1.1 | Team Leader / Principal Investigator (Ir. Denny Jean Cross Sihombing, S.T., M.T.) | 6 | Orang/Bulan (OB) | 12.500.000 | 75.000.000 |
-| 1.2 | System Analyst & Business Process Specialist | 6 | Orang/Bulan (OB) | 7.500.000 | 45.000.000 |
-| 1.3 | Senior Backend & Database Engineer | 5 | Orang/Bulan (OB) | 9.000.000 | 45.000.000 |
-| 1.4 | Frontend Developer & UI/UX Specialist | 4 | Orang/Bulan (OB) | 7.000.000 | 28.000.000 |
-| 1.5 | QA Tester & Security Assessment Specialist | 3 | Orang/Bulan (OB) | 6.000.000 | 18.000.000 |
-| 1.6 | Field Implementation & Training Specialist (Biak) | 4 | Orang/Bulan (OB) | 5.500.000 | 22.000.000 |
-| **Subtotal Komponen 1** | | | | | **Rp 233.000.000** |
+| 1.1 | Ketua Tim / Team Leader (Ir. Denny Jean Cross Sihombing, S.T., M.T.) | 6 | Orang/Bulan (OB) | 12.500.000 | 75.000.000 |
+| 1.2 | System Analyst & Business Process Specialist (Dian Violin Kapisa) | 6 | Orang/Bulan (OB) | 7.500.000 | 45.000.000 |
+| 1.3 | Senior Software Engineer & Database Architect | 5 | Orang/Bulan (OB) | 9.000.000 | 45.000.000 |
+| **Subtotal Komponen 1** | | | | | **Rp 165.000.000** |
 
 #### Komponen 2: Infrastruktur Cloud Server, Domain, Database, & Lisensi Pendukung (Tahun Pertama)
 | No | Uraian Infrastruktur & Lisensi | Volume | Satuan | Biaya Satuan (Rp) | Subtotal (Rp) |
@@ -229,32 +226,23 @@ Rencana Anggaran Biaya (RAB) disusun berdasarkan standar biaya masukan pemerinta
 | 2.5 | Layanan Gateway Pengiriman Notifikasi & SMS/WA Verifikasi Petani | 1 | Paket | 4.500.000 | 4.500.000 |
 | **Subtotal Komponen 2** | | | | | **Rp 50.550.000** |
 
-#### Komponen 3: Pengadaan Perangkat Uji Coba, Bahan Cetak Kartu, & Sarana Scanner
-| No | Uraian Perangkat & Perlengkapan | Volume | Satuan | Biaya Satuan (Rp) | Subtotal (Rp) |
-|:--:|---|:---:|:---:|---:|---:|
-| 3.1 | Handheld Tablet / Smartphone Scanner Lapangan untuk Petugas DAMRI (Rugged Device 4G) | 2 | Unit | 3.750.000 | 7.500.000 |
-| 3.2 | Bahan Cetak Kartu Fisik PVC Standar ISO (Blank Card PVC Preprinted Gold Emblem, Barcode, Hologram Pengaman Otsus) untuk 500 Petani | 500 | Keping | 15.000 | 7.500.000 |
-| 3.3 | Ribbon & Perlengkapan Thermal ID Card Printer untuk Percetakan Mandiri di Dinas | 2 | Roll/Set | 1.800.000 | 3.600.000 |
-| 3.4 | Standee Akrilik Barcode Titik Halte / Pos Kumpul DAMRI (10 Distrik Sentra Panen) | 10 | Set | 350.000 | 3.500.000 |
-| **Subtotal Komponen 3** | | | | | **Rp 22.100.000** |
-
-#### Komponen 4: Operasional Lapangan, Koordinasi, & Perjalanan Dinas ke Biak Numfor
+#### Komponen 3: Operasional Lapangan, Koordinasi, & Perjalanan Dinas ke Biak Numfor
 | No | Uraian Perjalanan Dinas & Operasional | Volume | Satuan | Biaya Satuan (Rp) | Subtotal (Rp) |
 |:--:|---|:---:|:---:|---:|---:|
-| 4.1 | Tiket Pesawat PP Jakarta - Biak (Tim Ahli 2 Orang x 2 Kunjungan: Kick-Off & UAT/Training) | 4 | Tiket PP | 6.500.000 | 26.000.000 |
-| 4.2 | Akomodasi & Penginapan di Biak Numfor (2 Orang x 3 Hari x 2 Kunjungan) | 12 | Hari/Orang | 1.000.000 | 12.000.000 |
-| 4.3 | Transportasi Lokal Lapangan (Sewa Kendaraan Roda 4 Survei 10 Distrik Biak Numfor) | 14 | Hari | 750.000 | 10.500.000 |
-| 4.4 | Uang Harian Perjalanan Dinas Tim Ahli sesuai SBM Daerah | 28 | Hari/Orang | 450.000 | 12.600.000 |
-| **Subtotal Komponen 4** | | | | | **Rp 61.100.000** |
+| 3.1 | Tiket Pesawat PP Jakarta - Biak (Tim Ahli 2 Orang x 2 Kunjungan: Kick-Off & UAT/Training) | 4 | Tiket PP | 6.500.000 | 26.000.000 |
+| 3.2 | Akomodasi & Penginapan di Biak Numfor (2 Orang x 3 Hari x 2 Kunjungan) | 12 | Hari/Orang | 1.000.000 | 12.000.000 |
+| 3.3 | Transportasi Lokal Lapangan (Sewa Kendaraan Roda 4 Survei 10 Distrik Biak Numfor) | 14 | Hari | 750.000 | 10.500.000 |
+| 3.4 | Uang Harian Perjalanan Dinas Tim Ahli sesuai SBM Daerah | 28 | Hari/Orang | 450.000 | 12.600.000 |
+| **Subtotal Komponen 3** | | | | | **Rp 61.100.000** |
 
-#### Komponen 5: Pelatihan (*Training of Trainers*), Sosialisasi, Dokumentasi, & Pelaporan
+#### Komponen 4: Pelatihan (*Training of Trainers*), Sosialisasi, Dokumentasi, & Pelaporan
 | No | Uraian Kegiatan Pelatihan & Pelaporan | Volume | Satuan | Biaya Satuan (Rp) | Subtotal (Rp) |
 |:--:|---|:---:|:---:|---:|---:|
-| 5.1 | Konsumsi & Paket Fasilitasi Workshop Pelatihan Operator Dinas & Petugas DAMRI (35 Peserta x 2 Hari) | 70 | Orang/Hari | 125.000 | 8.750.000 |
-| 5.2 | Penggandaan Modul Buku Panduan Administrator, Petugas PPL, dan Supir DAMRI (Cetak Full Color Glossy) | 50 | Buku | 95.000 | 4.750.000 |
-| 5.3 | Pembuatan Video Panduan Penggunaan (*Video Tutorial Animasi & Live Demo*) | 1 | Paket | 4.500.000 | 4.500.000 |
-| 5.4 | Penyusunan Berkas Laporan Akhir Proyek, Arsitektur Sistem, & Berita Acara Serah Terima (Hardcover) | 5 | Eksemplar | 360.000 | 1.800.000 |
-| **Subtotal Komponen 5** | | | | | **Rp 19.800.000** |
+| 4.1 | Konsumsi & Fasilitasi Workshop Pelatihan Operator Dinas & Petugas DAMRI (35 Peserta x 2 Hari) | 70 | Orang/Hari | 125.000 | 8.750.000 |
+| 4.2 | Penggandaan Modul Buku Panduan Administrator, Petugas PPL, dan Petugas DAMRI (Cetak Full Color Glossy) | 50 | Buku | 95.000 | 4.750.000 |
+| 4.3 | Pembuatan Video Panduan Penggunaan (*Video Tutorial Animasi & Live Demo*) | 1 | Paket | 4.500.000 | 4.500.000 |
+| 4.4 | Penyusunan Berkas Laporan Akhir Proyek, Arsitektur Sistem, & Berita Acara Serah Terima (Hardcover) | 5 | Eksemplar | 360.000 | 1.800.000 |
+| **Subtotal Komponen 4** | | | | | **Rp 19.800.000** |
 
 ---
 
@@ -262,17 +250,16 @@ Rencana Anggaran Biaya (RAB) disusun berdasarkan standar biaya masukan pemerinta
 
 | No | Komponen Anggaran | Jumlah Biaya (Rp) | Persentase (%) |
 |:--:|---|---:|:---:|
-| 1 | **Komponen 1: Honorarium Tenaga Ahli & Tim Pengembang Perangkat Lunak** | 233.000.000 | 60,28% |
-| 2 | **Komponen 2: Infrastruktur Cloud Server, Domain, Database, & Lisensi** | 50.550.000 | 13,08% |
-| 3 | **Komponen 3: Pengadaan Perangkat Uji Coba, Bahan Cetak Kartu, & Sarana Scanner** | 22.100.000 | 5,72% |
-| 4 | **Komponen 4: Operasional Lapangan, Koordinasi, & Perjalanan Dinas ke Biak Numfor** | 61.100.000 | 15,81% |
-| 5 | **Komponen 5: Pelatihan (TOT), Sosialisasi, Modul Panduan, & Dokumentasi Akhir** | 19.800.000 | 5,12% |
-| | **TOTAL KESELURUHAN ANGGARAN BIAYA** | **Rp 386.550.000** | **100,00%** |
+| 1 | **Komponen 1: Honorarium Tenaga Ahli Inti** | 165.000.000 | 55,66% |
+| 2 | **Komponen 2: Infrastruktur Cloud Server, Domain, Database, & Lisensi** | 50.550.000 | 17,05% |
+| 3 | **Komponen 3: Operasional Lapangan, Koordinasi, & Perjalanan Dinas ke Biak Numfor** | 61.100.000 | 20,61% |
+| 4 | **Komponen 4: Pelatihan (TOT), Sosialisasi, Modul Panduan, & Dokumentasi Akhir** | 19.800.000 | 6,68% |
+| | **TOTAL KESELURUHAN ANGGARAN BIAYA** | **Rp 296.450.000** | **100,00%** |
 
-*(Terbilang: **Tiga Ratus Delapan Puluh Enam Juta Lima Ratus Lima Puluh Ribu Rupiah**)*
+*(Terbilang: **Dua Ratus Sembilan Puluh Enam Juta Empat Ratus Lima Puluh Ribu Rupiah**)*
 
 > **Catatan Finansial**:
-> 1. Anggaran telah memperhitungkan seluruh biaya alih pengetahuan (*transfer of knowledge*), penyediaan hak pakai kode program tanpa royalti berkala (*royalty-free source code*), serta pendampingan masa garansi (*maintenance support*) selama **6 (enam) bulan pasca serah terima**.
+> 1. Anggaran telah memperhitungkan seluruh biaya alih pengetahuan (*transfer of knowledge*), penyediaan hak pakai kode sumber tanpa royalti berkala (*royalty-free source code*), serta pendampingan masa garansi (*maintenance support*) selama **6 (enam) bulan pasca serah terima**.
 > 2. Besaran anggaran dapat disesuaikan kembali berdasarkan skema kemitraan swakelola tipe II antara Dinas Pertanian dan Ketahanan Pangan Kabupaten Biak Numfor dengan Lembaga Penelitian dan Pengabdian kepada Masyarakat (LPPM) Unika Atma Jaya Jakarta sesuai dengan regulasi pengadaan barang dan jasa pemerintah (LKPP).
 
 ---
