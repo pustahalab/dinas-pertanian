@@ -4,595 +4,1018 @@
   <meta charset="UTF-8">
   <title>Proposal Pengembangan SIM-KARTANI & Rencana Anggaran Biaya (RAB)</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=Fira+Code:wght@400;500&display=swap');
+
     @page {
       size: A4;
-      margin: 20mm 20mm 20mm 25mm;
+      margin: 18mm 18mm 18mm 20mm;
+      @bottom-right {
+        content: counter(page);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 8pt;
+        color: #64748b;
+      }
     }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
     body {
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 11pt;
-      line-height: 1.5;
-      color: #111;
+      font-family: 'Lora', Georgia, serif;
+      font-size: 10pt;
+      line-height: 1.6;
+      color: #1e293b;
       margin: 0;
       padding: 0;
-      background: #f4f6f8;
+      background: #e2e8f0;
     }
-    .sheet {
-      background: white;
+
+    .doc-container {
       width: 210mm;
-      margin: 20px auto;
-      padding: 22mm 22mm 22mm 25mm;
-      box-sizing: border-box;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      margin: 25px auto;
+      background: white;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      position: relative;
     }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      padding: 22mm 22mm 22mm 25mm;
+      position: relative;
+      background: white;
+      page-break-after: always;
+    }
+
+    .page:last-child {
+      page-break-after: avoid;
+    }
+
     @media print {
-      body { background: white; }
-      .sheet {
+      body {
+        background: white;
+      }
+      .doc-container {
+        width: 100%;
         margin: 0;
         box-shadow: none;
-        width: 100%;
-        padding: 0;
       }
-      .no-print { display: none; }
-      .page-break { page-break-before: always; }
+      .page {
+        margin: 0;
+        padding: 0;
+        min-height: auto;
+        page-break-after: always;
+      }
+      .no-print {
+        display: none !important;
+      }
     }
-    h1, h2, h3, h4 {
-      color: #0f2d4a;
-      font-family: 'Times New Roman', Times, serif;
+
+    /* TYPOGRAPHY */
+    h1, h2, h3, h4, .sans-font {
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
+
     h1 {
-      font-size: 16pt;
-      text-align: center;
-      margin-top: 0;
-      margin-bottom: 8px;
+      font-size: 15pt;
+      font-weight: 800;
+      color: #092c4c;
       line-height: 1.3;
-      text-transform: uppercase;
+      margin: 0 0 8px 0;
+      letter-spacing: -0.3px;
     }
+
     h2 {
-      font-size: 13pt;
-      border-bottom: 2px solid #0f2d4a;
+      font-size: 11.5pt;
+      font-weight: 700;
+      color: #092c4c;
+      border-bottom: 2px solid #0284c7;
       padding-bottom: 4px;
-      margin-top: 25px;
+      margin-top: 24px;
       margin-bottom: 12px;
       text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
+
+    h2::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 14px;
+      background: #0284c7;
+      border-radius: 2px;
+    }
+
     h3 {
-      font-size: 11.5pt;
-      margin-top: 18px;
-      margin-bottom: 8px;
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 14px;
+      margin-bottom: 6px;
     }
+
     p {
-      text-align: justify;
       margin: 8px 0;
-      text-indent: 32px;
+      text-align: justify;
+      text-indent: 28px;
     }
+
     .no-indent {
-      text-indent: 0;
+      text-indent: 0 !important;
     }
+
+    /* COVER PAGE STYLING */
+    .cover-page {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 297mm;
+      padding: 30mm 25mm 25mm 25mm;
+      border-top: 10px solid #092c4c;
+      border-bottom: 10px solid #0284c7;
+      position: relative;
+      background: radial-gradient(circle at top right, #f0f9ff 0%, #ffffff 70%);
+    }
+
+    .cover-tagline {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 9pt;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #0284c7;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+    }
+
+    .cover-title {
+      font-size: 22pt;
+      font-weight: 800;
+      color: #092c4c;
+      line-height: 1.25;
+      margin: 0 0 14px 0;
+      letter-spacing: -0.5px;
+    }
+
+    .cover-subtitle {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 11pt;
+      font-weight: 500;
+      color: #475569;
+      line-height: 1.5;
+      max-width: 90%;
+      margin-bottom: 25px;
+    }
+
+    .cover-badge-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+
+    .cover-badge {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 8pt;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 20px;
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+    }
+
+    .cover-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      padding: 20px;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+
+    .cover-meta-item label {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 8pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #64748b;
+      letter-spacing: 0.5px;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .cover-meta-item p {
+      text-indent: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 9.5pt;
+      font-weight: 600;
+      color: #0f172a;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .cover-footer {
+      border-top: 1px solid #cbd5e1;
+      padding-top: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 8.5pt;
+      color: #64748b;
+    }
+
+    /* RUNNING HEADER & FOOTER */
+    .running-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 6px;
+      margin-bottom: 18px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 7.5pt;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .running-footer {
+      position: absolute;
+      bottom: 14mm;
+      left: 25mm;
+      right: 22mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 6px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 7.5pt;
+      color: #94a3b8;
+    }
+
+    /* PROFESSIONAL TABLES */
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 12px 0 18px 0;
-      font-size: 10pt;
+      margin: 10px 0 14px 0;
+      font-size: 8.5pt;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
+
     th, td {
-      border: 1px solid #333;
       padding: 6px 8px;
+      border: 1px solid #cbd5e1;
       vertical-align: middle;
     }
+
     th {
-      background-color: #f1f5f9;
-      color: #0f2d4a;
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
       text-align: center;
-      font-weight: bold;
+      font-size: 8.5pt;
     }
+
+    tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+
     .text-center { text-align: center; }
     .text-right { text-align: right; }
-    .bold { font-weight: bold; }
-    .subtotal-row {
-      background-color: #f8fafc;
-      font-weight: bold;
+    .font-bold { font-weight: 700; }
+
+    .subtotal-row td {
+      background: #e2e8f0 !important;
+      font-weight: 700;
+      color: #0f172a;
     }
-    .grandtotal-row {
-      background-color: #0f2d4a;
-      color: white;
-      font-weight: bold;
-      font-size: 11pt;
-    }
+
     .grandtotal-row td {
-      color: white;
-      border-color: #0f2d4a;
+      background: #092c4c !important;
+      color: white !important;
+      font-weight: 800;
+      font-size: 9.5pt;
+      border-color: #092c4c;
     }
-    .highlight-box {
+
+    /* CALLOUT BOXES */
+    .callout {
       background: #f8fafc;
-      border-left: 4px solid #0f2d4a;
+      border: 1px solid #e2e8f0;
+      border-left: 4px solid #0284c7;
       padding: 10px 14px;
-      margin: 12px 0 12px 32px;
-      font-style: italic;
-      font-weight: bold;
+      margin: 10px 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 9pt;
+      line-height: 1.5;
+    }
+
+    .callout p {
+      text-indent: 0;
+      margin: 0;
+    }
+
+    .callout-highlight {
+      background: #f0fdf4;
+      border-left-color: #16a34a;
+      border-color: #bbf7d0;
+    }
+
+    /* KEY BENEFIT CARDS */
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 12px 0;
+    }
+
+    .benefit-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 10px 12px;
+    }
+
+    .benefit-card h4 {
+      margin: 0 0 4px 0;
+      font-size: 9pt;
+      color: #0284c7;
+      font-weight: 700;
+    }
+
+    .benefit-card p {
+      margin: 0;
+      text-indent: 0;
+      font-size: 8.5pt;
+      color: #334155;
+      line-height: 1.4;
+    }
+
+    /* ARCHITECTURE DIAGRAM / CODE BLOCK */
+    .arch-box {
+      background: #0f172a;
+      color: #38bdf8;
+      font-family: 'Fira Code', monospace;
+      font-size: 8pt;
+      padding: 12px;
+      border-radius: 6px;
+      margin: 10px 0;
+      line-height: 1.35;
+      overflow-x: hidden;
+      white-space: pre;
+    }
+
+    /* LISTS */
+    ol, ul {
+      margin: 6px 0 10px 0;
+      padding-left: 20px;
+      font-size: 9pt;
+    }
+
+    li {
+      margin-bottom: 4px;
       text-align: justify;
     }
-    .signature-container {
-      margin-top: 35px;
+
+    /* SIGNATURE BLOCK */
+    .sig-wrapper {
+      margin-top: 30px;
       display: flex;
       justify-content: flex-end;
     }
-    .signature-box {
-      width: 330px;
-      text-align: left;
+
+    .sig-box {
+      width: 320px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 9pt;
     }
-    .signature-space {
-      height: 65px;
+
+    .sig-space {
+      height: 60px;
     }
-    .print-btn {
+
+    .print-button {
       position: fixed;
       top: 20px;
       right: 25px;
-      background: #0f2d4a;
+      background: #0284c7;
       color: white;
       border: none;
-      padding: 10px 18px;
+      padding: 10px 20px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 10pt;
-      font-weight: bold;
-      border-radius: 6px;
+      font-weight: 700;
+      border-radius: 8px;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
+      transition: all 0.2s ease;
+      z-index: 9999;
     }
-    .print-btn:hover { background: #091a2b; }
-    .header-doc {
-      text-align: center;
-      border-bottom: 2.5px solid #0f2d4a;
-      padding-bottom: 10px;
-      margin-bottom: 22px;
-    }
-    .header-doc h2 {
-      margin: 0;
-      border: none;
-      padding: 0;
-      font-size: 13pt;
-      color: #0f2d4a;
-      letter-spacing: 0.5px;
-    }
-    .header-doc p {
-      margin: 2px 0 0 0;
-      text-indent: 0;
-      font-size: 9pt;
-      color: #444;
-      text-align: center;
+
+    .print-button:hover {
+      background: #0369a1;
+      transform: translateY(-1px);
     }
   </style>
 </head>
 <body>
 
-  <button class="print-btn no-print" onclick="window.print()">🖨️ Cetak Proposal (PDF / Print)</button>
+  <button class="print-button no-print" onclick="window.print()">🖨️ Cetak Proposal (PDF / Print)</button>
 
-  <div class="sheet">
-    <div class="header-doc">
-      <h2>PROPOSAL PENGEMBANGAN DAN IMPLEMENTASI SISTEM INFORMASI</h2>
-      <p><strong>Ir. DENNY JEAN CROSS SIHOMBING, S.T., M.T.</strong></p>
-      <p>Konsultan Rekayasa Perangkat Lunak & Pengembang Sistem Informasi</p>
-      <p><em>(Dosen Program Studi Sistem Informasi, Universitas Katolik Indonesia Atma Jaya Jakarta)</em></p>
-      <p>Laman Web: <strong>dennyjcs.com</strong> &bull; Pos-el: <strong>denny.jean@atmajaya.ac.id</strong> &bull; Jakarta, Indonesia</p>
-    </div>
+  <div class="doc-container">
 
-    <h1>SISTEM INFORMASI MANAJEMEN KARTU TANI ORANG ASLI PAPUA (SIM-KARTANI) TERINTEGRASI QR CODE SCANNER LOGISTIK DAMRI</h1>
-    <p class="no-indent" style="text-align: center; font-weight: bold; margin-bottom: 20px;">
-      Pemerintah Kabupaten Biak Numfor &bull; Dinas Pertanian dan Ketahanan Pangan
-    </p>
+    <!-- HALAMAN 1: COVER ELEGAN & PROFESIONAL -->
+    <div class="page cover-page">
+      <div>
+        <div class="cover-tagline">Dokumen Usulan Teknis & Anggaran Investasi Sistem</div>
+        <h1 class="cover-title">PROPOSAL RANCANG BANGUN & IMPLEMENTASI<br>SIM-KARTANI OAP TERINTEGRASI DAMRI</h1>
+        <p class="cover-subtitle">
+          Sistem Informasi Manajemen Kartu Tani Orang Asli Papua (OAP) Berbasis Web Responsif Terintegrasi Pemindai QR Code Logistik Angkutan Perintis DAMRI
+        </p>
+        
+        <div class="cover-badge-row">
+          <span class="cover-badge">⚡ Paperless & Digital-Native</span>
+          <span class="cover-badge">📱 Mobile Web Camera Scanner</span>
+          <span class="cover-badge">🔒 Encrypted Token QR</span>
+          <span class="cover-badge">⏱️ Durasi 4 Bulan</span>
+        </div>
+      </div>
 
-    <h2>1. IDENTITAS PENGEMBANG SISTEM & DOKUMEN</h2>
-    <table>
-      <tr>
-        <td style="width: 32%;" class="bold">Nama Pengembang / Ketua Tim</td>
-        <td><strong>Ir. Denny Jean Cross Sihombing, S.T., M.T.</strong></td>
-      </tr>
-      <tr>
-        <td class="bold">Kapasitas Pengusul</td>
-        <td>Pengembang Sistem Informasi & Konsultan Rekayasa Perangkat Lunak *(bertindak mandiri atas nama profesional pengembang sistem)*</td>
-      </tr>
-      <tr>
-        <td class="bold">Latar Belakang Akademisi</td>
-        <td>Dosen Program Studi Sistem Informasi, Universitas Katolik Indonesia Atma Jaya Jakarta</td>
-      </tr>
-      <tr>
-        <td class="bold">Laman Web Portofolio</td>
-        <td><strong>dennyjcs.com</strong></td>
-      </tr>
-      <tr>
-        <td class="bold">Pos-el Resmi</td>
-        <td><strong>denny.jean@atmajaya.ac.id</strong></td>
-      </tr>
-      <tr>
-        <td class="bold">Instansi Mitra Sasaran</td>
-        <td>Dinas Pertanian dan Ketahanan Pangan Kabupaten Biak Numfor, Provinsi Papua</td>
-      </tr>
-      <tr>
-        <td class="bold">Pimpinan Instansi Mitra</td>
-        <td><strong>drh. BAMBANG HAYANTO</strong> (Plt. Kepala Dinas)</td>
-      </tr>
-      <tr>
-        <td class="bold">Durasi Pelaksanaan Proyek</td>
-        <td><strong>4 (empat) Bulan Kalender</strong></td>
-      </tr>
-      <tr>
-        <td class="bold">Total Usulan Anggaran (RAB)</td>
-        <td><strong>Rp 247.450.000,- (Dua Ratus Empat Puluh Tujuh Juta Empat Ratus Lima Puluh Ribu Rupiah)</strong></td>
-      </tr>
-    </table>
+      <div class="cover-meta-grid">
+        <div class="cover-meta-item">
+          <label>Instansi Mitra Sasaran</label>
+          <p>Dinas Pertanian dan Ketahanan Pangan<br>Kabupaten Biak Numfor, Provinsi Papua</p>
+        </div>
+        <div class="cover-meta-item">
+          <label>Ditujukan Kepada</label>
+          <p><strong>drh. BAMBANG HAYANTO</strong><br>Plt. Kepala Dinas Pertanian dan Ketahanan Pangan</p>
+        </div>
+        <div class="cover-meta-item">
+          <label>Pengusul & Pengembang Sistem</label>
+          <p><strong>Ir. Denny Jean Cross Sihombing, S.T., M.T.</strong><br>Konsultan TI & Software Architect</p>
+        </div>
+        <div class="cover-meta-item">
+          <label>Afiliasi Akademisi & Kontak</label>
+          <p>Dosen Prodi Sistem Informasi, Unika Atma Jaya<br>Web: <strong>dennyjcs.com</strong> | Pos-el: <strong>denny.jean@atmajaya.ac.id</strong></p>
+        </div>
+        <div class="cover-meta-item">
+          <label>Total Anggaran (RAB)</label>
+          <p style="color: #0284c7; font-size: 11pt; font-weight: 800;">Rp 247.450.000,-</p>
+        </div>
+        <div class="cover-meta-item">
+          <label>Nomor Dokumen & Waktu</label>
+          <p>012/EXT-PROP/DJCS/XI/2026<br>Jakarta, 16 November 2026</p>
+        </div>
+      </div>
 
-    <h2>2. RINGKASAN EKSEKUTIF</h2>
-    <p>
-      Program Otonomi Khusus (Otsus) di Kabupaten Biak Numfor menempatkan sektor pertanian dan ketahanan pangan sebagai prioritas utama dalam menyejahterakan masyarakat Orang Asli Papua (OAP). Selama ini, penyaluran bantuan produksi serta subsidi pengangkutan hasil panen melalui armada bus perintis DAMRI menghadapi tantangan pencatatan manual dan rawan salah sasaran.
-    </p>
-    <p>
-      Proposal ini mengusulkan pembangunan <strong>Sistem Informasi Manajemen Kartu Tani OAP (SIM-KARTANI)</strong> berbasis web responsif modern yang terintegrasi secara cerdas dengan modul kamera ponsel pintar (*HTML5 Camera Scanner*) milik petugas DAMRI. Sesuai prinsip efisiensi dan tata kelola digital murni (*paperless & digital-native*), sistem menerbitkan kartu identitas ber-QR Code dinamis pada smartphone petani tanpa membutuhkan pengadaan kartu fisik PVC maupun printer kartu.
-    </p>
-
-    <h2>3. RUANG LINGKUP MODUL APLIKASI</h2>
-    <ol style="margin-left: 20px; font-size: 10.5pt; line-height: 1.5;">
-      <li><strong>Manajemen Data Petani & Poktan:</strong> Pengelolaan 500+ data petani OAP di 10 Distrik dan 47 Kampung secara relasional dan aman.</li>
-      <li><strong>Verifikasi Berjenjang & Audit Trail:</strong> Validasi data lapangan oleh Petugas PPL hingga penetapan resmi oleh Kepala Dinas/Bidang.</li>
-      <li><strong>Penerbitan Kartu Tani Digital & QR Code:</strong> Pembuatan token kriptografis QR Code unik beresolusi tinggi pada aplikasi mobile/web.</li>
-      <li><strong>Modul Scanner Kamera DAMRI:</strong> Pemindaian cepat QR Code via kamera HP supir/petugas DAMRI untuk validasi subsidi angkut dan pencatatan muatan panen menuju pasar.</li>
-      <li><strong>Portal Mandiri Petani:</strong> Akses kartu digital, status penetapan, riwayat bantuan sarana produksi, dan riwayat perjalanan DAMRI.</li>
-      <li><strong>Program Bantuan Otsus & Dashboard Eksekutif:</strong> Pemantauan kuota bantuan, sebaran panen, dan laporan ber-kop dinas siap cetak.</li>
-    </ol>
-
-    <div class="page-break"></div>
-
-    <h2>4. JADWAL PELAKSANAAN PROYEK (4 BULAN KALENDER)</h2>
-    <table>
-      <thead>
-        <tr>
-          <th style="width: 5%;">No</th>
-          <th style="width: 63%;">Tahapan Kegiatan Pelaksanaan</th>
-          <th style="width: 8%;">Bulan 1</th>
-          <th style="width: 8%;">Bulan 2</th>
-          <th style="width: 8%;">Bulan 3</th>
-          <th style="width: 8%;">Bulan 4</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="text-center">1</td>
-          <td>Kick-off Meeting, Koordinasi Teknis Dinas, Elisitasi Kebutuhan, & Validasi Data 500 Petani</td>
-          <td class="text-center bold" style="background:#e0f2fe; color:#0369a1;">&block; &block; &block;</td>
-          <td></td><td></td><td></td>
-        </tr>
-        <tr>
-          <td class="text-center">2</td>
-          <td>Perancangan Arsitektur Sistem, Basis Data Relasional, & Wireframe UI Responsif</td>
-          <td class="text-center bold" style="background:#e0f2fe; color:#0369a1;">&block; &block; &block;</td>
-          <td></td><td></td><td></td>
-        </tr>
-        <tr>
-          <td class="text-center">3</td>
-          <td>Pembangunan Core System (Modul Petani OAP, Verifikasi Berjenjang, Kartu Digital QR)</td>
-          <td></td>
-          <td class="text-center bold" style="background:#e0f2fe; color:#0369a1;">&block; &block; &block;</td>
-          <td></td><td></td>
-        </tr>
-        <tr>
-          <td class="text-center">4</td>
-          <td>Pembangunan Modul Operasional DAMRI (HTML5 Camera Scanner & Form Manifest Muatan)</td>
-          <td></td>
-          <td class="text-center bold" style="background:#e0f2fe; color:#0369a1;">&block; &block; &block;</td>
-          <td class="text-center bold" style="background:#e0f2fe; color:#0369a1;">&block; &block; &block;</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td class="text-center">5</td>
-          <td>Pembangunan Modul Bantuan Otsus, Dashboard Eksekutif, & Laporan Resmi Kop Dinas</td>
-          <td></td><td></td>
-          <td class="text-center bold" style="background:#e0f2fe; color:#0369a1;">&block; &block; &block;</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td class="text-center">6</td>
-          <td>Pengujian Sistem Internal (Unit Testing, Security Hardening, Session Cryptography)</td>
-          <td></td><td></td>
-          <td class="text-center bold" style="background:#e0f2fe; color:#0369a1;">&block; &block; &block;</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td class="text-center">7</td>
-          <td>Setup Server VPS Cloud, Domain Resmi Daerah, SSL Certificate Wildcard, & DB HA</td>
-          <td></td><td></td>
-          <td class="text-center bold" style="background:#e0f2fe; color:#0369a1;">&block; &block; &block;</td>
-          <td class="text-center bold" style="background:#e0f2fe; color:#0369a1;">&block; &block; &block;</td>
-        </tr>
-        <tr>
-          <td class="text-center">8</td>
-          <td>UAT & Uji Coba Lapangan (Field Trial) Bersama Petugas Lapangan DAMRI di Biak</td>
-          <td></td><td></td><td></td>
-          <td class="text-center bold" style="background:#e0f2fe; color:#0369a1;">&block; &block; &block;</td>
-        </tr>
-        <tr>
-          <td class="text-center">9</td>
-          <td>Pelatihan Operator (Training of Trainers / TOT), Modul Panduan, & Video Tutorial</td>
-          <td></td><td></td><td></td>
-          <td class="text-center bold" style="background:#e0f2fe; color:#0369a1;">&block; &block; &block;</td>
-        </tr>
-        <tr>
-          <td class="text-center">10</td>
-          <td>Penyusunan Laporan Akhir, Berita Acara Serah Terima (BAST), & Pendampingan Go-Live</td>
-          <td></td><td></td><td></td>
-          <td class="text-center bold" style="background:#e0f2fe; color:#0369a1;">&block; &block; &block;</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h2>5. RENCANA ANGGARAN BIAYA (RAB) TERPERINCI</h2>
-
-    <h3>Komponen 1: Honorarium Tenaga Ahli Inti (4 Bulan Pekerjaan)</h3>
-    <table>
-      <thead>
-        <tr>
-          <th style="width: 5%;">No</th>
-          <th style="width: 50%;">Uraian Tenaga Ahli</th>
-          <th style="width: 8%;">Vol</th>
-          <th style="width: 10%;">Satuan</th>
-          <th style="width: 13%;">Biaya Satuan (Rp)</th>
-          <th style="width: 14%;">Subtotal (Rp)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="text-center">1.1</td>
-          <td>Ketua Tim / Lead Software Architect (Ir. Denny Jean Cross Sihombing, S.T., M.T.)</td>
-          <td class="text-center">4</td>
-          <td class="text-center">OB</td>
-          <td class="text-right">12.500.000</td>
-          <td class="text-right">50.000.000</td>
-        </tr>
-        <tr>
-          <td class="text-center">1.2</td>
-          <td>System Analyst & Business Process Specialist (Dian Violin Kapisa)</td>
-          <td class="text-center">4</td>
-          <td class="text-center">OB</td>
-          <td class="text-right">7.500.000</td>
-          <td class="text-right">30.000.000</td>
-        </tr>
-        <tr>
-          <td class="text-center">1.3</td>
-          <td>Senior Software Engineer & Database Architect</td>
-          <td class="text-center">4</td>
-          <td class="text-center">OB</td>
-          <td class="text-right">9.000.000</td>
-          <td class="text-right">36.000.000</td>
-        </tr>
-        <tr class="subtotal-row">
-          <td colspan="5" class="text-right">Subtotal Komponen 1</td>
-          <td class="text-right">Rp 116.000.000</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h3>Komponen 2: Infrastruktur Cloud Server, Domain, Database, & Lisensi Pendukung (Tahun Pertama)</h3>
-    <table>
-      <thead>
-        <tr>
-          <th style="width: 5%;">No</th>
-          <th style="width: 50%;">Uraian Infrastruktur & Lisensi</th>
-          <th style="width: 8%;">Vol</th>
-          <th style="width: 10%;">Satuan</th>
-          <th style="width: 13%;">Biaya Satuan (Rp)</th>
-          <th style="width: 14%;">Subtotal (Rp)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="text-center">2.1</td>
-          <td>Cloud Virtual Private Server (VPS Enterprise, 8 vCPU, 16 GB RAM, NVMe SSD)</td>
-          <td class="text-center">12</td>
-          <td class="text-center">Bulan</td>
-          <td class="text-right">1.850.000</td>
-          <td class="text-right">22.200.000</td>
-        </tr>
-        <tr>
-          <td class="text-center">2.2</td>
-          <td>Managed Relational Database Service (MySQL High Availability Backup)</td>
-          <td class="text-center">12</td>
-          <td class="text-center">Bulan</td>
-          <td class="text-right">1.100.000</td>
-          <td class="text-right">13.200.000</td>
-        </tr>
-        <tr>
-          <td class="text-center">2.3</td>
-          <td>Domain Resmi Daerah (.go.id / biakkab.go.id) & SSL Certificate Wildcard 2 Tahun</td>
-          <td class="text-center">1</td>
-          <td class="text-center">Paket</td>
-          <td class="text-right">2.850.000</td>
-          <td class="text-right">2.850.000</td>
-        </tr>
-        <tr>
-          <td class="text-center">2.4</td>
-          <td>Cloud Object Storage Service (Penyimpanan Foto Petani & Dokumen Verifikasi)</td>
-          <td class="text-center">12</td>
-          <td class="text-center">Bulan</td>
-          <td class="text-right">650.000</td>
-          <td class="text-right">7.800.000</td>
-        </tr>
-        <tr>
-          <td class="text-center">2.5</td>
-          <td>Layanan Gateway Pengiriman Notifikasi & SMS/WA Verifikasi Petani</td>
-          <td class="text-center">1</td>
-          <td class="text-center">Paket</td>
-          <td class="text-right">4.500.000</td>
-          <td class="text-right">4.500.000</td>
-        </tr>
-        <tr class="subtotal-row">
-          <td colspan="5" class="text-right">Subtotal Komponen 2</td>
-          <td class="text-right">Rp 50.550.000</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="page-break"></div>
-
-    <h3>Komponen 3: Operasional Lapangan, Koordinasi, & Perjalanan Dinas ke Biak Numfor</h3>
-    <table>
-      <thead>
-        <tr>
-          <th style="width: 5%;">No</th>
-          <th style="width: 50%;">Uraian Perjalanan Dinas & Operasional</th>
-          <th style="width: 8%;">Vol</th>
-          <th style="width: 10%;">Satuan</th>
-          <th style="width: 13%;">Biaya Satuan (Rp)</th>
-          <th style="width: 14%;">Subtotal (Rp)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="text-center">3.1</td>
-          <td>Tiket Pesawat PP Jakarta - Biak (Tim Ahli 2 Orang x 2 Kunjungan: Kick-Off & UAT)</td>
-          <td class="text-center">4</td>
-          <td class="text-center">Tiket PP</td>
-          <td class="text-right">6.500.000</td>
-          <td class="text-right">26.000.000</td>
-        </tr>
-        <tr>
-          <td class="text-center">3.2</td>
-          <td>Akomodasi & Penginapan di Biak Numfor (2 Orang x 3 Hari x 2 Kunjungan)</td>
-          <td class="text-center">12</td>
-          <td class="text-center">Hari/Orang</td>
-          <td class="text-right">1.000.000</td>
-          <td class="text-right">12.000.000</td>
-        </tr>
-        <tr>
-          <td class="text-center">3.3</td>
-          <td>Transportasi Lokal Lapangan (Sewa Kendaraan Roda 4 Survei Distrik Pertanian)</td>
-          <td class="text-center">14</td>
-          <td class="text-center">Hari</td>
-          <td class="text-right">750.000</td>
-          <td class="text-right">10.500.000</td>
-        </tr>
-        <tr>
-          <td class="text-center">3.4</td>
-          <td>Uang Harian Perjalanan Dinas Tim Ahli sesuai SBM Daerah</td>
-          <td class="text-center">28</td>
-          <td class="text-center">Hari/Orang</td>
-          <td class="text-right">450.000</td>
-          <td class="text-right">12.600.000</td>
-        </tr>
-        <tr class="subtotal-row">
-          <td colspan="5" class="text-right">Subtotal Komponen 3</td>
-          <td class="text-right">Rp 61.100.000</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h3>Komponen 4: Pelatihan (Training of Trainers), Sosialisasi, Dokumentasi, & Pelaporan</h3>
-    <table>
-      <thead>
-        <tr>
-          <th style="width: 5%;">No</th>
-          <th style="width: 50%;">Uraian Kegiatan Pelatihan & Pelaporan</th>
-          <th style="width: 8%;">Vol</th>
-          <th style="width: 10%;">Satuan</th>
-          <th style="width: 13%;">Biaya Satuan (Rp)</th>
-          <th style="width: 14%;">Subtotal (Rp)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="text-center">4.1</td>
-          <td>Konsumsi & Fasilitasi Workshop Pelatihan Operator Dinas & Petugas DAMRI (35 Peserta x 2 Hari)</td>
-          <td class="text-center">70</td>
-          <td class="text-center">Orang/Hari</td>
-          <td class="text-right">125.000</td>
-          <td class="text-right">8.750.000</td>
-        </tr>
-        <tr>
-          <td class="text-center">4.2</td>
-          <td>Penggandaan Modul Buku Panduan Admin, Petugas PPL, dan Petugas DAMRI (Cetak Glossy)</td>
-          <td class="text-center">50</td>
-          <td class="text-center">Buku</td>
-          <td class="text-right">95.000</td>
-          <td class="text-right">4.750.000</td>
-        </tr>
-        <tr>
-          <td class="text-center">4.3</td>
-          <td>Pembuatan Video Panduan Penggunaan (Video Tutorial Animasi & Live Demo)</td>
-          <td class="text-center">1</td>
-          <td class="text-center">Paket</td>
-          <td class="text-right">4.500.000</td>
-          <td class="text-right">4.500.000</td>
-        </tr>
-        <tr>
-          <td class="text-center">4.4</td>
-          <td>Penyusunan Berkas Laporan Akhir Proyek, Arsitektur Sistem, & Berita Acara (Hardcover)</td>
-          <td class="text-center">5</td>
-          <td class="text-center">Eksemplar</td>
-          <td class="text-right">360.000</td>
-          <td class="text-right">1.800.000</td>
-        </tr>
-        <tr class="subtotal-row">
-          <td colspan="5" class="text-right">Subtotal Komponen 4</td>
-          <td class="text-right">Rp 19.800.000</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h2>6. REKAPITULASI RENCANA ANGGARAN BIAYA (RAB) - 4 BULAN</h2>
-    <table>
-      <thead>
-        <tr>
-          <th style="width: 8%;">No</th>
-          <th style="width: 60%;">Komponen Anggaran Biaya</th>
-          <th style="width: 20%;">Jumlah Biaya (Rp)</th>
-          <th style="width: 12%;">Proporsi (%)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="text-center bold">1</td>
-          <td><strong>Komponen 1: Honorarium Tenaga Ahli Inti (4 Bulan)</strong></td>
-          <td class="text-right bold">116.000.000</td>
-          <td class="text-center">46,88%</td>
-        </tr>
-        <tr>
-          <td class="text-center bold">2</td>
-          <td><strong>Komponen 2: Infrastruktur Cloud Server, Domain, Database, & Lisensi</strong></td>
-          <td class="text-right bold">50.550.000</td>
-          <td class="text-center">20,43%</td>
-        </tr>
-        <tr>
-          <td class="text-center bold">3</td>
-          <td><strong>Komponen 3: Operasional Lapangan, Koordinasi, & Perjalanan Dinas ke Biak</strong></td>
-          <td class="text-right bold">61.100.000</td>
-          <td class="text-center">24,69%</td>
-        </tr>
-        <tr>
-          <td class="text-center bold">4</td>
-          <td><strong>Komponen 4: Pelatihan (TOT), Sosialisasi, Modul Panduan, & Dokumentasi Akhir</strong></td>
-          <td class="text-right bold">19.800.000</td>
-          <td class="text-center">8,00%</td>
-        </tr>
-        <tr class="grandtotal-row">
-          <td colspan="2" class="text-right bold" style="padding: 10px;">TOTAL KESELURUHAN ANGGARAN BIAYA (RAB)</td>
-          <td class="text-right bold" style="padding: 10px;">Rp 247.450.000</td>
-          <td class="text-center bold" style="padding: 10px;">100,00%</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <p class="no-indent" style="font-weight: bold; font-style: italic; margin-top: 5px;">
-      Terbilang: Dua Ratus Empat Puluh Tujuh Juta Empat Ratus Lima Puluh Ribu Rupiah.
-    </p>
-
-    <div class="signature-container">
-      <div class="signature-box">
-        Hormat saya,<br>
-        <strong>Pengusul & Pengembang Sistem,</strong>
-        <div class="signature-space"></div>
-        <strong><u>Ir. Denny Jean Cross Sihombing, S.T., M.T.</u></strong><br>
-        Pengembang Sistem Informasi / Arsitek Perangkat Lunak<br>
-        <em>Dosen Program Studi Sistem Informasi, Unika Atma Jaya Jakarta</em><br>
-        Website: <strong>dennyjcs.com</strong><br>
-        Pos-el: <strong>denny.jean@atmajaya.ac.id</strong>
+      <div class="cover-footer">
+        <div>Kabupaten Biak Numfor &bull; Program Prioritas Otonomi Khusus (Otsus) Pertanian</div>
+        <div>Tahun Anggaran 2026/2027</div>
       </div>
     </div>
+
+    <!-- HALAMAN 2: RINGKASAN EKSEKUTIF & PENDAHULUAN -->
+    <div class="page">
+      <div class="running-header">
+        <span>SIM-KARTANI BIAK NUMFOR &bull; DOKUMEN PROPOSAL TEKNIS</span>
+        <span>BAB I: PENDAHULUAN</span>
+      </div>
+
+      <h2>RINGKASAN EKSEKUTIF</h2>
+      <p>
+        Kabupaten Biak Numfor memiliki potensi agraris yang strategis dengan sebaran sentra komoditas pangan lokal (Keladi, Ubi Jalar, Singkong, dan Sayuran) yang dikelola oleh para petani Orang Asli Papua (OAP) di 10 distrik kepulauan. Namun, efektivitas rantai pasok dari kebun ke pasar sentral (Pasar Tani Fandoi, Pasar Darfuar, dan Pasar Bosnik) kerap terkendala tingginya ongkos logistik angkutan dan belum terintegrasinya data penerima manfaat program Otonomi Khusus (Otsus).
+      </p>
+      <p>
+        Proposal ini menawarkan solusi holistik melalui pembangunan <strong>Sistem Informasi Manajemen Kartu Tani OAP (SIM-KARTANI)</strong>. Sistem ini mengintegrasikan basis data relasional 500+ petani OAP, verifikasi kelayakan bertingkat, serta penerbitan kartu identitas digital dengan QR Code kriptografis unik. Keunggulan terobosan dari sistem ini adalah tersedianya <strong>Web-based Camera Scanner</strong> yang dapat dijalankan secara instan oleh supir/petugas armada bus perintis DAMRI melalui smartphone, guna memvalidasi hak subsidi angkutan panen secara <em>realtime</em> dan mencatat manifes muatan rute tanpa bergantung pada kartu fisik PVC maupun pencatatan kertas manual.
+      </p>
+
+      <div class="callout callout-highlight">
+        <p><strong>Nilai Investasi & Durasi:</strong> Total usulan anggaran kegiatan adalah sebesar <strong>Rp 247.450.000,- (Dua Ratus Empat Puluh Tujuh Juta Empat Ratus Lima Puluh Ribu Rupiah)</strong> untuk masa pelaksanaan intensif selama <strong>4 (empat) bulan kalender</strong> hingga serah terima lisensi penuh, pelatihan operator (*TOT*), dan pendampingan implementasi lapangan.</p>
+      </div>
+
+      <h2>BAB I: PENDAHULUAN</h2>
+      <h3>1.1 Latar Belakang</h3>
+      <p>
+        Dinas Pertanian dan Ketahanan Pangan Kabupaten Biak Numfor menjalankan amanat strategis pemberdayaan ekonomi masyarakat berbasis kearifan lokal. Salah satu program unggulan yang berjalan adalah fasilitasi angkutan hasil panen gratis bagi petani OAP menggunakan armada DAMRI. Dalam operasionalnya, ditemukan sejumlah kendala mendasar:
+      </p>
+      <ul>
+        <li><strong>Fragmentasi Data Petani:</strong> Data 500 penerima manfaat masih terpencar dalam format dokumen Word/Excel manual, menyulitkan monitoring riwayat bantuan sarana produksi (bibit, pupuk, alsintan).</li>
+        <li><strong>Resiko Fraud & Salah Sasaran:</strong> Petugas DAMRI di halte pedesaan kesulitan membedakan petani OAP yang berhak atas subsidi tarif dengan penumpang umum karena ketiadaan tanda pengenal digital yang dapat diverifikasi seketika.</li>
+        <li><strong>Ketiadaan Rekam Jejak Logistik Panen:</strong> Dinas tidak memiliki data akurat mengenai volume hasil panen per komoditas yang berhasil diserap dan didistribusikan ke pasar setiap harinya.</li>
+      </ul>
+
+      <h3>1.2 Maksud, Tujuan, dan Sasaran</h3>
+      <p>
+        <strong>Maksud:</strong> Menjalin kerja sama profesional antara Pengembang Sistem Informasi (Ir. Denny Jean Cross Sihombing, S.T., M.T.) dengan Dinas Pertanian Kabupaten Biak Numfor dalam mewujudkan tata kelola pertanian berbasis digital modern.
+      </p>
+      <p class="no-indent"><strong>Tujuan Pokok:</strong></p>
+      <ol>
+        <li>Membangun basis data relasional terpusat bagi 500+ petani OAP di 10 Distrik dan 47 Kampung.</li>
+        <li>Menerbitkan Kartu Tani Digital ber-QR Code dinamis terenkripsi secara <em>paperless</em>.</li>
+        <li>Menyediakan aplikasi pemindai QR Code via browser ponsel untuk verifikasi cepat angkutan DAMRI.</li>
+        <li>Menyediakan dashboard eksekutif dan pelaporan realisasi Otsus yang siap diaudit (<em>audit trail</em>).</li>
+      </ol>
+
+      <div class="running-footer">
+        <span>Ir. Denny Jean Cross Sihombing, S.T., M.T. &bull; dennyjcs.com</span>
+        <span>Halaman 2</span>
+      </div>
+    </div>
+
+    <!-- HALAMAN 3: ARSITEKTUR SOLUSI & ALUR DAMRI -->
+    <div class="page">
+      <div class="running-header">
+        <span>SIM-KARTANI BIAK NUMFOR &bull; DOKUMEN PROPOSAL TEKNIS</span>
+        <span>BAB II: ARSITEKTUR SOLUSI & TEKNOLOGI</span>
+      </div>
+
+      <h2>BAB II: RANCANG BANGUN & SPESIFIKASI TEKNOLOGI</h2>
+      
+      <p>
+        Arsitektur sistem dibangun dengan standar <em>enterprise-grade</em>, mengutamakan performa tinggi, efisiensi bandwidth (mengingat fluktuasi jaringan internet di distrik kepulauan), serta keamanan data mutakhir.
+      </p>
+
+      <div class="benefit-grid">
+        <div class="benefit-card">
+          <h4>Backend Engine & Basis Data</h4>
+          <p>Node.js Enterprise Engine dengan Express.js modular MVC, dipadukan dengan MySQL 8.x relasional 9 tabel berindeks penuh dan transaction locking.</p>
+        </div>
+        <div class="benefit-card">
+          <h4>Frontend & Antarmuka Pengguna</h4>
+          <p>Desain web responsif mobile-first dengan Tailwind CSS, tipografi Plus Jakarta Sans, visualisasi analitik Chart.js, serta layout cetak laporan kop dinas presisi.</p>
+        </div>
+        <div class="benefit-card">
+          <h4>Enkripsi QR Code Kriptografis</h4>
+          <p>Token QR unik terenkripsi dengan HMAC-SHA256 acak, mencegah duplikasi atau pemalsuan identitas kartu oleh pihak yang tidak berhak.</p>
+        </div>
+        <div class="benefit-card">
+          <h4>HTML5 Camera Scanner</h4>
+          <p>Pemindai QR Code langsung melalui kamera browser Google Chrome ponsel pintar petugas DAMRI tanpa perlu mengunduh aplikasi Play Store.</p>
+        </div>
+      </div>
+
+      <h3>Alur Verifikasi Realtime Operasional DAMRI</h3>
+      <div class="arch-box">
+[ Petani OAP ] ──(Bawa Hasil Panen)──> [ Halte / Pos Kumpul DAMRI ]
+                                              │
+                                   (Tunjukkan QR di Layar HP)
+                                              ▼
+[ Petugas DAMRI ] ──(Scan Kamera HP)──> [ Web Scanner SIM-KARTANI ]
+                                              │
+                                    (API Verify Token QR)
+                                              ▼
+                                 [ Server Validasi MySQL ]
+                                              │
+                      ┌───────────────────────┴───────────────────────┐
+                      ▼                                               ▼
+              [ Status: AKTIF ]                              [ Status: DITOLAK ]
+                      │                                               │
+             Layar HIJAU: VALID                             Layar MERAH: TIDAK VALID
+     (Input Muatan Kg & Pasar Tujuan)                        (Subsidi Ditolak)
+                      │
+                      ▼
+         [ Tersimpan ke Manifes Rute ] ──> [ Dashboard Eksekutif Kadis ]
+      </div>
+
+      <h3>Keamanan & Audit Trail Sistem</h3>
+      <p>
+        Sistem dilengkapi dengan keamanan berlapis: pengacakan kata sandi menggunakan algoritma <code>scrypt</code> dengan salt 128-bit, sesi berbasis signed HTTP-only cookies, proteksi penuh terhadap SQL Injection (*Prepared Statements*), Cross-Site Scripting (XSS), serta pencatatan otomatis seluruh rekam jejak aktivitas (*audit log*) operator, PPL, dan pengemudi DAMRI.
+      </p>
+
+      <h2>BAB III: SUSUNAN TIM AHLI INTI</h2>
+      <p>
+        Pekerjaan ini dilaksanakan oleh Tim Tenaga Ahli Profesional yang memiliki rekam jejak kuat di bidang rekayasa perangkat lunak dan pemahaman mendalam atas proses bisnis pertanian di Kabupaten Biak Numfor:
+      </p>
+      
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 5%;">No</th>
+            <th style="width: 25%;">Posisi / Jabatan</th>
+            <th style="width: 25%;">Nama Personel</th>
+            <th style="width: 45%;">Kualifikasi & Peran Pokok</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-center font-bold">1</td>
+            <td><strong>Ketua Tim / Lead Software Architect</strong></td>
+            <td><strong>Ir. Denny Jean Cross Sihombing, S.T., M.T.</strong></td>
+            <td>Magister Teknik Informatika/Sistem Informasi, Dosen Tetap Prodi SI Unika Atma Jaya Jakarta. Penanggung jawab keseluruhan manajemen proyek, koordinasi kelembagaan dinas, arsitektur enterprise, kendali mutu, dan supervisi metodologi.</td>
+          </tr>
+          <tr>
+            <td class="text-center font-bold">2</td>
+            <td><strong>System Analyst & Business Process Specialist</strong></td>
+            <td><strong>Dian Violin Kapisa</strong></td>
+            <td>Sarjana Sistem Informasi, peneliti domain spesifik pertanian Biak Numfor. Bertanggung jawab atas analisis alur dinas-DAMRI, validasi basis data 500+ petani OAP, use case, dan modul pengujian.</td>
+          </tr>
+          <tr>
+            <td class="text-center font-bold">3</td>
+            <td><strong>Senior Software Engineer & Database Architect</strong></td>
+            <td><strong>Tenaga Ahli Rekayasa Perangkat Lunak</strong></td>
+            <td>Praktisi senior pengalaman >7 tahun arsitektur Node.js & MySQL. Bertanggung jawab atas backend engine, integrasi modul scanner kamera, antarmuka web responsif, dan keamanan data.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="running-footer">
+        <span>Ir. Denny Jean Cross Sihombing, S.T., M.T. &bull; dennyjcs.com</span>
+        <span>Halaman 3</span>
+      </div>
+    </div>
+
+    <!-- HALAMAN 4: JADWAL KERJA & RAB DETAIL -->
+    <div class="page">
+      <div class="running-header">
+        <span>SIM-KARTANI BIAK NUMFOR &bull; DOKUMEN PROPOSAL TEKNIS</span>
+        <span>BAB IV: JADWAL & BAB V: RENCANA ANGGARAN BIAYA</span>
+      </div>
+
+      <h2>BAB IV: JADWAL PELAKSANAAN PROYEK (4 BULAN KALENDER)</h2>
+      <p>
+        Pelaksanaan kegiatan dirancang efektif dan intensif selama <strong>4 (empat) bulan kalender</strong> dengan tahapan jadwal pelaksanaan sebagai berikut:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 5%;">No</th>
+            <th style="width: 63%;">Tahapan Kegiatan Pelaksanaan Proyek</th>
+            <th style="width: 8%;">Bulan 1</th>
+            <th style="width: 8%;">Bulan 2</th>
+            <th style="width: 8%;">Bulan 3</th>
+            <th style="width: 8%;">Bulan 4</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-center">1</td>
+            <td>Kick-off Meeting, Koordinasi Dinas, Elisitasi Kebutuhan, & Validasi Data 500 Petani</td>
+            <td class="text-center font-bold" style="background:#e0f2fe; color:#0369a1;">&block;&block;&block;</td>
+            <td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td class="text-center">2</td>
+            <td>Perancangan Arsitektur Sistem, Basis Data Relasional, & Wireframe UI Responsif</td>
+            <td class="text-center font-bold" style="background:#e0f2fe; color:#0369a1;">&block;&block;&block;</td>
+            <td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td class="text-center">3</td>
+            <td>Pembangunan Core System (Modul Petani OAP, Verifikasi Berjenjang, Kartu Digital QR)</td>
+            <td></td>
+            <td class="text-center font-bold" style="background:#e0f2fe; color:#0369a1;">&block;&block;&block;</td>
+            <td></td><td></td>
+          </tr>
+          <tr>
+            <td class="text-center">4</td>
+            <td>Pembangunan Modul Operasional DAMRI (HTML5 Camera Scanner & Form Manifest Muatan)</td>
+            <td></td>
+            <td class="text-center font-bold" style="background:#e0f2fe; color:#0369a1;">&block;&block;&block;</td>
+            <td class="text-center font-bold" style="background:#e0f2fe; color:#0369a1;">&block;&block;&block;</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="text-center">5</td>
+            <td>Pembangunan Modul Bantuan Otsus, Dashboard Eksekutif, & Laporan Resmi Kop Dinas</td>
+            <td></td><td></td>
+            <td class="text-center font-bold" style="background:#e0f2fe; color:#0369a1;">&block;&block;&block;</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="text-center">6</td>
+            <td>Pengujian Sistem Internal (Unit Testing, Security Hardening, Session Cryptography)</td>
+            <td></td><td></td>
+            <td class="text-center font-bold" style="background:#e0f2fe; color:#0369a1;">&block;&block;&block;</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="text-center">7</td>
+            <td>Setup Server Cloud VPS, Domain Resmi Daerah, SSL Certificate Wildcard, & DB HA</td>
+            <td></td><td></td>
+            <td class="text-center font-bold" style="background:#e0f2fe; color:#0369a1;">&block;&block;&block;</td>
+            <td class="text-center font-bold" style="background:#e0f2fe; color:#0369a1;">&block;&block;&block;</td>
+          </tr>
+          <tr>
+            <td class="text-center">8</td>
+            <td>UAT & Uji Coba Lapangan (Field Trial) Bersama Petugas Lapangan DAMRI di Biak</td>
+            <td></td><td></td><td></td>
+            <td class="text-center font-bold" style="background:#e0f2fe; color:#0369a1;">&block;&block;&block;</td>
+          </tr>
+          <tr>
+            <td class="text-center">9</td>
+            <td>Pelatihan Operator (*Training of Trainers / TOT*), Modul Panduan, & Video Tutorial</td>
+            <td></td><td></td><td></td>
+            <td class="text-center font-bold" style="background:#e0f2fe; color:#0369a1;">&block;&block;&block;</td>
+          </tr>
+          <tr>
+            <td class="text-center">10</td>
+            <td>Penyusunan Laporan Akhir, Berita Acara Serah Terima (BAST), & Pendampingan Go-Live</td>
+            <td></td><td></td><td></td>
+            <td class="text-center font-bold" style="background:#e0f2fe; color:#0369a1;">&block;&block;&block;</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>BAB V: RENCANA ANGGARAN BIAYA (RAB) TERPERINCI</h2>
+      
+      <h3>Komponen 1: Honorarium Tenaga Ahli Inti (4 Bulan Pekerjaan)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 5%;">No</th>
+            <th style="width: 53%;">Uraian Tenaga Ahli</th>
+            <th style="width: 7%;">Vol</th>
+            <th style="width: 8%;">Satuan</th>
+            <th style="width: 13%;">Biaya Satuan (Rp)</th>
+            <th style="width: 14%;">Subtotal (Rp)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-center">1.1</td>
+            <td>Ketua Tim / Lead Software Architect (Ir. Denny Jean Cross Sihombing, S.T., M.T.)</td>
+            <td class="text-center">4</td>
+            <td class="text-center">OB</td>
+            <td class="text-right">12.500.000</td>
+            <td class="text-right">50.000.000</td>
+          </tr>
+          <tr>
+            <td class="text-center">1.2</td>
+            <td>System Analyst & Business Process Specialist (Dian Violin Kapisa)</td>
+            <td class="text-center">4</td>
+            <td class="text-center">OB</td>
+            <td class="text-right">7.500.000</td>
+            <td class="text-right">30.000.000</td>
+          </tr>
+          <tr>
+            <td class="text-center">1.3</td>
+            <td>Senior Software Engineer & Database Architect</td>
+            <td class="text-center">4</td>
+            <td class="text-center">OB</td>
+            <td class="text-right">9.000.000</td>
+            <td class="text-right">36.000.000</td>
+          </tr>
+          <tr class="subtotal-row">
+            <td colspan="5" class="text-right font-bold">Subtotal Komponen 1 (Tenaga Ahli)</td>
+            <td class="text-right font-bold">Rp 116.000.000</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Komponen 2: Infrastruktur Cloud Server, Domain, Database, & Lisensi (Tahun Pertama)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 5%;">No</th>
+            <th style="width: 53%;">Uraian Infrastruktur & Lisensi</th>
+            <th style="width: 7%;">Vol</th>
+            <th style="width: 8%;">Satuan</th>
+            <th style="width: 13%;">Biaya Satuan (Rp)</th>
+            <th style="width: 14%;">Subtotal (Rp)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-center">2.1</td>
+            <td>Cloud VPS Enterprise (8 vCPU, 16 GB RAM, NVMe SSD, Unmetered Bandwidth)</td>
+            <td class="text-center">12</td>
+            <td class="text-center">Bulan</td>
+            <td class="text-right">1.850.000</td>
+            <td class="text-right">22.200.000</td>
+          </tr>
+          <tr>
+            <td class="text-center">2.2</td>
+            <td>Managed Relational Database Service (MySQL HA Automated Daily Backup)</td>
+            <td class="text-center">12</td>
+            <td class="text-center">Bulan</td>
+            <td class="text-right">1.100.000</td>
+            <td class="text-right">13.200.000</td>
+          </tr>
+          <tr>
+            <td class="text-center">2.3</td>
+            <td>Domain Resmi Pemda (.go.id / biakkab.go.id) & SSL Certificate Wildcard 2 Tahun</td>
+            <td class="text-center">1</td>
+            <td class="text-center">Paket</td>
+            <td class="text-right">2.850.000</td>
+            <td class="text-right">2.850.000</td>
+          </tr>
+          <tr>
+            <td class="text-center">2.4</td>
+            <td>Cloud Object Storage Service (Penyimpanan Foto Petani & Dokumen Verifikasi)</td>
+            <td class="text-center">12</td>
+            <td class="text-center">Bulan</td>
+            <td class="text-right">650.000</td>
+            <td class="text-right">7.800.000</td>
+          </tr>
+          <tr>
+            <td class="text-center">2.5</td>
+            <td>Layanan Gateway Pengiriman Notifikasi & SMS/WA Verifikasi Petani</td>
+            <td class="text-center">1</td>
+            <td class="text-center">Paket</td>
+            <td class="text-right">4.500.000</td>
+            <td class="text-right">4.500.000</td>
+          </tr>
+          <tr class="subtotal-row">
+            <td colspan="5" class="text-right font-bold">Subtotal Komponen 2 (Infrastruktur & Cloud)</td>
+            <td class="text-right font-bold">Rp 50.550.000</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="running-footer">
+        <span>Ir. Denny Jean Cross Sihombing, S.T., M.T. &bull; dennyjcs.com</span>
+        <span>Halaman 4</span>
+      </div>
+    </div>
+
+    <!-- HALAMAN 5: RAB LANJUTAN, REKAPITULASI & PENGESAHAN -->
+    <div class="page">
+      <div class="running-header">
+        <span>SIM-KARTANI BIAK NUMFOR &bull; DOKUMEN PROPOSAL TEKNIS</span>
+        <span>BAB V: REKAPITULASI RAB & PENGESAHAN</span>
+      </div>
+
+      <h3>Komponen 3: Operasional Lapangan, Koordinasi, & Perjalanan Dinas ke Biak Numfor</h3>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 5%;">No</th>
+            <th style="width: 53%;">Uraian Perjalanan Dinas & Operasional Lapangan</th>
+            <th style="width: 7%;">Vol</th>
+            <th style="width: 8%;">Satuan</th>
+            <th style="width: 13%;">Biaya Satuan (Rp)</th>
+            <th style="width: 14%;">Subtotal (Rp)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-center">3.1</td>
+            <td>Tiket Pesawat PP Jakarta - Biak (Tim Ahli 2 Orang x 2 Kunjungan: Kick-Off & UAT)</td>
+            <td class="text-center">4</td>
+            <td class="text-center">Tiket PP</td>
+            <td class="text-right">6.500.000</td>
+            <td class="text-right">26.000.000</td>
+          </tr>
+          <tr>
+            <td class="text-center">3.2</td>
+            <td>Akomodasi & Penginapan di Biak Numfor (2 Orang x 3 Hari x 2 Kunjungan)</td>
+            <td class="text-center">12</td>
+            <td class="text-center">Hari/Org</td>
+            <td class="text-right">1.000.000</td>
+            <td class="text-right">12.000.000</td>
+          </tr>
+          <tr>
+            <td class="text-center">3.3</td>
+            <td>Transportasi Lokal Lapangan (Sewa Kendaraan Roda 4 Survei 10 Distrik Sentra)</td>
+            <td class="text-center">14</td>
+            <td class="text-center">Hari</td>
+            <td class="text-right">750.000</td>
+            <td class="text-right">10.500.000</td>
+          </tr>
+          <tr>
+            <td class="text-center">3.4</td>
+            <td>Uang Harian Perjalanan Dinas Tim Ahli sesuai Standar Biaya Masukan Daerah</td>
+            <td class="text-center">28</td>
+            <td class="text-center">Hari/Org</td>
+            <td class="text-right">450.000</td>
+            <td class="text-right">12.600.000</td>
+          </tr>
+          <tr class="subtotal-row">
+            <td colspan="5" class="text-right font-bold">Subtotal Komponen 3 (Operasional Biak)</td>
+            <td class="text-right font-bold">Rp 61.100.000</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Komponen 4: Pelatihan (Training of Trainers), Sosialisasi, Dokumentasi, & Pelaporan</h3>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 5%;">No</th>
+            <th style="width: 53%;">Uraian Kegiatan Pelatihan & Pelaporan</th>
+            <th style="width: 7%;">Vol</th>
+            <th style="width: 8%;">Satuan</th>
+            <th style="width: 13%;">Biaya Satuan (Rp)</th>
+            <th style="width: 14%;">Subtotal (Rp)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-center">4.1</td>
+            <td>Konsumsi & Fasilitasi Workshop Pelatihan Operator Dinas & Petugas DAMRI (35 Peserta x 2 Hari)</td>
+            <td class="text-center">70</td>
+            <td class="text-center">Org/Hari</td>
+            <td class="text-right">125.000</td>
+            <td class="text-right">8.750.000</td>
+          </tr>
+          <tr>
+            <td class="text-center">4.2</td>
+            <td>Penggandaan Modul Buku Panduan Admin, Petugas PPL, dan Petugas DAMRI (Cetak Glossy)</td>
+            <td class="text-center">50</td>
+            <td class="text-center">Buku</td>
+            <td class="text-right">95.000</td>
+            <td class="text-right">4.750.000</td>
+          </tr>
+          <tr>
+            <td class="text-center">4.3</td>
+            <td>Pembuatan Video Panduan Penggunaan (*Video Tutorial Animasi & Live Demo*)</td>
+            <td class="text-center">1</td>
+            <td class="text-center">Paket</td>
+            <td class="text-right">4.500.000</td>
+            <td class="text-right">4.500.000</td>
+          </tr>
+          <tr>
+            <td class="text-center">4.4</td>
+            <td>Penyusunan Berkas Laporan Akhir Proyek, Arsitektur Sistem, & Berita Acara (Hardcover)</td>
+            <td class="text-center">5</td>
+            <td class="text-center">Eksemplar</td>
+            <td class="text-right">360.000</td>
+            <td class="text-right">1.800.000</td>
+          </tr>
+          <tr class="subtotal-row">
+            <td colspan="5" class="text-right font-bold">Subtotal Komponen 4 (Pelatihan & Laporan)</td>
+            <td class="text-right font-bold">Rp 19.800.000</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>REKAPITULASI RENCANA ANGGARAN BIAYA (RAB) - 4 BULAN</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 8%;">No</th>
+            <th style="width: 60%;">Komponen Anggaran Biaya</th>
+            <th style="width: 20%;">Jumlah Biaya (Rp)</th>
+            <th style="width: 12%;">Proporsi (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-center font-bold">1</td>
+            <td><strong>Komponen 1: Honorarium Tenaga Ahli Inti (4 Bulan Pekerjaan)</strong></td>
+            <td class="text-right font-bold">116.000.000</td>
+            <td class="text-center">46,88%</td>
+          </tr>
+          <tr>
+            <td class="text-center font-bold">2</td>
+            <td><strong>Komponen 2: Infrastruktur Cloud Server, Domain, Database, & Lisensi (1 Thn)</strong></td>
+            <td class="text-right font-bold">50.550.000</td>
+            <td class="text-center">20,43%</td>
+          </tr>
+          <tr>
+            <td class="text-center font-bold">3</td>
+            <td><strong>Komponen 3: Operasional Lapangan & Perjalanan Dinas ke Biak Numfor (2 Kali)</strong></td>
+            <td class="text-right font-bold">61.100.000</td>
+            <td class="text-center">24,69%</td>
+          </tr>
+          <tr>
+            <td class="text-center font-bold">4</td>
+            <td><strong>Komponen 4: Pelatihan (TOT), Sosialisasi, Modul Panduan, Video, & Laporan</strong></td>
+            <td class="text-right font-bold">19.800.000</td>
+            <td class="text-center">8,00%</td>
+          </tr>
+          <tr class="grandtotal-row">
+            <td colspan="2" class="text-right font-bold" style="padding: 10px;">TOTAL KESELURUHAN ANGGARAN BIAYA (RAB)</td>
+            <td class="text-right font-bold" style="padding: 10px; font-size: 10.5pt;">Rp 247.450.000</td>
+            <td class="text-center font-bold" style="padding: 10px;">100,00%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="no-indent" style="font-weight: bold; font-style: italic; color: #092c4c; margin-top: 4px;">
+        Terbilang: Dua Ratus Empat Puluh Tujuh Juta Empat Ratus Lima Puluh Ribu Rupiah.
+      </p>
+
+      <div class="sig-wrapper">
+        <div class="sig-box">
+          Jakarta, 16 November 2026<br>
+          Hormat saya,<br>
+          <strong>Pengusul & Pengembang Sistem,</strong>
+          <div class="sig-space"></div>
+          <strong><u>Ir. Denny Jean Cross Sihombing, S.T., M.T.</u></strong><br>
+          Pengembang Sistem Informasi / Arsitek Perangkat Lunak<br>
+          <em>Dosen Program Studi Sistem Informasi, Unika Atma Jaya Jakarta</em><br>
+          Website: <strong>dennyjcs.com</strong> &bull; Pos-el: <strong>denny.jean@atmajaya.ac.id</strong>
+        </div>
+      </div>
+
+      <div class="running-footer">
+        <span>Ir. Denny Jean Cross Sihombing, S.T., M.T. &bull; dennyjcs.com</span>
+        <span>Halaman 5</span>
+      </div>
+    </div>
+
   </div>
 
 </body>
