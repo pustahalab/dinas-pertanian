@@ -23,7 +23,7 @@ di -
 * **Jabatan** : Dosen Program Studi Sistem Informasi
 * **Institusi** : Fakultas Biosains, Teknologi, dan Inovasi (FBTI), Universitas Katolik Indonesia Atma Jaya Jakarta
 * **Alamat Institusi** : Jl. Jenderal Sudirman No. 51, Semanggi, Jakarta Selatan 12930
-* **Email / Kontak** : denny.sihombing@atmajaya.ac.id / +62 812-9876-XXXX
+* **Email / Kontak** : denny.jean@atmajaya.ac.id / Website: dennyjcs.com
 * **Bidang Keahlian** : Rekayasa Sistem Informasi, Tata Kelola TI Pemerintah (*E-Government*), Arsitektur Basis Data & Perangkat Lunak Enterprise
 
 ---
