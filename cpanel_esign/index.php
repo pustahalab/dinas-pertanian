@@ -369,7 +369,7 @@ if ($is_searched) {
   <header class="header-bar">
     <div class="header-inner">
       <a href="https://dennyjcs.com" class="brand">
-        <div class="brand-logo">DJ</div>
+        
         <div class="brand-text">
           <h1>Ir. Denny Jean Cross Sihombing, S.T., M.T.</h1>
           <p>Portal Verifikasi Tanda Tangan Elektronik Resmi (E-Sign)</p>
@@ -440,7 +440,7 @@ if ($is_searched) {
 
           <div class="section-title">Profil Penandatangan Resmi</div>
           <div class="signer-profile">
-            <div class="signer-avatar">DJ</div>
+            
             <div class="signer-details">
               <h4><?php echo htmlspecialchars($doc_data['signer_name']); ?></h4>
               <p><?php echo htmlspecialchars($doc_data['signer_role']); ?></p>
