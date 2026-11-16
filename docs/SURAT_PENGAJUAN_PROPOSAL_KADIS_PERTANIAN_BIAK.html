@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Surat Pengajuan Proposal - Kadis Pertanian Biak Numfor</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 20mm 20mm 20mm 25mm;
+    }
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 11pt;
+      line-height: 1.45;
+      color: #111;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+    }
+    .sheet {
+      background: white;
+      width: 210mm;
+      min-height: 297mm;
+      margin: 20px auto;
+      padding: 22mm 22mm 22mm 25mm;
+      box-sizing: border-box;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+      position: relative;
+    }
+    @media print {
+      body { background: white; }
+      .sheet {
+        margin: 0;
+        box-shadow: none;
+        width: 100%;
+        min-height: auto;
+        padding: 0;
+      }
+      .no-print { display: none; }
+    }
+    .kop {
+      border-bottom: 3px double #000;
+      padding-bottom: 10px;
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .kop-logo {
+      width: 75px;
+      height: 75px;
+      object-fit: contain;
+    }
+    .kop-text {
+      flex: 1;
+      text-align: center;
+    }
+    .kop-text h2 {
+      margin: 0;
+      font-size: 13pt;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .kop-text h1 {
+      margin: 2px 0;
+      font-size: 15pt;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #0d3b66;
+    }
+    .kop-text p {
+      margin: 1px 0;
+      font-size: 8.5pt;
+      color: #333;
+    }
+    .meta-table {
+      width: 100%;
+      margin-bottom: 18px;
+      font-size: 11pt;
+    }
+    .meta-table td {
+      vertical-align: top;
+      padding: 1.5px 0;
+    }
+    .recipient {
+      margin: 18px 0 20px 0;
+      font-size: 11pt;
+      line-height: 1.4;
+    }
+    .content p {
+      text-align: justify;
+      text-indent: 35px;
+      margin: 10px 0;
+    }
+    .highlight-box {
+      background: #f8fafc;
+      border-left: 4px solid #0d3b66;
+      padding: 10px 14px;
+      margin: 12px 0 12px 35px;
+      font-style: italic;
+      font-weight: bold;
+      text-align: justify;
+      font-size: 10.5pt;
+    }
+    .bullet-list {
+      margin: 8px 0 12px 35px;
+      padding-left: 18px;
+      text-align: justify;
+    }
+    .bullet-list li {
+      margin-bottom: 6px;
+    }
+    .signatures {
+      margin-top: 35px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .signature-block {
+      width: 320px;
+      text-align: left;
+    }
+    .signature-space {
+      height: 75px;
+    }
+    .tembusan {
+      margin-top: 40px;
+      font-size: 9pt;
+      border-top: 1px solid #ccc;
+      padding-top: 8px;
+      line-height: 1.35;
+    }
+    .print-btn {
+      position: fixed;
+      top: 20px;
+      right: 25px;
+      background: #0d3b66;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      font-size: 10.5pt;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background 0.2s;
+    }
+    .print-btn:hover {
+      background: #092642;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="print-btn no-print" onclick="window.print()">🖨️ Cetak Surat (PDF / Print)</button>
+
+  <div class="sheet">
+    <!-- KOP SURAT RESMI -->
+    <div class="kop">
+      <div style="width: 75px; height: 75px; border: 2px solid #0d3b66; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #0d3b66; font-size: 11pt; border-radius: 4px; text-align: center;">
+        UNIKA<br>ATMA JAYA
+      </div>
+      <div class="kop-text">
+        <h2>PROGRAM STUDI SISTEM INFORMASI &bull; FAKULTAS TEKNIK</h2>
+        <h1>UNIVERSITAS KATOLIK INDONESIA ATMA JAYA</h1>
+        <p>Kampus I Semanggi: Jl. Jenderal Sudirman No. 51, Jakarta Selatan 12930</p>
+        <p>Telepon: (021) 5727615, 5703306 &bull; Pos-el: si@atmajaya.ac.id &bull; Laman: www.atmajaya.ac.id</p>
+      </div>
+    </div>
+
+    <!-- TANGGAL DAN NOMOR SURAT -->
+    <table class="meta-table">
+      <tr>
+        <td style="width: 15%;">Nomor</td>
+        <td style="width: 2%;">:</td>
+        <td style="width: 45%;">084/FT-SI/UAJ/EXT/XI/2026</td>
+        <td style="width: 38%; text-align: right;">Jakarta, 16 November 2026</td>
+      </tr>
+      <tr>
+        <td>Lampiran</td>
+        <td>:</td>
+        <td colspan="2">1 (satu) Berkas Proposal & Rencana Anggaran Biaya (RAB)</td>
+      </tr>
+      <tr>
+        <td>Hal</td>
+        <td>:</td>
+        <td colspan="2"><strong>Permohonan Kerjasama & Pengajuan Proposal Rancang Bangun Sistem Informasi Manajemen Kartu Tani OAP (SIM-KARTANI) Terintegrasi QR Scanner DAMRI</strong></td>
+      </tr>
+    </table>
+
+    <!-- TUJUAN SURAT -->
+    <div class="recipient">
+      Kepada Yth.<br>
+      <strong>drh. BAMBANG HAYANTO</strong><br>
+      Plt. Kepala Dinas Pertanian dan Ketahanan Pangan<br>
+      Kabupaten Biak Numfor<br>
+      Provinsi Papua<br>
+      di -<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<strong>BIAK</strong>
+    </div>
+
+    <!-- ISI SURAT -->
+    <div class="content">
+      <p>
+        Dengan hormat,
+      </p>
+      <p>
+        Semoga Bapak beserta seluruh jajaran di lingkungan Dinas Pertanian dan Ketahanan Pangan Kabupaten Biak Numfor senantiasa dilimpahkan kesehatan, kekuatan, dan kesuksesan dalam memimpin penyelenggaraan pembangunan sektor pertanian demi terwujudnya kesejahteraan masyarakat di Tanah Papua.
+      </p>
+      <p>
+        Dalam rangka mendukung efektivitas pelaksanaan Program Otonomi Khusus (Otsus) Bidang Pertanian dan Ketahanan Pangan serta menjawab kebutuhan tata kelola pendataan petani Orang Asli Papua (OAP) yang akuntabel dan kelancaran distribusi pascapanen melalui moda transportasi angkutan perintis DAMRI, bersama ini kami dari Program Studi Sistem Informasi Universitas Katolik Indonesia Atma Jaya Jakarta mengajukan permohonan kerjasama dan usulan kegiatan:
+      </p>
+
+      <div class="highlight-box">
+        &ldquo;Rancang Bangun dan Implementasi Sistem Informasi Manajemen Kartu Tani Orang Asli Papua (SIM-KARTANI) Berbasis Web Terintegrasi QR Code Scanner Logistik DAMRI di Kabupaten Biak Numfor, Provinsi Papua&rdquo;
+      </div>
+
+      <p>
+        Sistem ini dibangun dengan pendekatan modern, efisien, dan murni digital (<em>paperless & digital-native</em>) guna memberikan solusi atas tantangan verifikasi petani di kepulauan, dengan pokok-pokok keunggulan:
+      </p>
+
+      <ul class="bullet-list">
+        <li><strong>Digitalisasi Basis Data Terpadu:</strong> Manajemen terpusat untuk 500+ petani OAP di 10 Distrik dan 47 Kampung secara akurat, mutakhir, dan terlindungi hak aksesnya.</li>
+        <li><strong>Identitas Digital Ber-QR Code Dinamis:</strong> Penerbitan Kartu Tani Digital yang aman tanpa bergantung pada pengadaan kartu fisik PVC maupun mesin cetak berbiaya tinggi.</li>
+        <li><strong>Validasi Realtime Logistik DAMRI:</strong> Pemanfaatan modul kamera smartphone petugas DAMRI untuk verifikasi hak subsidi angkut dan pencatatan muatan hasil panen menuju pasar sentral secara langsung.</li>
+        <li><strong>Dashboard Eksekutif & Akuntabilitas Otsus:</strong> Visualisasi sebaran panen, kuota bantuan, dan jejak audit (<em>audit trail</em>) yang siap diaudit oleh instansi pengawas.</li>
+      </ul>
+
+      <p>
+        Sebagai bahan telaah dan pertimbangan Bapak, bersama ini kami lampirkan dokumen proposal teknis dan Rencana Anggaran Biaya (RAB) dengan total usulan kegiatan sebesar <strong>Rp 296.450.000,- (Dua Ratus Sembilan Puluh Enam Juta Empat Ratus Lima Puluh Ribu Rupiah)</strong> untuk masa pelaksanaan selama 6 (enam) bulan hingga pendampingan operasional.
+      </p>
+      <p>
+        Besar harapan kami usulan kerjasama kemitraan tridharma perguruan tinggi ini dapat disambut baik dan ditindaklanjuti dalam skema kemitraan formal bersama Pemerintah Kabupaten Biak Numfor. Kami menyatakan kesiapan penuh untuk mempresentasikan sistem serta mendiskusikan mekanisme implementasinya lebih lanjut.
+      </p>
+      <p>
+        Demikian permohonan ini kami sampaikan. Atas perhatian, perkenan, dan kerjasama strategis dari Bapak Plt. Kepala Dinas, kami ucapkan terima kasih yang sebesar-besarnya.
+      </p>
+    </div>
+
+    <!-- TANDA TANGAN -->
+    <div class="signatures">
+      <div class="signature-block">
+        Hormat kami,<br>
+        <strong>Pengusul Kegiatan / Ketua Tim Ahli,</strong>
+        <div class="signature-space">
+          <!-- Ruang tanda tangan dan stempel -->
+        </div>
+        <strong><u>Ir. Denny Jean Cross Sihombing, S.T., M.T.</u></strong><br>
+        Dosen Program Studi Sistem Informasi<br>
+        Fakultas Teknik, Unika Atma Jaya Jakarta<br>
+        NIDN: 0317067201<br>
+        Pos-el: denny.sihombing@atmajaya.ac.id
+      </div>
+    </div>
+
+    <!-- TEMBUSAN -->
+    <div class="tembusan">
+      <strong>Tembusan Yth:</strong><br>
+      1. Pj. Bupati Biak Numfor (sebagai laporan)<br>
+      2. Sekretaris Daerah Kabupaten Biak Numfor<br>
+      3. Dekan Fakultas Teknik, Universitas Katolik Indonesia Atma Jaya Jakarta<br>
+      4. Ketua Lembaga Penelitian dan Pengabdian kepada Masyarakat (LPPM) Unika Atma Jaya Jakarta<br>
+      5. Arsip / Pertinggal
+    </div>
+  </div>
+
+</body>
+</html>
