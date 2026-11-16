@@ -60,7 +60,7 @@ Menjawab Surat Dinas Pertanian dan Ketahanan Pangan Kabupaten Biak Numfor Nomor 
 
 Sistem ini mentransformasikan pendataan 500+ petani OAP menjadi basis data relasional terverifikasi, menerbitkan **Kartu Tani Digital ber-QR Code terenkripsi**, memfasilitasi verifikasi kelayakan berjenjang (*Petugas PPL $\rightarrow$ Penetapan Kepala Dinas*), serta menyediakan **aplikasi pemindai QR Code realtime** untuk armada bus DAMRI Perintis guna memastikan petani OAP memperoleh hak subsidi angkutan panen secara tepat sasaran, akuntabel, dan transparan.
 
-Total usulan anggaran biaya pengembangan, implementasi infrastruktur, pengujian lapangan di Biak Numfor, sosialisasi, pelatihan (*TOT*), hingga serah terima lisensi penuh adalah sebesar **Rp 385.750.000,- (Tiga Ratus Delapan Puluh Lima Juta Tujuh Ratus Lima Puluh Ribu Rupiah)** untuk durasi pekerjaan selama **6 (enam) bulan**.
+Total usulan anggaran biaya pengembangan, implementasi infrastruktur, pengujian lapangan di Biak Numfor, sosialisasi, pelatihan (*TOT*), hingga serah terima lisensi penuh adalah sebesar **Rp 386.550.000,- (Tiga Ratus Delapan Puluh Enam Juta Lima Ratus Lima Puluh Ribu Rupiah)** untuk durasi pekerjaan selama **6 (enam) bulan**.
 
 ---
 
@@ -242,10 +242,10 @@ Rencana Anggaran Biaya (RAB) disusun berdasarkan standar biaya masukan pemerinta
 | No | Uraian Perjalanan Dinas & Operasional | Volume | Satuan | Biaya Satuan (Rp) | Subtotal (Rp) |
 |:--:|---|:---:|:---:|---:|---:|
 | 4.1 | Tiket Pesawat PP Jakarta - Biak (Tim Ahli 2 Orang x 2 Kunjungan: Kick-Off & UAT/Training) | 4 | Tiket PP | 6.500.000 | 26.000.000 |
-| 4.2 | Akomodasi & Penginapan Tim Ahli di Biak Numfor (2 Orang x 7 Hari x 2 Kunjungan) | 28 | Hari/Orang | 650.000 | 18.200.000 |
+| 4.2 | Akomodasi & Penginapan di Biak Numfor (2 Orang x 3 Hari x 2 Kunjungan) | 12 | Hari/Orang | 1.000.000 | 12.000.000 |
 | 4.3 | Transportasi Lokal Lapangan (Sewa Kendaraan Roda 4 Survei 10 Distrik Biak Numfor) | 14 | Hari | 750.000 | 10.500.000 |
 | 4.4 | Uang Harian Perjalanan Dinas Tim Ahli sesuai SBM Daerah | 28 | Hari/Orang | 450.000 | 12.600.000 |
-| **Subtotal Komponen 4** | | | | | **Rp 67.300.000** |
+| **Subtotal Komponen 4** | | | | | **Rp 61.100.000** |
 
 #### Komponen 5: Pelatihan (*Training of Trainers*), Sosialisasi, Dokumentasi, & Pelaporan
 | No | Uraian Kegiatan Pelatihan & Pelaporan | Volume | Satuan | Biaya Satuan (Rp) | Subtotal (Rp) |
@@ -262,14 +262,14 @@ Rencana Anggaran Biaya (RAB) disusun berdasarkan standar biaya masukan pemerinta
 
 | No | Komponen Anggaran | Jumlah Biaya (Rp) | Persentase (%) |
 |:--:|---|---:|:---:|
-| 1 | **Komponen 1: Honorarium Tenaga Ahli & Tim Pengembang Perangkat Lunak** | 233.000.000 | 60,40% |
-| 2 | **Komponen 2: Infrastruktur Cloud Server, Domain, Database, & Lisensi** | 50.550.000 | 13,10% |
-| 3 | **Komponen 3: Pengadaan Perangkat Uji Coba, Bahan Cetak Kartu, & Sarana Scanner** | 22.100.000 | 5,73% |
-| 4 | **Komponen 4: Operasional Lapangan, Koordinasi, & Perjalanan Dinas ke Biak Numfor** | 67.300.000 | 17,45% |
-| 5 | **Komponen 5: Pelatihan (TOT), Sosialisasi, Modul Panduan, & Dokumentasi Akhir** | 19.800.000 | 5,13% |
-| | **TOTAL KESELURUHAN ANGGARAN BIAYA** | **Rp 392.750.000** | **100,00%** |
+| 1 | **Komponen 1: Honorarium Tenaga Ahli & Tim Pengembang Perangkat Lunak** | 233.000.000 | 60,28% |
+| 2 | **Komponen 2: Infrastruktur Cloud Server, Domain, Database, & Lisensi** | 50.550.000 | 13,08% |
+| 3 | **Komponen 3: Pengadaan Perangkat Uji Coba, Bahan Cetak Kartu, & Sarana Scanner** | 22.100.000 | 5,72% |
+| 4 | **Komponen 4: Operasional Lapangan, Koordinasi, & Perjalanan Dinas ke Biak Numfor** | 61.100.000 | 15,81% |
+| 5 | **Komponen 5: Pelatihan (TOT), Sosialisasi, Modul Panduan, & Dokumentasi Akhir** | 19.800.000 | 5,12% |
+| | **TOTAL KESELURUHAN ANGGARAN BIAYA** | **Rp 386.550.000** | **100,00%** |
 
-*(Terbilang: **Tiga Ratus Sembilan Puluh Dua Juta Tujuh Ratus Lima Puluh Ribu Rupiah**)*
+*(Terbilang: **Tiga Ratus Delapan Puluh Enam Juta Lima Ratus Lima Puluh Ribu Rupiah**)*
 
 > **Catatan Finansial**:
 > 1. Anggaran telah memperhitungkan seluruh biaya alih pengetahuan (*transfer of knowledge*), penyediaan hak pakai kode program tanpa royalti berkala (*royalty-free source code*), serta pendampingan masa garansi (*maintenance support*) selama **6 (enam) bulan pasca serah terima**.
