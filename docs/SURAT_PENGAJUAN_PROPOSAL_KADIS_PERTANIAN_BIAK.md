@@ -59,7 +59,7 @@ Pos-el: denny.jean@atmajaya.ac.id
 ---
 
 **Tembusan disampaikan kepada Yth:**  
-1. Pj. Bupati Biak Numfor (sebagai laporan)  
+1. Bupati Biak Numfor (sebagai laporan)  
 2. Sekretaris Daerah Kabupaten Biak Numfor  
 3. Kepala Bidang Prasarana, Sarana, dan Penyuluhan Dinas Pertanian Biak Numfor  
 4. Arsip / Pertinggal  
