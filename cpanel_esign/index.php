@@ -48,8 +48,32 @@ $registered_docs = [
         'hash_signature'  => 'SHA256: 7e2d9b1a5f8c4e0d6b3a2f1c8e9d0a7b5c4f2e1d8a0b9c3e6f5a7d1b8c2e4a6f',
         'status'          => 'VALID',
         'status_desc'     => 'Tanda tangan elektronik SAH, ASLI, dan TERVERIFIKASI secara resmi terdaftar di database dennyjcs.com'
+    ],
+    'PROP-ETIK-KPIN-2026' => [
+        'title'           => 'Proposal Pengembangan Sistem Informasi Uji Etik Penelitian Mandiri (Ethical Clearance System)',
+        'doc_number'      => '004/KPIN-PROP/DJCS/XI/2026',
+        'doc_type'        => 'Dokumen Usulan Lanjutan Proyek IT & Rencana Anggaran Biaya (RAB)',
+        'target_agency'   => 'Konsorsium Psikologi Ilmiah Nusantara (KPIN)',
+        'target_person'   => 'Badan Pengurus Harian (BPH) KPIN',
+        'signer_name'     => 'Ir. Denny Jean Cross Sihombing, S.T., M.T.',
+        'signer_role'     => 'Pengembang Sistem Informasi & Dosen Prodi Sistem Informasi Unika Atma Jaya Jakarta',
+        'signer_email'    => 'denny.jean@atmajaya.ac.id',
+        'issue_date'      => '23 November 2026',
+        'issue_location'  => 'Jakarta, Indonesia',
+        'budget_value'    => 'Rp 60.000.000,- (Enam Puluh Juta Rupiah)',
+        'duration'        => '3 (Tiga) Bulan Kalender / 12 Minggu',
+        'hash_signature'  => 'SHA256: 4b9e2a7f1c8d0e3a5b6c9f2d1e4a7b0c3f5e8a1d4b7c0e3a6f9b2d5e8a1c4f7b',
+        'status'          => 'VALID',
+        'status_desc'     => 'Tanda tangan elektronik SAH, ASLI, dan TERVERIFIKASI secara resmi terdaftar di database dennyjcs.com'
     ]
 ];
+
+// Alias mapping agar pencarian dengan Token ID atau No Dokumen langsung valid
+$registered_docs['DJCS-ESIGN-KPIN-2026']       = &$registered_docs['PROP-ETIK-KPIN-2026'];
+$registered_docs['004/KPIN-PROP/DJCS/XI/2026']  = &$registered_docs['PROP-ETIK-KPIN-2026'];
+$registered_docs['DJCS-ESIGN-BIAK-2026']       = &$registered_docs['PROP-KARTANI-BIAK-2026'];
+$registered_docs['DJCS-ESIGN-PROP-2026']       = &$registered_docs['PROP-KARTANI-BIAK-2026'];
+$registered_docs['012/EXT-PROP/DJCS/XI/2026']  = &$registered_docs['PROP-KARTANI-BIAK-2026'];
 
 // Evaluasi status dokumen
 $is_searched = !empty($doc_param);
@@ -60,13 +84,17 @@ if ($is_searched) {
     // Normalisasi pencarian
     $doc_key = strtoupper($doc_param);
     
-    // Fallback jika scan parameter mengandung substring
-    if (strpos($doc_key, 'KARTANI') !== false || strpos($doc_key, 'BIAK') !== false || strpos($doc_key, '012') !== false) {
-        $doc_key = 'PROP-KARTANI-BIAK-2026';
-    }
-
     if (isset($registered_docs[$doc_key])) {
         $doc_data = $registered_docs[$doc_key];
+        $is_valid = true;
+    } elseif (strpos($doc_key, 'ETIK') !== false || strpos($doc_key, 'KPIN') !== false || strpos($doc_key, '004') !== false) {
+        $doc_data = $registered_docs['PROP-ETIK-KPIN-2026'];
+        $is_valid = true;
+    } elseif (strpos($doc_key, 'SURAT') !== false && (strpos($doc_key, 'KARTANI') !== false || strpos($doc_key, 'BIAK') !== false)) {
+        $doc_data = $registered_docs['SURAT-KARTANI-BIAK-2026'];
+        $is_valid = true;
+    } elseif (strpos($doc_key, 'KARTANI') !== false || strpos($doc_key, 'BIAK') !== false || strpos($doc_key, '012') !== false) {
+        $doc_data = $registered_docs['PROP-KARTANI-BIAK-2026'];
         $is_valid = true;
     }
 }
@@ -482,9 +510,40 @@ if ($is_searched) {
           <p style="font-size: 9.5pt; color: #475569; max-width: 580px; margin: 0 auto 20px auto; line-height: 1.5;">
             Layanan ini diperuntukkan bagi instansi mitra kerja sama, dinas pemerintah, dan pihak terkait untuk memvalidasi keaslian tanda tangan digital pada proposal teknis, surat pengantar, dan dokumen resmi yang diterbitkan oleh <strong>Ir. Denny Jean Cross Sihombing, S.T., M.T.</strong>
           </p>
-          <p style="font-size: 8.5pt; color: #64748b;">
+          <p style="font-size: 8.5pt; color: #64748b; margin-bottom: 24px;">
             Gunakan kamera ponsel Anda untuk memindai QR Code pada dokumen fisik, atau masukkan kode identitas dokumen pada kolom pencarian di atas.
           </p>
+
+          <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e2e8f0; text-align: left;">
+            <p style="font-size: 8.5pt; font-weight: 700; color: #092c4c; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; text-align: center;">Dokumen Resmi Terverifikasi Aktif:</p>
+            <div style="display: flex; flex-direction: column; gap: 10px; max-width: 650px; margin: 0 auto;">
+              
+              <a href="?doc=PROP-ETIK-KPIN-2026" style="display: flex; justify-content: space-between; align-items: center; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px 16px; text-decoration: none; color: #1e293b; transition: all 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <div>
+                  <strong style="color: #991b1b; font-size: 9.2pt; display: block;">Proposal Sistem Informasi Uji Etik Mandiri (KPIN)</strong>
+                  <div style="font-size: 8pt; color: #64748b; margin-top: 2px;">RAB: <strong>Rp 60.000.000,-</strong> &bull; Ditujukan: BPH KPIN &bull; 23 Nov 2026</div>
+                </div>
+                <span style="font-size: 7.5pt; background: #ecfdf5; color: #059669; font-weight: 700; padding: 4px 10px; border-radius: 4px; border: 1px solid #a7f3d0; white-space: nowrap;">TERVERIFIKASI &rarr;</span>
+              </a>
+
+              <a href="?doc=PROP-KARTANI-BIAK-2026" style="display: flex; justify-content: space-between; align-items: center; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px 16px; text-decoration: none; color: #1e293b; transition: all 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <div>
+                  <strong style="color: #0284c7; font-size: 9.2pt; display: block;">Proposal SIM-KARTANI OAP Terintegrasi DAMRI</strong>
+                  <div style="font-size: 8pt; color: #64748b; margin-top: 2px;">RAB: <strong>Rp 247.450.000,-</strong> &bull; Ditujukan: Dinas Pertanian Biak Numfor &bull; 16 Nov 2026</div>
+                </div>
+                <span style="font-size: 7.5pt; background: #ecfdf5; color: #059669; font-weight: 700; padding: 4px 10px; border-radius: 4px; border: 1px solid #a7f3d0; white-space: nowrap;">TERVERIFIKASI &rarr;</span>
+              </a>
+
+              <a href="?doc=SURAT-KARTANI-BIAK-2026" style="display: flex; justify-content: space-between; align-items: center; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px 16px; text-decoration: none; color: #1e293b; transition: all 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <div>
+                  <strong style="color: #0284c7; font-size: 9.2pt; display: block;">Surat Pengantar Proposal SIM-KARTANI Biak Numfor</strong>
+                  <div style="font-size: 8pt; color: #64748b; margin-top: 2px;">No: 012/EXT-PROP/DJCS/XI/2026 &bull; Ditujukan: Plt. Kepala Dinas Pertanian &bull; 16 Nov 2026</div>
+                </div>
+                <span style="font-size: 7.5pt; background: #ecfdf5; color: #059669; font-weight: 700; padding: 4px 10px; border-radius: 4px; border: 1px solid #a7f3d0; white-space: nowrap;">TERVERIFIKASI &rarr;</span>
+              </a>
+
+            </div>
+          </div>
         </div>
       </div>
     <?php endif; ?>
