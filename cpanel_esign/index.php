@@ -510,39 +510,12 @@ if ($is_searched) {
           <p style="font-size: 9.5pt; color: #475569; max-width: 580px; margin: 0 auto 20px auto; line-height: 1.5;">
             Layanan ini diperuntukkan bagi instansi mitra kerja sama, dinas pemerintah, dan pihak terkait untuk memvalidasi keaslian tanda tangan digital pada proposal teknis, surat pengantar, dan dokumen resmi yang diterbitkan oleh <strong>Ir. Denny Jean Cross Sihombing, S.T., M.T.</strong>
           </p>
-          <p style="font-size: 8.5pt; color: #64748b; margin-bottom: 24px;">
-            Gunakan kamera ponsel Anda untuk memindai QR Code pada dokumen fisik, atau masukkan kode identitas dokumen pada kolom pencarian di atas.
-          </p>
-
-          <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e2e8f0; text-align: left;">
-            <p style="font-size: 8.5pt; font-weight: 700; color: #092c4c; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; text-align: center;">Dokumen Resmi Terverifikasi Aktif:</p>
-            <div style="display: flex; flex-direction: column; gap: 10px; max-width: 650px; margin: 0 auto;">
-              
-              <a href="?doc=PROP-ETIK-KPIN-2026" style="display: flex; justify-content: space-between; align-items: center; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px 16px; text-decoration: none; color: #1e293b; transition: all 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-                <div>
-                  <strong style="color: #991b1b; font-size: 9.2pt; display: block;">Proposal Sistem Informasi Uji Etik Mandiri (KPIN)</strong>
-                  <div style="font-size: 8pt; color: #64748b; margin-top: 2px;">RAB: <strong>Rp 60.000.000,-</strong> &bull; Ditujukan: BPH KPIN &bull; 23 Nov 2026</div>
-                </div>
-                <span style="font-size: 7.5pt; background: #ecfdf5; color: #059669; font-weight: 700; padding: 4px 10px; border-radius: 4px; border: 1px solid #a7f3d0; white-space: nowrap;">TERVERIFIKASI &rarr;</span>
-              </a>
-
-              <a href="?doc=PROP-KARTANI-BIAK-2026" style="display: flex; justify-content: space-between; align-items: center; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px 16px; text-decoration: none; color: #1e293b; transition: all 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-                <div>
-                  <strong style="color: #0284c7; font-size: 9.2pt; display: block;">Proposal SIM-KARTANI OAP Terintegrasi DAMRI</strong>
-                  <div style="font-size: 8pt; color: #64748b; margin-top: 2px;">RAB: <strong>Rp 247.450.000,-</strong> &bull; Ditujukan: Dinas Pertanian Biak Numfor &bull; 16 Nov 2026</div>
-                </div>
-                <span style="font-size: 7.5pt; background: #ecfdf5; color: #059669; font-weight: 700; padding: 4px 10px; border-radius: 4px; border: 1px solid #a7f3d0; white-space: nowrap;">TERVERIFIKASI &rarr;</span>
-              </a>
-
-              <a href="?doc=SURAT-KARTANI-BIAK-2026" style="display: flex; justify-content: space-between; align-items: center; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px 16px; text-decoration: none; color: #1e293b; transition: all 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-                <div>
-                  <strong style="color: #0284c7; font-size: 9.2pt; display: block;">Surat Pengantar Proposal SIM-KARTANI Biak Numfor</strong>
-                  <div style="font-size: 8pt; color: #64748b; margin-top: 2px;">No: 012/EXT-PROP/DJCS/XI/2026 &bull; Ditujukan: Plt. Kepala Dinas Pertanian &bull; 16 Nov 2026</div>
-                </div>
-                <span style="font-size: 7.5pt; background: #ecfdf5; color: #059669; font-weight: 700; padding: 4px 10px; border-radius: 4px; border: 1px solid #a7f3d0; white-space: nowrap;">TERVERIFIKASI &rarr;</span>
-              </a>
-
-            </div>
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px 24px; max-width: 580px; margin: 0 auto; text-align: left;">
+            <p style="font-size: 8.8pt; font-weight: 700; color: #092c4c; margin-bottom: 6px;">Cara Memeriksa Keabsahan Dokumen:</p>
+            <ol style="font-size: 8.5pt; color: #64748b; line-height: 1.6; padding-left: 20px;">
+              <li><strong>Pindai QR Code</strong> pada lembar tanda tangan dokumen resmi menggunakan kamera smartphone Anda.</li>
+              <li>Atau <strong>masukkan ID Dokumen / Token E-Sign</strong> pada kolom pencarian di atas, lalu tekan tombol <em>Cek Keabsahan</em>.</li>
+            </ol>
           </div>
         </div>
       </div>
