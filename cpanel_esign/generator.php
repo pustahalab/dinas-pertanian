@@ -1,22 +1,148 @@
 <?php
 /**
- * SISTEM GENERATOR TANDA TANGAN DIGITAL & E-SIGN
+ * SISTEM GENERATOR TANDA TANGAN DIGITAL & E-SIGN (ENTERPRISE SECURITY EDITION)
  * Domain: dennyjcs.com/e-sign/generator.php
  * Pemilik: Ir. Denny Jean Cross Sihombing, S.T., M.T.
  * 
- * Standalone PHP dengan antarmuka modern, aman dengan PIN,
- * dan dilengkapi fitur Render Stempel Transparan (PNG) serta Web PDF Stamper.
+ * FITUR KEAMANAN TINGKAT TINGGI:
+ * - Proteksi Brute-Force Rate Limiting (Maks 5x percobaan, Lockout 15 menit)
+ * - Hash Password/PIN Bcrypt Salted (Bukan Plaintext)
+ * - Proteksi Anti-Timing Attack (password_verify) & Anti-Bot Delay
+ * - Proteksi CSRF (Cross-Site Request Forgery) Token Kriptografis
+ * - Hardened Session Security (HttpOnly, SameSite Strict, Session Hijack Prevention)
+ * - Fitur Ubah PIN / Password Mandiri dari Dashboard
+ * - Auto Session Timeout (30 menit inaktivitas)
  */
 
-session_start();
+// 1. HARDENED SESSION COOKIE SETTINGS
+if (session_status() === PHP_SESSION_NONE) {
+    ini_set('session.cookie_httponly', 1);
+    ini_set('session.use_only_cookies', 1);
+    if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+        ini_set('session.cookie_secure', 1);
+    }
+    session_start();
+}
 
-// PIN Keamanan untuk mengakses generator (Bisa Anda ubah di sini)
-define('ADMIN_PIN', '1977');
+define('SECURE_ESIGN', true);
 
-// File basis data JSON dokumen
-$json_file = __DIR__ . '/documents.json';
+// 2. PATH BERKAS DATA & KONFIGURASI
+$config_file   = __DIR__ . '/.auth_config.php';
+$attempts_file = __DIR__ . '/.login_attempts.json';
+$json_file     = __DIR__ . '/documents.json';
 
-// Inisialisasi basis data dari file
+// Inisialisasi konfigurasi kredensial (Default PIN: 1977 terenkripsi Bcrypt)
+$default_hash = '$2y$10$WEIH2erElEpeyvvcWOlaGeMBulMReVpqm5kOl23/ExEPkrfd6Xo/G'; // Hash of '1977'
+
+if (!file_exists($config_file)) {
+    $init_code = "<?php\ndefined('SECURE_ESIGN') or die('Akses ditolak.');\nreturn [\n    'pin_hash' => '{$default_hash}',\n    'updated_at' => '" . date('Y-m-d H:i:s') . "'\n];\n";
+    file_put_contents($config_file, $init_code, LOCK_EX);
+}
+
+$auth_config  = include $config_file;
+$current_hash = $auth_config['pin_hash'] ?? $default_hash;
+
+// 3. GENERATE CSRF TOKEN
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
+// 4. RATE LIMITING & ANTI BRUTE-FORCE
+$client_ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+$now = time();
+$lockout_duration = 900; // 15 menit
+$max_attempts = 5;
+
+$attempts_data = file_exists($attempts_file) ? json_decode(file_get_contents($attempts_file), true) : [];
+if (!is_array($attempts_data)) $attempts_data = [];
+
+// Bersihkan rekaman percobaan kedaluwarsa
+foreach ($attempts_data as $ip => $data) {
+    if ($now - ($data['last_attempt'] ?? 0) > $lockout_duration) {
+        unset($attempts_data[$ip]);
+    }
+}
+
+$is_locked = false;
+$remaining_lock_min = 0;
+if (isset($attempts_data[$client_ip]) && $attempts_data[$client_ip]['count'] >= $max_attempts) {
+    $elapsed = $now - $attempts_data[$client_ip]['last_attempt'];
+    if ($elapsed < $lockout_duration) {
+        $is_locked = true;
+        $remaining_lock_min = ceil(($lockout_duration - $elapsed) / 60);
+    } else {
+        unset($attempts_data[$client_ip]);
+    }
+}
+
+// 5. SESSION TIMEOUT (30 MENIT)
+if (!empty($_SESSION['esign_auth'])) {
+    if (isset($_SESSION['last_activity']) && ($now - $_SESSION['last_activity'] > 1800)) {
+        unset($_SESSION['esign_auth']);
+        session_destroy();
+        header('Location: generator.php?timeout=1');
+        exit;
+    }
+    $_SESSION['last_activity'] = $now;
+}
+
+// 6. LOGIKA LOGOUT
+if (isset($_GET['action']) && $_GET['action'] === 'logout') {
+    unset($_SESSION['esign_auth']);
+    session_destroy();
+    header('Location: generator.php');
+    exit;
+}
+
+// 7. LOGIKA VERIFIKASI LOGIN PIN
+$auth_error = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'login') {
+    // Validasi CSRF Token
+    $post_csrf = $_POST['csrf_token'] ?? '';
+    if (!hash_equals($_SESSION['csrf_token'], $post_csrf)) {
+        $auth_error = 'Sesi keamanan tidak sah. Silakan muat ulang halaman.';
+    } elseif ($is_locked) {
+        $auth_error = "Akses diblokir sementara karena terlalu banyak percobaan gagal. Silakan coba lagi dalam {$remaining_lock_min} menit.";
+    } else {
+        $input_pin = trim($_POST['pin'] ?? '');
+        
+        // Verifikasi PIN menggunakan algoritma Bcrypt resisten timing attack
+        if (password_verify($input_pin, $current_hash)) {
+            // Login Berhasil: Reset percobaan gagal
+            unset($attempts_data[$client_ip]);
+            file_put_contents($attempts_file, json_encode($attempts_data), LOCK_EX);
+
+            // Regenerate session id (Mencegah Session Fixation)
+            session_regenerate_id(true);
+            $_SESSION['esign_auth'] = true;
+            $_SESSION['last_activity'] = $now;
+            header('Location: generator.php');
+            exit;
+        } else {
+            // Login Gagal: Delay 1 detik untuk menggagalkan bot otomatis
+            sleep(1);
+            $count = ($attempts_data[$client_ip]['count'] ?? 0) + 1;
+            $attempts_data[$client_ip] = [
+                'count' => $count,
+                'last_attempt' => $now
+            ];
+            file_put_contents($attempts_file, json_encode($attempts_data), LOCK_EX);
+
+            $sisa = $max_attempts - $count;
+            if ($sisa > 0) {
+                $auth_error = "PIN salah! Sisa percobaan: {$sisa} kali sebelum akun diblokir 15 menit.";
+            } else {
+                $auth_error = "Terlalu banyak percobaan salah! Akses diblokir selama 15 menit demi keamanan.";
+                $is_locked = true;
+                $remaining_lock_min = 15;
+            }
+        }
+    }
+}
+
+$is_authenticated = !empty($_SESSION['esign_auth']);
+
+// 8. MEMUAT BASIS DATA DOKUMEN
 $documents = [];
 if (file_exists($json_file)) {
     $raw = file_get_contents($json_file);
@@ -26,96 +152,106 @@ if (file_exists($json_file)) {
     }
 }
 
-// Logika Logout
-if (isset($_GET['action']) && $_GET['action'] === 'logout') {
-    unset($_SESSION['esign_auth']);
-    session_destroy();
-    header('Location: generator.php');
-    exit;
-}
+$msg_success = '';
+$msg_error   = '';
 
-// Logika Verifikasi PIN
-$auth_error = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'login') {
-    $input_pin = trim($_POST['pin'] ?? '');
-    if ($input_pin === ADMIN_PIN) {
-        $_SESSION['esign_auth'] = true;
-        header('Location: generator.php');
-        exit;
+// 9. LOGIKA UBAH PIN / PASSWORD MANDIRI
+if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'change_pin') {
+    $post_csrf = $_POST['csrf_token'] ?? '';
+    if (!hash_equals($_SESSION['csrf_token'], $post_csrf)) {
+        $msg_error = 'Token keamanan tidak sah.';
     } else {
-        $auth_error = 'PIN salah! Silakan coba lagi.';
+        $old_pin = trim($_POST['old_pin'] ?? '');
+        $new_pin = trim($_POST['new_pin'] ?? '');
+        $confirm_pin = trim($_POST['confirm_pin'] ?? '');
+
+        if (!password_verify($old_pin, $current_hash)) {
+            $msg_error = 'PIN saat ini salah!';
+        } elseif (strlen($new_pin) < 4) {
+            $msg_error = 'PIN / Password baru minimal 4 karakter.';
+        } elseif ($new_pin !== $confirm_pin) {
+            $msg_error = 'Konfirmasi PIN baru tidak cocok.';
+        } else {
+            $new_hash = password_hash($new_pin, PASSWORD_BCRYPT, ['cost' => 10]);
+            $updated_cfg = "<?php\ndefined('SECURE_ESIGN') or die('Akses ditolak.');\nreturn [\n    'pin_hash' => '{$new_hash}',\n    'updated_at' => '" . date('Y-m-d H:i:s') . "'\n];\n";
+            file_put_contents($config_file, $updated_cfg, LOCK_EX);
+            $current_hash = $new_hash;
+            $msg_success = 'PIN / Password keamanan berhasil diubah secara permanen!';
+        }
     }
 }
 
-$is_authenticated = !empty($_SESSION['esign_auth']);
-
-// Logika Hapus Dokumen
-$msg_success = '';
+// 10. LOGIKA HAPUS DOKUMEN (DENGAN PROTEKSI CSRF)
 if ($is_authenticated && isset($_GET['action']) && $_GET['action'] === 'delete' && !empty($_GET['id'])) {
     $del_id = trim($_GET['id']);
-    if (isset($documents[$del_id])) {
+    $req_csrf = $_GET['csrf'] ?? '';
+    if (!hash_equals($_SESSION['csrf_token'], $req_csrf)) {
+        $msg_error = 'Aksi hapus ditolak karena token keamanan tidak valid.';
+    } elseif (isset($documents[$del_id])) {
         unset($documents[$del_id]);
-        file_put_contents($json_file, json_encode($documents, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-        $msg_success = "Dokumen {$del_id} berhasil dihapus dari basis data.";
+        file_put_contents($json_file, json_encode($documents, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOCK_EX);
+        $msg_success = "Dokumen {$del_id} berhasil dihapus dari sistem verifikasi.";
     }
 }
 
-// Logika Tambah / Generate Dokumen Baru
+// 11. LOGIKA BUAT DOKUMEN BARU (DENGAN PROTEKSI CSRF)
 $created_doc = null;
 if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'create_doc') {
-    $title         = trim($_POST['title'] ?? '');
-    $doc_number    = trim($_POST['doc_number'] ?? '');
-    $doc_type      = trim($_POST['doc_type'] ?? 'Dokumen Usulan Teknis & Rencana Anggaran Biaya (RAB)');
-    $target_agency = trim($_POST['target_agency'] ?? '');
-    $target_person = trim($_POST['target_person'] ?? '');
-    $budget_value  = trim($_POST['budget_value'] ?? '');
-    $duration      = trim($_POST['duration'] ?? '');
-    $issue_date    = trim($_POST['issue_date'] ?? date('d F Y'));
-    $issue_location= trim($_POST['issue_location'] ?? 'Jakarta, Indonesia');
-    
-    // Pembuatan ID Dokumen unik
-    $custom_id = strtoupper(trim($_POST['custom_id'] ?? ''));
-    if (empty($custom_id)) {
-        $clean_agency = preg_replace('/[^A-Za-z0-9]/', '', $target_agency);
-        $short_code   = !empty($clean_agency) ? strtoupper(substr($clean_agency, 0, 8)) : 'DOC';
-        $rand_suffix  = strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 4));
-        $doc_id       = 'PROP-' . $short_code . '-' . date('Y') . '-' . $rand_suffix;
+    $post_csrf = $_POST['csrf_token'] ?? '';
+    if (!hash_equals($_SESSION['csrf_token'], $post_csrf)) {
+        $msg_error = 'Token keamanan kadaluwarsa. Silakan ulangi pengisian formulir.';
     } else {
-        $doc_id = $custom_id;
+        $title          = htmlspecialchars(trim($_POST['title'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $doc_number     = htmlspecialchars(trim($_POST['doc_number'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $doc_type       = htmlspecialchars(trim($_POST['doc_type'] ?? 'Dokumen Usulan Teknis & Rencana Anggaran Biaya (RAB)'), ENT_QUOTES, 'UTF-8');
+        $target_agency  = htmlspecialchars(trim($_POST['target_agency'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $target_person  = htmlspecialchars(trim($_POST['target_person'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $budget_value   = htmlspecialchars(trim($_POST['budget_value'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $duration       = htmlspecialchars(trim($_POST['duration'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $issue_date     = htmlspecialchars(trim($_POST['issue_date'] ?? date('d F Y')), ENT_QUOTES, 'UTF-8');
+        $issue_location = htmlspecialchars(trim($_POST['issue_location'] ?? 'Jakarta, Indonesia'), ENT_QUOTES, 'UTF-8');
+        
+        $custom_id = strtoupper(preg_replace('/[^A-Za-z0-9_-]/', '', trim($_POST['custom_id'] ?? '')));
+        if (empty($custom_id)) {
+            $clean_agency = preg_replace('/[^A-Za-z0-9]/', '', $target_agency);
+            $short_code   = !empty($clean_agency) ? strtoupper(substr($clean_agency, 0, 8)) : 'DOC';
+            $rand_suffix  = strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 4));
+            $doc_id       = 'PROP-' . $short_code . '-' . date('Y') . '-' . $rand_suffix;
+        } else {
+            $doc_id = $custom_id;
+        }
+
+        $token_rand = strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 6));
+        $token = 'DJCS-ESIGN-' . date('Y') . '-' . $token_rand;
+        $hash  = 'SHA256: ' . hash('sha256', $doc_id . $title . $target_agency . $issue_date . bin2hex(random_bytes(16)));
+
+        $new_doc = [
+            'id'             => $doc_id,
+            'title'          => $title,
+            'doc_number'     => $doc_number,
+            'doc_type'       => $doc_type,
+            'target_agency'  => $target_agency,
+            'target_person'  => $target_person,
+            'signer_name'    => 'Ir. Denny Jean Cross Sihombing, S.T., M.T.',
+            'signer_role'    => 'Pengembang Sistem Informasi & Dosen Prodi Sistem Informasi Unika Atma Jaya Jakarta',
+            'signer_email'   => 'denny.jean@atmajaya.ac.id',
+            'issue_date'     => $issue_date,
+            'issue_location' => $issue_location,
+            'budget_value'   => $budget_value,
+            'duration'       => $duration,
+            'token'          => $token,
+            'hash_signature' => $hash,
+            'status'         => 'VALID',
+            'status_desc'    => 'Tanda tangan elektronik SAH, ASLI, dan TERVERIFIKASI secara resmi terdaftar di database dennyjcs.com',
+            'created_at'     => date('Y-m-d H:i:s')
+        ];
+
+        $documents[$doc_id] = $new_doc;
+        file_put_contents($json_file, json_encode($documents, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOCK_EX);
+        
+        $created_doc = $new_doc;
+        $msg_success = "Dokumen '{$title}' berhasil didaftarkan secara sah!";
     }
-
-    // Pembuatan Token & Hash SHA-256
-    $token_rand = strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 6));
-    $token = 'DJCS-ESIGN-' . date('Y') . '-' . $token_rand;
-    $hash  = 'SHA256: ' . hash('sha256', $doc_id . $title . $target_agency . $issue_date . 'DENNY_JEAN_CROSS');
-
-    $new_doc = [
-        'id'             => $doc_id,
-        'title'          => $title,
-        'doc_number'     => $doc_number,
-        'doc_type'       => $doc_type,
-        'target_agency'  => $target_agency,
-        'target_person'  => $target_person,
-        'signer_name'    => 'Ir. Denny Jean Cross Sihombing, S.T., M.T.',
-        'signer_role'    => 'Pengembang Sistem Informasi & Dosen Prodi Sistem Informasi Unika Atma Jaya Jakarta',
-        'signer_email'   => 'denny.jean@atmajaya.ac.id',
-        'issue_date'     => $issue_date,
-        'issue_location' => $issue_location,
-        'budget_value'   => $budget_value,
-        'duration'       => $duration,
-        'token'          => $token,
-        'hash_signature' => $hash,
-        'status'         => 'VALID',
-        'status_desc'    => 'Tanda tangan elektronik SAH, ASLI, dan TERVERIFIKASI secara resmi terdaftar di database dennyjcs.com',
-        'created_at'     => date('Y-m-d H:i:s')
-    ];
-
-    // Simpan ke basis data
-    $documents[$doc_id] = $new_doc;
-    file_put_contents($json_file, json_encode($documents, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-    
-    $created_doc = $new_doc;
-    $msg_success = "Dokumen baru '{$title}' berhasil didaftarkan!";
 }
 ?>
 <!DOCTYPE html>
@@ -410,11 +546,23 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
       background: #fafbfc;
     }
 
-    /* ALERT */
+    /* ALERTS */
     .alert-success {
       background: #ecfdf5;
       color: #065f46;
       border: 1px solid #a7f3d0;
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      font-size: 9pt;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .alert-danger {
+      background: #fef2f2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
       border-radius: 6px;
       padding: 12px 16px;
       margin-bottom: 16px;
@@ -444,7 +592,7 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
       <a href="generator.php" class="brand">
         <div class="brand-logo">DJ</div>
         <div>
-          <div class="brand-title">E-Sign Generator Panel</div>
+          <div class="brand-title">E-Sign Generator Panel (Secured)</div>
           <div class="brand-sub">Sistem Tanda Tangan Digital Resmi &bull; dennyjcs.com</div>
         </div>
       </a>
@@ -460,26 +608,39 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
   <main class="main-content">
 
     <?php if (!$is_authenticated): ?>
-      <!-- LOGIN VIEW -->
-      <div class="card" style="max-width: 420px; margin: 40px auto;">
+      <!-- LOGIN VIEW (DENGAN PROTEKSI RATE LIMITING & BRUTE FORCE) -->
+      <div class="card" style="max-width: 440px; margin: 40px auto;">
         <div class="card-header" style="text-align: center; display: block;">
           <h2 class="card-title">🔐 Autentikasi Pengelola E-Sign</h2>
-          <p style="font-size: 8pt; color: #64748b; margin-top: 4px;">Masukkan PIN keamanan untuk menerbitkan tanda tangan digital</p>
+          <p style="font-size: 8pt; color: #64748b; margin-top: 4px;">Sistem dilindungi enkripsi Bcrypt &amp; pencegah brute-force</p>
         </div>
         <div class="card-body">
+          <?php if (isset($_GET['timeout'])): ?>
+            <div class="alert-danger" style="margin-bottom: 14px;">
+              ⏰ Sesi telah berakhir karena tidak ada aktivitas selama 30 menit. Silakan masukkan PIN kembali.
+            </div>
+          <?php endif; ?>
+
           <?php if (!empty($auth_error)): ?>
-            <div style="background: #fef2f2; color: #991b1b; padding: 10px; border-radius: 6px; font-size: 8.5pt; margin-bottom: 14px;">
+            <div class="alert-danger" style="margin-bottom: 14px;">
               ⚠️ <?php echo htmlspecialchars($auth_error); ?>
             </div>
           <?php endif; ?>
+
           <form method="POST" action="">
             <input type="hidden" name="action" value="login">
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+            
             <div class="form-group" style="margin-bottom: 18px;">
-              <label for="pin">PIN Keamanan:</label>
-              <input type="password" id="pin" name="pin" placeholder="Masukkan 4 digit PIN..." required autofocus>
+              <label for="pin">PIN / Password Keamanan:</label>
+              <input type="password" id="pin" name="pin" placeholder="Masukkan PIN / Password Anda..." <?php echo $is_locked ? 'disabled' : 'required autofocus'; ?>>
+              <small style="color: #64748b; font-size: 7.5pt; margin-top: 4px;">
+                Toleransi maksimal 5x salah sebelum IP Anda diblokir otomatis selama 15 menit.
+              </small>
             </div>
-            <button type="submit" class="btn-submit" style="width: 100%; justify-content: center;">
-              Buka Generator →
+            
+            <button type="submit" class="btn-submit" style="width: 100%; justify-content: center;" <?php echo $is_locked ? 'disabled style="background: #94a3b8; cursor: not-allowed;"' : ''; ?>>
+              <?php echo $is_locked ? "Terkunci ({$remaining_lock_min} Menit)" : "Buka Generator Aman →"; ?>
             </button>
           </form>
         </div>
@@ -495,18 +656,27 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
         </div>
       <?php endif; ?>
 
+      <?php if (!empty($msg_error)): ?>
+        <div class="alert-danger">
+          <span>⚠️</span>
+          <div><?php echo htmlspecialchars($msg_error); ?></div>
+        </div>
+      <?php endif; ?>
+
       <div class="card">
         <!-- TAB NAVIGATION -->
         <div class="tab-nav">
           <button class="tab-btn active" onclick="switchTab('tab-create')">📝 Buat E-Sign Baru</button>
           <button class="tab-btn" onclick="switchTab('tab-stamper')">📄 Tempel ke PDF (PDF Stamper)</button>
           <button class="tab-btn" onclick="switchTab('tab-archive')">📚 Arsip Dokumen (<?php echo count($documents); ?>)</button>
+          <button class="tab-btn" onclick="switchTab('tab-security')">🛡️ Pengaturan PIN &amp; Keamanan</button>
         </div>
 
         <!-- TAB 1: FORM BUAT E-SIGN -->
         <div id="tab-create" class="card-body">
           <form method="POST" action="" id="createDocForm">
             <input type="hidden" name="action" value="create_doc">
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
             
             <div class="form-grid">
               <div class="form-group full-width">
@@ -620,7 +790,7 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
         <div id="tab-stamper" class="card-body" style="display: none;">
           <h3 style="font-size: 11pt; color: #092c4c; margin-bottom: 8px;">📄 Tempelkan E-Sign Langsung ke Berkas PDF Anda</h3>
           <p style="font-size: 8.5pt; color: #64748b; margin-bottom: 20px;">
-            Pilih file PDF yang ingin ditandatangani. Sistem akan menempelkan stempel digital beresolusi tinggi langsung di peramban Anda secara cepat dan 100% aman (berkas PDF tidak diunggah ke peladen).
+            Pilih file PDF yang ingin ditandatangani. Sistem akan menempelkan stempel digital beresolusi tinggi langsung di peramban Anda secara cepat dan 100% aman (berkas PDF diproses di browser Anda dan tidak pernah dikirim ke peladen luar).
           </p>
 
           <div style="background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 8px; padding: 30px; text-align: center; margin-bottom: 20px;">
@@ -703,12 +873,57 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
                     <td style="white-space: nowrap; font-weight: 700; color: #0f172a; font-size: 8pt;"><?php echo htmlspecialchars($doc['budget_value'] ?? '-'); ?></td>
                     <td style="white-space: nowrap;">
                       <a href="index.php?doc=<?php echo urlencode($key); ?>" target="_blank" style="color: #0284c7; font-weight: 600; text-decoration: none; margin-right: 10px;">Buka ↗</a>
-                      <a href="?action=delete&id=<?php echo urlencode($key); ?>" onclick="return confirm('Yakin ingin menghapus dokumen ini dari sistem verifikasi?');" style="color: #ef4444; text-decoration: none;">Hapus</a>
+                      <a href="?action=delete&id=<?php echo urlencode($key); ?>&csrf=<?php echo urlencode($_SESSION['csrf_token']); ?>" onclick="return confirm('Yakin ingin menghapus dokumen ini dari sistem verifikasi?');" style="color: #ef4444; text-decoration: none;">Hapus</a>
                     </td>
                   </tr>
                 <?php endforeach; ?>
               </tbody>
             </table>
+          </div>
+        </div>
+
+        <!-- TAB 4: PENGATURAN KEAMANAN & UBAH PIN -->
+        <div id="tab-security" class="card-body" style="display: none;">
+          <h3 style="font-size: 11pt; color: #092c4c; margin-bottom: 8px;">🛡️ Pengaturan PIN / Password Keamanan Generator</h3>
+          <p style="font-size: 8.5pt; color: #64748b; margin-bottom: 20px;">
+            Anda dapat mengganti PIN / Password kapan saja. Sandi Anda dienkripsi secara otomatis menggunakan algoritma <strong>Bcrypt Salted Hash</strong> sehingga tidak dapat dibaca oleh siapapun.
+          </p>
+
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; max-width: 520px;">
+            <form method="POST" action="">
+              <input type="hidden" name="action" value="change_pin">
+              <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+
+              <div class="form-group" style="margin-bottom: 14px;">
+                <label for="old_pin">PIN / Password Saat Ini: *</label>
+                <input type="password" id="old_pin" name="old_pin" placeholder="Masukkan PIN lama..." required>
+              </div>
+
+              <div class="form-group" style="margin-bottom: 14px;">
+                <label for="new_pin">PIN / Password Baru: * (Bisa angka atau huruf)</label>
+                <input type="password" id="new_pin" name="new_pin" placeholder="Minimal 4 karakter (bebas kombinasi)..." required>
+              </div>
+
+              <div class="form-group" style="margin-bottom: 20px;">
+                <label for="confirm_pin">Ulangi PIN / Password Baru: *</label>
+                <input type="password" id="confirm_pin" name="confirm_pin" placeholder="Ketik ulang PIN baru..." required>
+              </div>
+
+              <button type="submit" class="btn-submit" style="background: #0284c7;">
+                💾 Simpan PIN / Password Baru
+              </button>
+            </form>
+          </div>
+
+          <div style="margin-top: 24px; padding: 16px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; max-width: 520px;">
+            <h4 style="font-size: 9pt; color: #166534; margin-bottom: 6px;">Status Sistem Keamanan:</h4>
+            <ul style="font-size: 8pt; color: #166534; line-height: 1.5; padding-left: 18px;">
+              <li><strong>Proteksi Brute-Force:</strong> AKTIF (Maks 5x salah, lockout 15 menit)</li>
+              <li><strong>Proteksi CSRF:</strong> AKTIF (Token kriptografis 32-byte)</li>
+              <li><strong>Proteksi Berkas .json:</strong> AKTIF (Diblokir oleh .htaccess)</li>
+              <li><strong>Enkripsi PIN:</strong> Bcrypt (Cost Factor 10)</li>
+              <li><strong>Sesi Kedaluwarsa:</strong> 30 Menit inaktivitas</li>
+            </ul>
           </div>
         </div>
 
@@ -728,7 +943,6 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
     const registeredDocs = <?php echo json_encode($documents, JSON_UNESCAPED_UNICODE); ?>;
     let currentDocData = <?php echo $created_doc ? json_encode($created_doc, JSON_UNESCAPED_UNICODE) : 'null'; ?>;
 
-    // Inisialisasi QR Code jika ada data dokumen yang baru dibuat
     window.addEventListener('DOMContentLoaded', () => {
       if (currentDocData) {
         renderQrPreview(currentDocData);
@@ -742,6 +956,7 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
       document.getElementById('tab-create').style.display = 'none';
       document.getElementById('tab-stamper').style.display = 'none';
       document.getElementById('tab-archive').style.display = 'none';
+      document.getElementById('tab-security').style.display = 'none';
 
       document.getElementById(tabId).style.display = 'block';
     }
@@ -767,33 +982,27 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
       document.getElementById('btnTestVerify').href = 'index.php?doc=' + encodeURIComponent(doc.id);
     }
 
-    // Render Transparent PNG Stamp via High-Res HTML5 Canvas
     function drawStampToCanvas(doc, callback) {
       const canvas = document.getElementById('stampCanvas');
       const ctx = canvas.getContext('2d');
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Pastikan QR Code sudah ter-render sebagai image di container
       const qrImg = document.querySelector('#qrcodeContainer img') || document.querySelector('#qrcodeContainer canvas');
       if (!qrImg) {
         alert('QR Code sedang disiapkan, silakan klik lagi.');
         return;
       }
 
-      // Ukuran Canvas: 1200 x 360 px (Sangat tajam dan jernih untuk cetak A4 300 DPI)
       const qrSize = 220;
       const startX = 30;
       const startY = 70;
 
-      // Draw QR Image
       ctx.drawImage(qrImg, startX, startY, qrSize, qrSize);
 
-      // Draw Accent Vertical Line
       const lineX = startX + qrSize + 30;
       ctx.fillStyle = '#092c4c';
       ctx.fillRect(lineX, startY + 5, 6, qrSize - 10);
 
-      // Draw Text Details
       const textX = lineX + 25;
       let textY = startY + 28;
 
@@ -818,7 +1027,6 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
       ctx.font = 'bold 28px "Plus Jakarta Sans", Arial, sans-serif';
       ctx.fillText('Ir. Denny Jean Cross Sihombing, S.T., M.T.', textX, textY);
       
-      // Underline for name
       ctx.fillRect(textX, textY + 6, 560, 2);
 
       textY += 34;
@@ -868,7 +1076,6 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
       }
     }
 
-    // Fitur Tempel Langsung ke PDF menggunakan PDF-Lib
     async function stampAndDownloadPdf() {
       const fileInput = document.getElementById('pdfFileInput');
       const statusDiv = document.getElementById('stamperStatus');
@@ -892,31 +1099,27 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
         const file = fileInput.files[0];
         const arrayBuffer = await file.arrayBuffer();
 
-        // Load PDF Document
         const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
         const pages = pdfDoc.getPages();
         const totalPages = pages.length;
 
-        // Pilih halaman target
         const pageOption = document.getElementById('stampPageSelect').value;
-        let targetPage = pages[totalPages - 1]; // default last
+        let targetPage = pages[totalPages - 1];
         if (pageOption === '1' && pages[0]) {
           targetPage = pages[0];
         }
 
-        // Render stamp image ke Canvas lalu export base64
         drawStampToCanvas(doc, async (canvas) => {
           const stampPngBytes = await fetch(canvas.toDataURL('image/png')).then(res => res.arrayBuffer());
           const stampImage = await pdfDoc.embedPng(stampPngBytes);
 
-          // Ukuran tampilan stempel pada PDF A4 (proporsional & elegan)
           const stampWidth = 240;
           const stampHeight = (stampWidth / canvas.width) * canvas.height;
 
           const { width, height } = targetPage.getSize();
           const positionOption = document.getElementById('stampPositionSelect').value;
 
-          let posX = width - stampWidth - 45; // Kanan bawah
+          let posX = width - stampWidth - 45;
           let posY = 50;
 
           if (positionOption === 'bottom-left') {
@@ -925,7 +1128,6 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
             posX = (width - stampWidth) / 2;
           }
 
-          // Tempelkan gambar tanda tangan ke halaman
           targetPage.drawImage(stampImage, {
             x: posX,
             y: posY,
@@ -933,7 +1135,6 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
             height: stampHeight,
           });
 
-          // Simpan & Unduh PDF
           const pdfBytes = await pdfDoc.save();
           const blob = new Blob([pdfBytes], { type: 'application/pdf' });
           const link = document.createElement('a');

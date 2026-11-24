@@ -1,0 +1,33 @@
+# ==============================================================
+# KEAMANAN RESMI PORTAL E-SIGN & GENERATOR (dennyjcs.com/e-sign)
+# ==============================================================
+
+# Matikan Directory Browsing (Mencegah pihak luar melihat daftar file)
+Options -Indexes
+
+# Blokir akses HTTP langsung ke berkas data & konfigurasi sensitif
+<FilesMatch "(^\..*|\.(json|lock|log|md|sql|bak|inc))$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Kompatibilitas Apache 2.4+
+<IfModule mod_authz_core.c>
+    <FilesMatch "(^\..*|\.(json|lock|log|md|sql|bak|inc))$">
+        Require all denied
+    </FilesMatch>
+</IfModule>
+
+# Lindungi berkas konfigurasi kredensial PHP
+<Files ".auth_config.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Header Pengamanan Tambahan dari Clickjacking & XSS
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
