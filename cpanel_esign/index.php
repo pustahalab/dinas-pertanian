@@ -82,6 +82,9 @@ if (file_exists($json_file)) {
     if (is_array($loaded_docs)) {
         foreach ($loaded_docs as $k => $v) {
             $registered_docs[$k] = $v;
+            if (!empty($v['id_ttd'])) {
+                $registered_docs[$v['id_ttd']] = &$registered_docs[$k];
+            }
             if (!empty($v['token'])) {
                 $registered_docs[$v['token']] = &$registered_docs[$k];
             }
@@ -109,6 +112,7 @@ if ($is_searched) {
         foreach ($registered_docs as $k => $item) {
             if (is_array($item)) {
                 $searchable = strtoupper(
+                    ($item['id_ttd'] ?? '') . ' ' .
                     ($item['id'] ?? '') . ' ' .
                     ($item['token'] ?? '') . ' ' .
                     ($item['doc_number'] ?? '') . ' ' .
@@ -439,7 +443,7 @@ if ($is_searched) {
     <!-- SEARCH BAR -->
     <div class="search-card">
       <form method="GET" action="" class="search-form">
-        <input type="text" name="doc" class="search-input" placeholder="Masukkan ID Dokumen atau Kode Verifikasi..." value="<?php echo htmlspecialchars($doc_param); ?>" required>
+        <input type="text" name="doc" class="search-input" placeholder="Masukkan ID Tanda Tangan Digital (ID TTD) atau Scan QR Code..." value="<?php echo htmlspecialchars($doc_param); ?>" required>
         <button type="submit" class="search-btn">Cek Keabsahan</button>
       </form>
     </div>

@@ -211,22 +211,21 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
         $issue_date     = htmlspecialchars(trim($_POST['issue_date'] ?? date('d F Y')), ENT_QUOTES, 'UTF-8');
         $issue_location = htmlspecialchars(trim($_POST['issue_location'] ?? 'Jakarta, Indonesia'), ENT_QUOTES, 'UTF-8');
         
-        $custom_id = strtoupper(preg_replace('/[^A-Za-z0-9_-]/', '', trim($_POST['custom_id'] ?? '')));
-        if (empty($custom_id)) {
-            $clean_agency = preg_replace('/[^A-Za-z0-9]/', '', $target_agency);
-            $short_code   = !empty($clean_agency) ? strtoupper(substr($clean_agency, 0, 8)) : 'DOC';
-            $rand_suffix  = strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 4));
-            $doc_id       = 'PROP-' . $short_code . '-' . date('Y') . '-' . $rand_suffix;
-        } else {
-            $doc_id = $custom_id;
+        // Generate ID TTD otomatis berurutan & terlacak oleh sistem
+        $cur_year = date('Y');
+        $seq = count($documents) + 1;
+        $id_ttd = "DJCS-TTD-{$cur_year}-" . str_pad($seq, 3, '0', STR_PAD_LEFT);
+        while (isset($documents[$id_ttd])) {
+            $seq++;
+            $id_ttd = "DJCS-TTD-{$cur_year}-" . str_pad($seq, 3, '0', STR_PAD_LEFT);
         }
 
-        $token_rand = strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 6));
-        $token = 'DJCS-ESIGN-' . date('Y') . '-' . $token_rand;
-        $hash  = 'SHA256: ' . hash('sha256', $doc_id . $title . $target_agency . $issue_date . bin2hex(random_bytes(16)));
+        $hash  = 'SHA256: ' . hash('sha256', $id_ttd . $title . $target_agency . $issue_date . bin2hex(random_bytes(16)));
 
         $new_doc = [
-            'id'             => $doc_id,
+            'id'             => $id_ttd,
+            'id_ttd'         => $id_ttd,
+            'token'          => $id_ttd,
             'title'          => $title,
             'doc_number'     => $doc_number,
             'doc_type'       => $doc_type,
@@ -239,7 +238,6 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
             'issue_location' => $issue_location,
             'budget_value'   => $budget_value,
             'duration'       => $duration,
-            'token'          => $token,
             'hash_signature' => $hash,
             'status'         => 'VALID',
             'status_desc'    => 'Tanda tangan elektronik SAH, ASLI, dan TERVERIFIKASI secara resmi terdaftar di database dennyjcs.com',
@@ -685,8 +683,13 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
               </div>
 
               <div class="form-group">
-                <label for="doc_number">Nomor Surat / Dokumen Resmi:</label>
-                <input type="text" id="doc_number" name="doc_number" placeholder="Contoh: 015/EXT-PROP/DJCS/XI/2026">
+                <label for="id_ttd_preview">ID Tanda Tangan Digital (ID TTD):</label>
+                <input type="text" id="id_ttd_preview" value="Otomatis di-generate sistem (Contoh: DJCS-TTD-<?php echo date('Y'); ?>-<?php echo str_pad(count($documents)+1, 3, '0', STR_PAD_LEFT); ?>)" disabled style="background: #f1f5f9; color: #0284c7; font-weight: 700; font-family: 'Fira Code', monospace;">
+              </div>
+
+              <div class="form-group">
+                <label for="doc_number">Nomor Surat / Berkas (Opsional, jika ada):</label>
+                <input type="text" id="doc_number" name="doc_number" placeholder="Kosongkan jika tidak ada nomor surat...">
               </div>
 
               <div class="form-group">
@@ -698,6 +701,7 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
                   <option value="Laporan Akhir & Berita Acara">Laporan Akhir & Berita Acara</option>
                   <option value="Sertifikat / Surat Keterangan Resmi">Sertifikat / Surat Keterangan Resmi</option>
                   <option value="Dokumen Riset & Publikasi Ilmiah">Dokumen Riset & Publikasi Ilmiah</option>
+                  <option value="Dokumen Teknis & Lampiran">Dokumen Teknis & Lampiran</option>
                 </select>
               </div>
 
@@ -726,10 +730,7 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
                 <input type="text" id="issue_date" name="issue_date" value="<?php echo date('d F Y'); ?>">
               </div>
 
-              <div class="form-group">
-                <label for="custom_id">Kode ID Dokumen Kustom (Opsional):</label>
-                <input type="text" id="custom_id" name="custom_id" placeholder="Biarkan kosong untuk dibuatkan otomatis">
-              </div>
+
             </div>
 
             <button type="submit" class="btn-submit">
@@ -754,7 +755,7 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
                 <div>
                   <div class="badge-meta">
                     <strong>DITANDATANGANI ELEKTRONIK</strong>
-                    Token: <span id="previewToken" style="font-family: 'Fira Code', monospace; color: #0284c7; font-weight: bold;"><?php echo $created_doc['token'] ?? ''; ?></span><br>
+                    ID TTD: <span id="previewToken" style="font-family: 'Fira Code', monospace; color: #0284c7; font-weight: bold;"><?php echo $created_doc['token'] ?? ''; ?></span><br>
                     Verifikasi: <span style="color: #0284c7; font-weight: 600;">dennyjcs.com/e-sign</span><br>
                     Waktu: <span id="previewDate"><?php echo $created_doc['issue_date'] ?? date('d F Y'); ?></span>
                   </div>
@@ -847,7 +848,7 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>ID / Token Dokumen</th>
+                  <th>ID Tanda Tangan (ID TTD)</th>
                   <th>Judul Dokumen & Mitra Sasaran</th>
                   <th>Tanggal</th>
                   <th>RAB</th>
@@ -1013,7 +1014,7 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
       textY += 32;
       ctx.fillStyle = '#475569';
       ctx.font = '20px "Fira Code", monospace';
-      ctx.fillText('Token ID: ' + (doc.token || doc.id), textX, textY);
+      ctx.fillText('ID TTD: ' + (doc.id_ttd || doc.token || doc.id), textX, textY);
 
       textY += 28;
       ctx.font = '19px "Plus Jakarta Sans", Arial, sans-serif';
@@ -1053,7 +1054,7 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
       }
       drawStampToCanvas(currentDocData, (canvas) => {
         const link = document.createElement('a');
-        link.download = 'E-SIGN_' + (currentDocData.token || currentDocData.id) + '.png';
+        link.download = 'E-SIGN_' + (currentDocData.id_ttd || currentDocData.token || currentDocData.id) + '.png';
         link.href = canvas.toDataURL('image/png');
         link.click();
       });

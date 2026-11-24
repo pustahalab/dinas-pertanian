@@ -16,7 +16,8 @@
         "token": "DJCS-ESIGN-BIAK-2026",
         "hash_signature": "SHA256: 8f4a1c9e2b0d7a6f5e3d8c1b9a0e2f4d6c8b1a3e5f7a9c1e3b5d7f9a1c3e5a7b",
         "status": "VALID",
-        "status_desc": "Tanda tangan elektronik SAH, ASLI, dan TERVERIFIKASI secara resmi terdaftar di database dennyjcs.com"
+        "status_desc": "Tanda tangan elektronik SAH, ASLI, dan TERVERIFIKASI secara resmi terdaftar di database dennyjcs.com",
+        "id_ttd": "DJCS-TTD-2026-001"
     },
     "SURAT-KARTANI-BIAK-2026": {
         "id": "SURAT-KARTANI-BIAK-2026",
@@ -35,7 +36,8 @@
         "token": "DJCS-ESIGN-SURAT-2026",
         "hash_signature": "SHA256: 7e2d9b1a5f8c4e0d6b3a2f1c8e9d0a7b5c4f2e1d8a0b9c3e6f5a7d1b8c2e4a6f",
         "status": "VALID",
-        "status_desc": "Tanda tangan elektronik SAH, ASLI, dan TERVERIFIKASI secara resmi terdaftar di database dennyjcs.com"
+        "status_desc": "Tanda tangan elektronik SAH, ASLI, dan TERVERIFIKASI secara resmi terdaftar di database dennyjcs.com",
+        "id_ttd": "DJCS-TTD-2026-002"
     },
     "PROP-ETIK-KPIN-2026": {
         "id": "PROP-ETIK-KPIN-2026",
@@ -54,6 +56,7 @@
         "token": "DJCS-ESIGN-KPIN-2026",
         "hash_signature": "SHA256: 4b9e2a7f1c8d0e3a5b6c9f2d1e4a7b0c3f5e8a1d4b7c0e3a6f9b2d5e8a1c4f7b",
         "status": "VALID",
-        "status_desc": "Tanda tangan elektronik SAH, ASLI, dan TERVERIFIKASI secara resmi terdaftar di database dennyjcs.com"
+        "status_desc": "Tanda tangan elektronik SAH, ASLI, dan TERVERIFIKASI secara resmi terdaftar di database dennyjcs.com",
+        "id_ttd": "DJCS-TTD-2026-003"
     }
 }

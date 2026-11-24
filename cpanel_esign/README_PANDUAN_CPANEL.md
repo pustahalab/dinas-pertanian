@@ -1,67 +1,63 @@
 # PANDUAN SISTEM E-SIGN & GENERATOR TANDA TANGAN DIGITAL
-**Laman Resmi:** `dennyjcs.com/e-sign`  
+**Laman Resmi Verifikasi:** `dennyjcs.com/e-sign`  
 **Panel Generator:** `dennyjcs.com/e-sign/generator.php`  
 **Pemilik:** Ir. Denny Jean Cross Sihombing, S.T., M.T.  
 
 ---
 
-## 1. STRUKTUR FOLDER DI CPANEL (`public_html/e-sign/`)
+## 1. SISTEM ID TANDA TANGAN (ID TTD) OTOMATIS & TERLACAK
 
-Cukup unggah 3 berkas dari folder `cpanel_esign/` ini ke dalam folder `public_html/e-sign/` di cPanel hosting Anda:
+Sesuai kebutuhan praktis, **Nomor Surat tidak lagi menjadi syarat wajib** karena tidak semua berkas memiliki nomor surat resmi (seperti proposal teknis, lampiran, dokumen kerja sama, atau sertifikasi).
+
+Sebagai gantinya, sistem otomatis menerbitkan dan melacak **ID Tanda Tangan Digital (ID TTD)** unik:
+* **Format ID TTD:** `DJCS-TTD-[TAHUN]-[NOMOR_URUT]` (Contoh: `DJCS-TTD-2026-004`)
+* **Otomatis & Terlacak:** Sistem menghitung nomor urut dan mencatatnya ke basis data terenkripsi.
+* **Tautan Verifikasi Langsung:** QR Code otomatis terhubung ke `https://dennyjcs.com/e-sign?doc=DJCS-TTD-2026-004`
+* **Nomor Referensi Berkas:** Jika dokumen memiliki nomor surat, Anda tetap bisa mengisinya pada kolom opsional *(Nomor Surat/Berkas)*.
+
+---
+
+## 2. STRUKTUR BERKAS CPANEL (`public_html/e-sign/`)
+
+Unggah 4 berkas dari folder `cpanel_esign/` ini ke folder `public_html/e-sign/` di cPanel hosting Anda:
 
 ```text
 public_html/
 └── e-sign/
+    ├── .htaccess         <--- Perisai keamanan (blokir akses langsung ke berkas .json/.config)
     ├── index.php         <--- Portal Verifikasi Publik (saat QR Code dipindai mitra)
-    ├── generator.php     <--- Panel Generator Pembuatan Tanda Tangan & Cap PDF (Akses PIN)
-    └── documents.json    <--- Basis data dokumen resmi terdaftar (otomatis bertambah)
+    ├── generator.php     <--- Panel Generator E-Sign & PDF Stamper (Akses PIN: 1977)
+    └── documents.json    <--- Basis data arsip dokumen resmi (otomatis bertambah)
 ```
 
 ---
 
-## 2. CARA MENGGUNAKAN GENERATOR E-SIGN MANDIRI
+## 3. CARA MEMBUAT TANDA TANGAN DIGITAL BARU
 
-Mulai sekarang, Anda **TIDAK PERLU** lagi mengedit kode pemrograman atau meminta bantuan teknis setiap kali membuat proposal/surat baru:
+1. **Buka Panel di Browser**:
+   * Akses URL: `https://dennyjcs.com/e-sign/generator.php`
+   * Masukkan **PIN Keamanan: `1977`**.
 
-1. **Buka Panel Generator di Browser**:
-   * Akses: `https://dennyjcs.com/e-sign/generator.php`
-   * Masukkan **PIN Keamanan**: `1977` *(PIN ini bisa Anda ubah di baris 15 file generator.php)*.
+2. **Isi Formulir Dokumen**:
+   * **ID TTD:** *Dibuat otomatis oleh sistem (contoh: `DJCS-TTD-2026-004`)*.
+   * **Judul Dokumen / Proposal:** (contoh: *Proposal Sistem Informasi ...*)
+   * **Nomor Surat:** *(Opsional — kosongkan jika tidak ada)*.
+   * **Instansi Mitra / Tujuan:** (contoh: *Dinas Komunikasi dan Informatika*)
+   * **Nilai Anggaran (RAB):** *(Opsional)*
+   * **Durasi & Tanggal Dokumen**
+   * Klik **"⚡ Daftarkan Dokumen & Buat E-Sign Sekarang"**.
 
-2. **Isi Formulir Dokumen Baru**:
-   * Judul Proposal / Dokumen (contoh: *Proposal Sistem Informasi X...*)
-   * Nomor Dokumen (contoh: *015/EXT-PROP/DJCS/XI/2026*)
-   * Instansi Mitra / Tujuan (contoh: *Dinas Komunikasi dan Informatika*)
-   * Nilai Anggaran / RAB (opsional)
-   * Durasi & Tanggal Dokumen
-   * Klik tombol **"⚡ Daftarkan Dokumen & Buat E-Sign Sekarang"**.
-
-3. **Dokumen Otomatis Terdaftar**:
-   * Dokumen langsung tercatat di `documents.json` dan seketika berstatus **VALID** di portal verifikasi `dennyjcs.com/e-sign`.
-
-4. **Dua Cara Menempelkan Tanda Tangan ke Dokumen Anda**:
-
-   * **Cara A: Unduh Gambar Stempel PNG (Transparan 300 DPI)**:
-     * Klik tombol hijau: **"📥 Unduh Stempel TTD PNG (Transparan)"**.
-     * Gambar tanda tangan resmi ber-QR Code dengan latar belakang transparan murni akan terunduh.
-     * Buka dokumen Anda di **Microsoft Word**, **Google Docs**, **Canva**, atau **Adobe Acrobat / Foxit**, lalu cukup pilih menu **Insert Picture / Gambar** dan tempatkan di bagian tanda tangan (persis seperti menempelkan tanda tangan basah).
-
-   * **Cara B: Tempel Otomatis Langsung ke File PDF (Tab "Tempel ke PDF")**:
-     * Buka tab **"📄 Tempel ke PDF (PDF Stamper)"**.
-     * Pilih file PDF Anda dari komputer.
-     * Pilih halaman penempelan (*Halaman Terakhir* atau nomor tertentu) dan posisi (*Kanan Bawah*).
-     * Klik **"🚀 Tempelkan Stempel & Unduh PDF Resmi Sekarang"**.
-     * PDF bertanda tangan resmi siap kirim akan terunduh dalam 1 detik langsung di browser tanpa perlu mengunggah dokumen Anda ke server luar.
+3. **Pilihan Menempelkan ke Dokumen**:
+   * **Pilihan A (Unduh Stempel PNG Transparan 300 DPI)**:
+     Klik **"📥 Unduh Stempel TTD PNG"**, lalu masukkan gambar tersebut ke Microsoft Word, Google Docs, Canva, atau editor PDF pilihan Anda. Latar belakangnya 100% transparan dan rapi.
+   * **Pilihan B (Tempel Langsung ke PDF di Browser)**:
+     Buka tab **"📄 Tempel ke PDF"**, pilih file PDF Anda, pilih *Halaman Terakhir* dan posisi *Kanan Bawah*, lalu klik **"🚀 Tempelkan Stempel & Unduh PDF"**.
 
 ---
 
-## 3. PENGUJIAN VERIFIKASI KEABSAHAN
-
-Saat pihak instansi mitra, bupati, kepala dinas, atau reviewer jurnal memindai QR Code yang tertempel pada dokumen fisik atau file PDF Anda:
-* Browser mereka langsung membuka `https://dennyjcs.com/e-sign?doc=...`
-* Menampilkan kartu pengesahan **"DOKUMEN SAH & TERVERIFIKASI"** lengkap dengan nomor surat, instansi tujuan, nilai RAB, profil penandatangan resmi, dan jejak kriptografi SHA-256.
-
----
-
-## 4. KEAMANAN & PRIVASI
-* **Halaman Publik Bersih**: Halaman utama `dennyjcs.com/e-sign` tidak menampilkan daftar dokumen ke publik. Rincian dokumen hanya terbuka saat QR Code dipindai atau saat kode ID dokumen yang sah diketikkan.
-* **Proteksi PIN Generator**: Hanya Anda pemegang PIN `1977` yang dapat mengakses menu generator dan menerbitkan tanda tangan digital baru.
+## 4. KEAMANAN TINGKAT TINGGI (ENTERPRISE-GRADE)
+* **Proteksi Anti Brute-Force:** Maksimal 5 kali salah PIN, setelah itu IP penyerang otomatis diblokir 15 menit.
+* **Enkripsi Bcrypt:** Sandi tersimpan dalam format hash kriptografi satu arah.
+* **Proteksi Akses .htaccess:** Berkas `documents.json` tidak dapat diunduh langsung oleh pihak luar melalui browser.
+* **Auto-Timeout:** Sesi generator otomatis keluar jika tidak aktif selama 30 menit.
+* **Ubah PIN Mandiri:** Anda dapat mengganti PIN sewaktu-waktu di tab *"🛡️ Pengaturan PIN & Keamanan"*.
