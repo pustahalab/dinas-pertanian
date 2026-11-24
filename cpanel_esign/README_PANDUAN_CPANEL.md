@@ -1,88 +1,67 @@
-# PANDUAN UPLOAD PORTAL VERIFIKASI TANDA TANGAN DIGITAL (E-SIGN)
-**Website:** `dennyjcs.com/e-sign`  
+# PANDUAN SISTEM E-SIGN & GENERATOR TANDA TANGAN DIGITAL
+**Laman Resmi:** `dennyjcs.com/e-sign`  
+**Panel Generator:** `dennyjcs.com/e-sign/generator.php`  
 **Pemilik:** Ir. Denny Jean Cross Sihombing, S.T., M.T.  
 
 ---
 
-## 1. STRUKTUR FOLDER DI CPANEL
+## 1. STRUKTUR FOLDER DI CPANEL (`public_html/e-sign/`)
 
-Untuk membuat URL `https://dennyjcs.com/e-sign` dapat diakses saat QR Code dipindai, Anda cukup mengunggah file `index.php` ke folder `e-sign` di dalam `public_html`.
+Cukup unggah 3 berkas dari folder `cpanel_esign/` ini ke dalam folder `public_html/e-sign/` di cPanel hosting Anda:
 
-Struktur direktori di File Manager cPanel Anda:
 ```text
 public_html/
 └── e-sign/
-    ├── index.php    <--- (Upload berkas index.php dari folder cpanel_esign ini)
-    └── .htaccess    <--- (Opsional, untuk keamanan & URL rewriting jika diperlukan)
+    ├── index.php         <--- Portal Verifikasi Publik (saat QR Code dipindai mitra)
+    ├── generator.php     <--- Panel Generator Pembuatan Tanda Tangan & Cap PDF (Akses PIN)
+    └── documents.json    <--- Basis data dokumen resmi terdaftar (otomatis bertambah)
 ```
 
 ---
 
-## 2. LANGKAH-LANGKAH UPLOAD DI CPANEL
+## 2. CARA MENGGUNAKAN GENERATOR E-SIGN MANDIRI
 
-1. **Login ke cPanel Hosting**:
-   * Buka browser dan akses alamat cPanel Anda (contoh: `https://dennyjcs.com:2083` atau melalui dashboard penyedia hosting Anda).
-   * Masukkan *Username* dan *Password* cPanel Anda.
+Mulai sekarang, Anda **TIDAK PERLU** lagi mengedit kode pemrograman atau meminta bantuan teknis setiap kali membuat proposal/surat baru:
 
-2. **Buka Menu File Manager**:
-   * Pada dashboard cPanel, cari menu **"File Manager"** (Pengelola Berkas) pada kelompok menu *Files*.
+1. **Buka Panel Generator di Browser**:
+   * Akses: `https://dennyjcs.com/e-sign/generator.php`
+   * Masukkan **PIN Keamanan**: `1977` *(PIN ini bisa Anda ubah di baris 15 file generator.php)*.
 
-3. **Masuk ke Direktori `public_html`**:
-   * Klik ganda pada folder `public_html` (atau folder root domain utama `dennyjcs.com`).
+2. **Isi Formulir Dokumen Baru**:
+   * Judul Proposal / Dokumen (contoh: *Proposal Sistem Informasi X...*)
+   * Nomor Dokumen (contoh: *015/EXT-PROP/DJCS/XI/2026*)
+   * Instansi Mitra / Tujuan (contoh: *Dinas Komunikasi dan Informatika*)
+   * Nilai Anggaran / RAB (opsional)
+   * Durasi & Tanggal Dokumen
+   * Klik tombol **"⚡ Daftarkan Dokumen & Buat E-Sign Sekarang"**.
 
-4. **Buat Folder Baru Bernama `e-sign`**:
-   * Klik tombol **"+ Folder"** di menu bagian atas.
-   * Masukkan nama folder: `e-sign`
-   * Klik **"Create New Folder"**.
+3. **Dokumen Otomatis Terdaftar**:
+   * Dokumen langsung tercatat di `documents.json` dan seketika berstatus **VALID** di portal verifikasi `dennyjcs.com/e-sign`.
 
-5. **Upload File `index.php`**:
-   * Masuk ke dalam folder `e-sign` yang baru saja dibuat (`public_html/e-sign`).
-   * Klik tombol **"Upload"** di bilah menu atas.
-   * Pilih dan unggah file `index.php` yang berada di folder proyek lokal Anda:  
-     `d:\Project\dinas-pertanian\cpanel_esign\index.php`
+4. **Dua Cara Menempelkan Tanda Tangan ke Dokumen Anda**:
 
-6. **Selesai & Uji Coba**:
-   * Buka browser Anda dan akses tautan pengujian:  
-     👉 `https://dennyjcs.com/e-sign?doc=PROP-KARTANI-BIAK-2026`
-   * Atau scan langsung QR Code yang ada di berkas PDF proposal menggunakan kamera smartphone Anda.
+   * **Cara A: Unduh Gambar Stempel PNG (Transparan 300 DPI)**:
+     * Klik tombol hijau: **"📥 Unduh Stempel TTD PNG (Transparan)"**.
+     * Gambar tanda tangan resmi ber-QR Code dengan latar belakang transparan murni akan terunduh.
+     * Buka dokumen Anda di **Microsoft Word**, **Google Docs**, **Canva**, atau **Adobe Acrobat / Foxit**, lalu cukup pilih menu **Insert Picture / Gambar** dan tempatkan di bagian tanda tangan (persis seperti menempelkan tanda tangan basah).
 
----
-
-## 3. CARA MENAMBAH DOKUMEN BARU DI MASA DEPAN
-
-Jika di kemudian hari Bapak menerbitkan proposal, surat keputusan, atau dokumen resmi lainnya, Bapak cukup membuka file `index.php` melalui fitur **"Edit"** di File Manager cPanel, lalu menambahkan data dokumen baru pada array `$registered_docs` (baris 17-55):
-
-```php
-$registered_docs = [
-    // Dokumen Proposal Biak yang sudah ada
-    'PROP-KARTANI-BIAK-2026' => [
-        ...
-    ],
-
-    // Contoh Dokumen Baru yang ingin Bapak tambahkan:
-    'DOC-KONTRAK-2027-001' => [
-        'title'           => 'Surat Perjanjian Kerja Sama Swakelola Tipe II',
-        'doc_number'      => '001/PKS-TI/DJCS/I/2027',
-        'doc_type'        => 'Surat Perjanjian Kerja Sama (PKS)',
-        'target_agency'   => 'Pemerintah Kabupaten Biak Numfor',
-        'target_person'   => 'Bupati Biak Numfor',
-        'signer_name'     => 'Ir. Denny Jean Cross Sihombing, S.T., M.T.',
-        'signer_role'     => 'Pengembang Sistem Informasi & Dosen Sistem Informasi Unika Atma Jaya',
-        'signer_email'    => 'denny.jean@atmajaya.ac.id',
-        'issue_date'      => '15 Januari 2027',
-        'issue_location'  => 'Jakarta / Biak',
-        'budget_value'    => 'Rp 247.450.000,-',
-        'duration'        => '4 Bulan',
-        'hash_signature'  => 'SHA256: d4a7c1e5b8... (kode hash unik dokumen)',
-        'status'          => 'VALID',
-        'status_desc'     => 'Tanda tangan elektronik SAH dan TERVERIFIKASI resmi di dennyjcs.com'
-    ]
-];
-```
+   * **Cara B: Tempel Otomatis Langsung ke File PDF (Tab "Tempel ke PDF")**:
+     * Buka tab **"📄 Tempel ke PDF (PDF Stamper)"**.
+     * Pilih file PDF Anda dari komputer.
+     * Pilih halaman penempelan (*Halaman Terakhir* atau nomor tertentu) dan posisi (*Kanan Bawah*).
+     * Klik **"🚀 Tempelkan Stempel & Unduh PDF Resmi Sekarang"**.
+     * PDF bertanda tangan resmi siap kirim akan terunduh dalam 1 detik langsung di browser tanpa perlu mengunggah dokumen Anda ke server luar.
 
 ---
 
-## 4. KEUNGGULAN SCRIPT INI
-1. **PHP Native Standalone**: Berjalan pada semua versi PHP cPanel (PHP 7.4, 8.0, 8.1, 8.2, 8.3) tanpa perlu menginstal framework atau dependensi komposer.
-2. **Mobile-Responsive & Tampilan Elegan**: Menggunakan font modern *Plus Jakarta Sans*, desain kartu sertifikat validasi hijau bercentang (*Green Verified Badge*), serta tata letak responsif di ponsel pejabat/pemeriksa.
-3. **Pencarian Fleksibel**: Menerima parameter URL langsung dari hasil scan QR Code (`?doc=...`) maupun penginputan manual nomor dokumen pada kolom pencarian.
+## 3. PENGUJIAN VERIFIKASI KEABSAHAN
+
+Saat pihak instansi mitra, bupati, kepala dinas, atau reviewer jurnal memindai QR Code yang tertempel pada dokumen fisik atau file PDF Anda:
+* Browser mereka langsung membuka `https://dennyjcs.com/e-sign?doc=...`
+* Menampilkan kartu pengesahan **"DOKUMEN SAH & TERVERIFIKASI"** lengkap dengan nomor surat, instansi tujuan, nilai RAB, profil penandatangan resmi, dan jejak kriptografi SHA-256.
+
+---
+
+## 4. KEAMANAN & PRIVASI
+* **Halaman Publik Bersih**: Halaman utama `dennyjcs.com/e-sign` tidak menampilkan daftar dokumen ke publik. Rincian dokumen hanya terbuka saat QR Code dipindai atau saat kode ID dokumen yang sah diketikkan.
+* **Proteksi PIN Generator**: Hanya Anda pemegang PIN `1977` yang dapat mengakses menu generator dan menerbitkan tanda tangan digital baru.

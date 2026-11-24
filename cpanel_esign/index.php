@@ -75,6 +75,23 @@ $registered_docs['DJCS-ESIGN-BIAK-2026']       = &$registered_docs['PROP-KARTANI
 $registered_docs['DJCS-ESIGN-PROP-2026']       = &$registered_docs['PROP-KARTANI-BIAK-2026'];
 $registered_docs['012/EXT-PROP/DJCS/XI/2026']  = &$registered_docs['PROP-KARTANI-BIAK-2026'];
 
+// Muat otomatis seluruh dokumen dari documents.json jika tersedia
+$json_file = __DIR__ . '/documents.json';
+if (file_exists($json_file)) {
+    $loaded_docs = json_decode(file_get_contents($json_file), true);
+    if (is_array($loaded_docs)) {
+        foreach ($loaded_docs as $k => $v) {
+            $registered_docs[$k] = $v;
+            if (!empty($v['token'])) {
+                $registered_docs[$v['token']] = &$registered_docs[$k];
+            }
+            if (!empty($v['doc_number'])) {
+                $registered_docs[$v['doc_number']] = &$registered_docs[$k];
+            }
+        }
+    }
+}
+
 // Evaluasi status dokumen
 $is_searched = !empty($doc_param);
 $doc_data = null;
@@ -87,15 +104,24 @@ if ($is_searched) {
     if (isset($registered_docs[$doc_key])) {
         $doc_data = $registered_docs[$doc_key];
         $is_valid = true;
-    } elseif (strpos($doc_key, 'ETIK') !== false || strpos($doc_key, 'KPIN') !== false || strpos($doc_key, '004') !== false) {
-        $doc_data = $registered_docs['PROP-ETIK-KPIN-2026'];
-        $is_valid = true;
-    } elseif (strpos($doc_key, 'SURAT') !== false && (strpos($doc_key, 'KARTANI') !== false || strpos($doc_key, 'BIAK') !== false)) {
-        $doc_data = $registered_docs['SURAT-KARTANI-BIAK-2026'];
-        $is_valid = true;
-    } elseif (strpos($doc_key, 'KARTANI') !== false || strpos($doc_key, 'BIAK') !== false || strpos($doc_key, '012') !== false) {
-        $doc_data = $registered_docs['PROP-KARTANI-BIAK-2026'];
-        $is_valid = true;
+    } else {
+        // Cek pencarian parsial di seluruh basis data dokumen
+        foreach ($registered_docs as $k => $item) {
+            if (is_array($item)) {
+                $searchable = strtoupper(
+                    ($item['id'] ?? '') . ' ' .
+                    ($item['token'] ?? '') . ' ' .
+                    ($item['doc_number'] ?? '') . ' ' .
+                    ($item['title'] ?? '') . ' ' .
+                    ($item['target_agency'] ?? '')
+                );
+                if (strpos($searchable, $doc_key) !== false) {
+                    $doc_data = $item;
+                    $is_valid = true;
+                    break;
+                }
+            }
+        }
     }
 }
 ?>
