@@ -284,6 +284,38 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
         $msg_success = "Dokumen '{$title}' berhasil didaftarkan dengan ID TTD: {$id_ttd}!";
     }
 }
+
+// 12. LOGIKA EDIT DETAIL DOKUMEN TTD YANG SUDAH ADA (DENGAN PROTEKSI CSRF)
+$active_tab_after_post = '';
+if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'edit_doc') {
+    $post_csrf = $_POST['csrf_token'] ?? '';
+    $edit_key  = trim($_POST['edit_key'] ?? '');
+    if (!hash_equals($_SESSION['csrf_token'], $post_csrf)) {
+        $msg_error = 'Token keamanan kadaluwarsa. Silakan muat ulang halaman dan coba lagi.';
+    } elseif (!array_key_exists($edit_key, $documents)) {
+        $msg_error = 'Dokumen yang ingin diubah tidak ditemukan.';
+    } else {
+        $existing = $documents[$edit_key];
+        $existing['title']          = trim($_POST['title'] ?? $existing['title']);
+        $existing['doc_number']     = trim($_POST['doc_number'] ?? '');
+        $existing['doc_type']       = trim($_POST['doc_type'] ?? ($existing['doc_type'] ?? ''));
+        $existing['target_agency']  = trim($_POST['target_agency'] ?? '');
+        $existing['target_person']  = trim($_POST['target_person'] ?? '');
+        $existing['budget_value']   = trim($_POST['budget_value'] ?? '');
+        $existing['duration']       = trim($_POST['duration'] ?? '');
+        $existing['issue_date']     = trim($_POST['issue_date'] ?? ($existing['issue_date'] ?? ''));
+        $existing['issue_location'] = trim($_POST['issue_location'] ?? ($existing['issue_location'] ?? 'Jakarta, Indonesia'));
+        $existing['updated_at']     = date('Y-m-d H:i:s');
+
+        // Pertahankan kunci & ID TTD agar QR Code yang sudah tercetak tetap valid 100%
+        $documents[$edit_key] = $existing;
+        file_put_contents($json_file, json_encode($documents, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOCK_EX);
+
+        $display_id = $existing['id_ttd'] ?? $existing['token'] ?? $edit_key;
+        $msg_success = "Detail dokumen ({$display_id}) berhasil diperbarui! QR Code yang sudah ditempel otomatis menampilkan data terbaru.";
+        $active_tab_after_post = 'tab-archive';
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -993,7 +1025,8 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
                     <td style="white-space: nowrap; font-size: 8pt; color: #475569;"><?php echo htmlspecialchars($doc['issue_date'] ?? '-'); ?></td>
                     <td style="white-space: nowrap; font-weight: 700; color: #0f172a; font-size: 8pt;"><?php echo htmlspecialchars($doc['budget_value'] ?? '-'); ?></td>
                     <td style="white-space: nowrap;">
-                      <a href="javascript:void(0)" onclick="downloadQrById('<?php echo htmlspecialchars($key, ENT_QUOTES); ?>')" style="color: #059669; font-weight: 600; text-decoration: none; margin-right: 10px;">📥 Unduh QR</a>
+                      <a href="javascript:void(0)" onclick="openEditModal('<?php echo htmlspecialchars($key, ENT_QUOTES); ?>')" style="color: #d97706; font-weight: 600; text-decoration: none; margin-right: 10px;">✏️ Edit</a>
+                      <a href="javascript:void(0)" onclick="downloadQrById('<?php echo htmlspecialchars($key, ENT_QUOTES); ?>')" style="color: #059669; font-weight: 600; text-decoration: none; margin-right: 10px;">📥 QR</a>
                       <a href="index.php?doc=<?php echo urlencode($key); ?>" target="_blank" style="color: #0284c7; font-weight: 600; text-decoration: none; margin-right: 10px;">Buka ↗</a>
                       <a href="?action=delete&id=<?php echo urlencode($key); ?>&csrf=<?php echo urlencode($_SESSION['csrf_token']); ?>" onclick="return confirm('Yakin ingin menghapus dokumen ini dari sistem verifikasi?');" style="color: #ef4444; text-decoration: none;">Hapus</a>
                     </td>
@@ -1055,6 +1088,83 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
 
   </main>
 
+  <?php if ($is_authenticated): ?>
+  <!-- MODAL EDIT DETAIL DOKUMEN TTD -->
+  <div id="editDocModal" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.58); z-index: 9999; align-items: center; justify-content: center; padding: 16px;">
+    <div style="background: #ffffff; border-radius: 12px; max-width: 680px; width: 100%; max-height: 92vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.25); border: 1px solid #e2e8f0;">
+      <div style="padding: 16px 22px; background: #092c4c; color: #ffffff; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <h3 style="font-size: 11pt; margin: 0;">✏️ Edit Detail Dokumen TTD</h3>
+          <p style="font-size: 7.5pt; color: #94a3b8; margin-top: 2px;">QR Code yang sudah ditempel tidak berubah dan otomatis menampilkan data terbaru.</p>
+        </div>
+        <button type="button" onclick="closeEditModal()" style="background: rgba(255,255,255,0.15); border: none; color: #ffffff; width: 30px; height: 30px; border-radius: 6px; font-size: 12pt; cursor: pointer;">✕</button>
+      </div>
+      <form method="POST" action="" style="padding: 22px;">
+        <input type="hidden" name="action" value="edit_doc">
+        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+        <input type="hidden" id="edit_key" name="edit_key" value="">
+
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label>ID Tanda Tangan Digital (Terkunci agar QR tetap valid):</label>
+            <input type="text" id="edit_id_display" disabled style="background: #f1f5f9; color: #0284c7; font-weight: 700; font-family: 'Fira Code', monospace;">
+          </div>
+
+          <div class="form-group full-width">
+            <label for="edit_title">Judul Dokumen / Proposal: *</label>
+            <input type="text" id="edit_title" name="title" required>
+          </div>
+
+          <div class="form-group">
+            <label for="edit_doc_number">Nomor Surat / Berkas (Opsional):</label>
+            <input type="text" id="edit_doc_number" name="doc_number">
+          </div>
+
+          <div class="form-group">
+            <label for="edit_doc_type">Jenis Dokumen:</label>
+            <input type="text" id="edit_doc_type" name="doc_type">
+          </div>
+
+          <div class="form-group">
+            <label for="edit_target_agency">Instansi Mitra / Tujuan: *</label>
+            <input type="text" id="edit_target_agency" name="target_agency" required>
+          </div>
+
+          <div class="form-group">
+            <label for="edit_target_person">Ditujukan Kepada:</label>
+            <input type="text" id="edit_target_person" name="target_person">
+          </div>
+
+          <div class="form-group">
+            <label for="edit_budget_value">Nilai Usulan Anggaran (RAB):</label>
+            <input type="text" id="edit_budget_value" name="budget_value">
+          </div>
+
+          <div class="form-group">
+            <label for="edit_duration">Durasi Pengerjaan:</label>
+            <input type="text" id="edit_duration" name="duration">
+          </div>
+
+          <div class="form-group">
+            <label for="edit_issue_date">Tanggal Penerbitan:</label>
+            <input type="text" id="edit_issue_date" name="issue_date">
+          </div>
+
+          <div class="form-group">
+            <label for="edit_issue_location">Lokasi Penerbitan:</label>
+            <input type="text" id="edit_issue_location" name="issue_location">
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 12px;">
+          <button type="button" onclick="closeEditModal()" class="pdf-mini-btn" style="padding: 10px 18px;">Batal</button>
+          <button type="submit" class="btn-submit" style="background: #0284c7;">💾 Simpan Perubahan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <?php endif; ?>
+
   <!-- FOOTER -->
   <footer class="footer">
     <div>&copy; <?php echo date('Y'); ?> <strong>Ir. Denny Jean Cross Sihombing, S.T., M.T.</strong> &bull; Portal E-Sign dennyjcs.com</div>
@@ -1064,23 +1174,57 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
   <script>
     const registeredDocs = <?php echo json_encode($documents, JSON_UNESCAPED_UNICODE); ?>;
     let currentDocData = <?php echo $created_doc ? json_encode($created_doc, JSON_UNESCAPED_UNICODE) : 'null'; ?>;
+    const initialActiveTab = <?php echo json_encode($active_tab_after_post ?? ''); ?>;
 
     window.addEventListener('DOMContentLoaded', () => {
       if (currentDocData) {
         renderQrPreview(currentDocData);
       }
+      if (initialActiveTab) {
+        activateTabById(initialActiveTab);
+      }
     });
 
+    function activateTabById(tabId) {
+      const tabOrder = ['tab-create', 'tab-stamper', 'tab-archive', 'tab-security'];
+      const btns = document.querySelectorAll('.tab-btn');
+      tabOrder.forEach((id, idx) => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = (id === tabId) ? 'block' : 'none';
+        if (btns[idx]) btns[idx].classList.toggle('active', id === tabId);
+      });
+    }
+
     function switchTab(tabId) {
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+      activateTabById(tabId);
+    }
 
-      document.getElementById('tab-create').style.display = 'none';
-      document.getElementById('tab-stamper').style.display = 'none';
-      document.getElementById('tab-archive').style.display = 'none';
-      document.getElementById('tab-security').style.display = 'none';
+    function decodeHtmlEntities(str) {
+      if (!str) return '';
+      const txt = document.createElement('textarea');
+      txt.innerHTML = str;
+      return txt.value;
+    }
 
-      document.getElementById(tabId).style.display = 'block';
+    function openEditModal(docKey) {
+      const doc = registeredDocs[docKey];
+      if (!doc) return;
+      document.getElementById('edit_key').value            = docKey;
+      document.getElementById('edit_id_display').value     = doc.id_ttd || doc.token || docKey;
+      document.getElementById('edit_title').value          = decodeHtmlEntities(doc.title || '');
+      document.getElementById('edit_doc_number').value     = decodeHtmlEntities(doc.doc_number || '');
+      document.getElementById('edit_doc_type').value       = decodeHtmlEntities(doc.doc_type || '');
+      document.getElementById('edit_target_agency').value  = decodeHtmlEntities(doc.target_agency || '');
+      document.getElementById('edit_target_person').value  = decodeHtmlEntities(doc.target_person || '');
+      document.getElementById('edit_budget_value').value   = decodeHtmlEntities(doc.budget_value || '');
+      document.getElementById('edit_duration').value       = decodeHtmlEntities(doc.duration || '');
+      document.getElementById('edit_issue_date').value     = decodeHtmlEntities(doc.issue_date || '');
+      document.getElementById('edit_issue_location').value = decodeHtmlEntities(doc.issue_location || 'Jakarta, Indonesia');
+      document.getElementById('editDocModal').style.display = 'flex';
+    }
+
+    function closeEditModal() {
+      document.getElementById('editDocModal').style.display = 'none';
     }
 
     function getVerifyUrl(doc) {
