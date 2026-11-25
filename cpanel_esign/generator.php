@@ -194,6 +194,36 @@ if ($is_authenticated && isset($_GET['action']) && $_GET['action'] === 'delete' 
     }
 }
 
+// Helper untuk menghasilkan ID TTD unik berurutan (anti-bentrok & tidak menimpa data lama)
+function generateNextIdTtd($documents) {
+    $cur_year = date('Y');
+    $prefix = "DJCS-TTD-{$cur_year}-";
+    $max_seq = count($documents);
+
+    foreach ($documents as $k => $doc) {
+        $candidates = [$k, $doc['id_ttd'] ?? '', $doc['id'] ?? '', $doc['token'] ?? ''];
+        foreach ($candidates as $cand) {
+            if (is_string($cand) && strpos($cand, $prefix) === 0) {
+                $num_part = substr($cand, strlen($prefix));
+                if (ctype_digit($num_part)) {
+                    $num = intval($num_part);
+                    if ($num > $max_seq) {
+                        $max_seq = $num;
+                    }
+                }
+            }
+        }
+    }
+
+    $seq = $max_seq + 1;
+    $id_ttd = $prefix . str_pad($seq, 3, '0', STR_PAD_LEFT);
+    while (isset($documents[$id_ttd])) {
+        $seq++;
+        $id_ttd = $prefix . str_pad($seq, 3, '0', STR_PAD_LEFT);
+    }
+    return $id_ttd;
+}
+
 // 11. LOGIKA BUAT DOKUMEN BARU (DENGAN PROTEKSI CSRF)
 $created_doc = null;
 if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'create_doc') {
@@ -210,15 +240,18 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
         $duration       = htmlspecialchars(trim($_POST['duration'] ?? ''), ENT_QUOTES, 'UTF-8');
         $issue_date     = htmlspecialchars(trim($_POST['issue_date'] ?? date('d F Y')), ENT_QUOTES, 'UTF-8');
         $issue_location = htmlspecialchars(trim($_POST['issue_location'] ?? 'Jakarta, Indonesia'), ENT_QUOTES, 'UTF-8');
+
+        // Bersihkan entri kunci kosong (jika pernah tersimpan dari versi lama)
+        if (isset($documents[''])) {
+            $old_empty = $documents[''];
+            unset($documents['']);
+            if (!empty($old_empty['id_ttd']) && !isset($documents[$old_empty['id_ttd']])) {
+                $documents[$old_empty['id_ttd']] = $old_empty;
+            }
+        }
         
         // Generate ID TTD otomatis berurutan & terlacak oleh sistem
-        $cur_year = date('Y');
-        $seq = count($documents) + 1;
-        $id_ttd = "DJCS-TTD-{$cur_year}-" . str_pad($seq, 3, '0', STR_PAD_LEFT);
-        while (isset($documents[$id_ttd])) {
-            $seq++;
-            $id_ttd = "DJCS-TTD-{$cur_year}-" . str_pad($seq, 3, '0', STR_PAD_LEFT);
-        }
+        $id_ttd = generateNextIdTtd($documents);
 
         $hash  = 'SHA256: ' . hash('sha256', $id_ttd . $title . $target_agency . $issue_date . bin2hex(random_bytes(16)));
 
@@ -244,11 +277,11 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
             'created_at'     => date('Y-m-d H:i:s')
         ];
 
-        $documents[$doc_id] = $new_doc;
+        $documents[$id_ttd] = $new_doc;
         file_put_contents($json_file, json_encode($documents, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOCK_EX);
         
         $created_doc = $new_doc;
-        $msg_success = "Dokumen '{$title}' berhasil didaftarkan secara sah!";
+        $msg_success = "Dokumen '{$title}' berhasil didaftarkan dengan ID TTD: {$id_ttd}!";
     }
 }
 ?>
@@ -776,7 +809,7 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
 
               <div class="form-group">
                 <label for="id_ttd_preview">ID Tanda Tangan Digital (ID TTD):</label>
-                <input type="text" id="id_ttd_preview" value="Otomatis di-generate sistem (Contoh: DJCS-TTD-<?php echo date('Y'); ?>-<?php echo str_pad(count($documents)+1, 3, '0', STR_PAD_LEFT); ?>)" disabled style="background: #f1f5f9; color: #0284c7; font-weight: 700; font-family: 'Fira Code', monospace;">
+                <input type="text" id="id_ttd_preview" value="Otomatis di-generate sistem (Berikutnya: <?php echo htmlspecialchars(generateNextIdTtd($documents)); ?>)" disabled style="background: #f1f5f9; color: #0284c7; font-weight: 700; font-family: 'Fira Code', monospace;">
               </div>
 
               <div class="form-group">
