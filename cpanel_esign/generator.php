@@ -262,11 +262,103 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
   
-  <!-- Library QR Code & PDF-Lib Client-Side -->
+  <!-- Library QR Code, PDF.js (Preview) & PDF-Lib (Stamper) Client-Side -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   
   <style>
+    /* INTERACTIVE PDF VISUAL PLACER */
+    .pdf-stage-wrapper {
+      background: #e2e8f0;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 18px;
+      margin: 18px 0;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .pdf-toolbar {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 8.5pt;
+    }
+    .pdf-page-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pdf-mini-btn {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: #0f172a;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 8.2pt;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .pdf-mini-btn:hover { background: #e2e8f0; }
+    .pdf-mini-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .pdf-canvas-frame {
+      position: relative;
+      display: inline-block;
+      box-shadow: 0 8px 28px rgba(15, 23, 42, 0.18);
+      background: #ffffff;
+      line-height: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      max-width: 100%;
+    }
+    #pdfPreviewCanvas {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      cursor: crosshair;
+    }
+    #qrDragOverlay {
+      position: absolute;
+      cursor: grab;
+      border: 2px dashed #0284c7;
+      box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.2), 0 6px 16px rgba(0, 0, 0, 0.18);
+      background: #ffffff;
+      touch-action: none;
+      z-index: 10;
+    }
+    #qrDragOverlay:active {
+      cursor: grabbing;
+      border-color: #059669;
+    }
+    #qrDragOverlay img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      pointer-events: none;
+    }
+    .qr-drag-tag {
+      position: absolute;
+      top: -22px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0284c7;
+      color: #ffffff;
+      font-size: 7pt;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      white-space: nowrap;
+      pointer-events: none;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -738,99 +830,94 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
             </button>
           </form>
 
-          <!-- HASIL GENERATE TANDA TANGAN -->
+          <!-- HASIL GENERATE BARCODE QR -->
           <div id="resultSection" style="<?php echo $created_doc ? 'display: block;' : 'display: none;'; ?> margin-top: 32px; border-top: 2px dashed #e2e8f0; padding-top: 24px;">
-            <h3 style="font-size: 11pt; color: #092c4c; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-              <span>🎉</span> Stempel Tanda Tangan Digital Berhasil Dibuat
+            <h3 style="font-size: 11pt; color: #092c4c; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+              <span>🎉</span> Barcode QR Tanda Tangan Digital Siap Digunakan
             </h3>
             
             <p style="font-size: 8.5pt; color: #64748b; margin-bottom: 16px;">
-              Dokumen telah resmi terdaftar di database <strong>dennyjcs.com/e-sign</strong>. Anda dapat mengunduh stempel PNG transparan untuk ditempelkan ke Word/Canva/PDF, atau menggunakan fitur penempel PDF otomatis pada tab berikutnya.
+              Dokumen telah terdaftar di <strong>dennyjcs.com/e-sign</strong> dengan ID TTD: <strong id="previewToken" style="font-family: 'Fira Code', monospace; color: #0284c7;"><?php echo htmlspecialchars($created_doc['id_ttd'] ?? $created_doc['token'] ?? ''); ?></strong>. Luaran berupa <strong>barcode QR murni tanpa teks tambahan</strong> sehingga tinggal Anda tempelkan pada dokumen.
             </p>
 
-            <!-- PREVIEW VISUAL -->
-            <div class="preview-box">
-              <div id="signaturePreviewBox" class="badge-signature">
-                <div id="qrcodeContainer" style="width: 82px; height: 82px; flex-shrink: 0; background: white; padding: 2px; border: 1px solid #cbd5e1; border-radius: 4px;"></div>
-                <div>
-                  <div class="badge-meta">
-                    <strong>DITANDATANGANI ELEKTRONIK</strong>
-                    ID TTD: <span id="previewToken" style="font-family: 'Fira Code', monospace; color: #0284c7; font-weight: bold;"><?php echo $created_doc['token'] ?? ''; ?></span><br>
-                    Verifikasi: <span style="color: #0284c7; font-weight: 600;">dennyjcs.com/e-sign</span><br>
-                    Waktu: <span id="previewDate"><?php echo $created_doc['issue_date'] ?? date('d F Y'); ?></span>
-                  </div>
-                  <div class="badge-signer">Ir. Denny Jean Cross Sihombing, S.T., M.T.</div>
-                  <div class="badge-title">
-                    Pengembang Sistem Informasi &bull; Arsitek Perangkat Lunak<br>
-                    <em>Dosen Prodi Sistem Informasi, Unika Atma Jaya Jakarta</em><br>
-                    Laman Resmi: <strong style="color: #0284c7;">dennyjcs.com</strong>
-                  </div>
-                </div>
-              </div>
+            <!-- PREVIEW VISUAL (BARCODE QR SAJA) -->
+            <div class="preview-box" style="padding: 24px;">
+              <div id="qrcodeContainer" style="width: 180px; height: 180px; background: #ffffff; padding: 10px; border: 1px solid #e2e8f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);"></div>
             </div>
 
             <!-- ACTION BUTTONS -->
             <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 20px;">
-              <button type="button" class="btn-submit" onclick="downloadTransparentStamp()" style="background: #059669;">
-                📥 Unduh Stempel TTD PNG (Transparan 300 DPI)
-              </button>
-              <button type="button" class="btn-submit" onclick="downloadQrOnly()" style="background: #475569;">
-                🔲 Unduh QR Code Saja (PNG)
+              <button type="button" class="btn-submit" onclick="downloadQrOnly()" style="background: #059669;">
+                📥 Unduh Barcode QR (PNG Resolusi Tinggi)
               </button>
               <a id="btnTestVerify" href="index.php?doc=<?php echo urlencode($created_doc['id'] ?? ''); ?>" target="_blank" class="nav-btn nav-btn-outline" style="background: #0284c7; color: white; display: inline-flex; align-items: center; gap: 6px; padding: 12px 18px;">
                 🔍 Uji Halaman Verifikasi Dokumen ↗
               </a>
             </div>
 
-            <!-- HIDDEN CANVAS FOR HIGH RES RENDERING -->
-            <canvas id="stampCanvas" width="1200" height="380" style="display: none;"></canvas>
+            <!-- HIDDEN CONTAINERS FOR HIGH RES PURE QR RENDERING -->
+            <div id="qrHighResContainer" style="display: none;"></div>
+            <canvas id="stampCanvas" width="560" height="560" style="display: none;"></canvas>
           </div>
         </div>
 
-        <!-- TAB 2: PDF STAMPER (CLIENT-SIDE) -->
+        <!-- TAB 2: PDF STAMPER INTERAKTIF (DRAG & DROP POSISI MANUAL) -->
         <div id="tab-stamper" class="card-body" style="display: none;">
-          <h3 style="font-size: 11pt; color: #092c4c; margin-bottom: 8px;">📄 Tempelkan E-Sign Langsung ke Berkas PDF Anda</h3>
-          <p style="font-size: 8.5pt; color: #64748b; margin-bottom: 20px;">
-            Pilih file PDF yang ingin ditandatangani. Sistem akan menempelkan stempel digital beresolusi tinggi langsung di peramban Anda secara cepat dan 100% aman (berkas PDF diproses di browser Anda dan tidak pernah dikirim ke peladen luar).
+          <h3 style="font-size: 11pt; color: #092c4c; margin-bottom: 8px;">📄 Tempelkan Barcode QR Secara Manual ke Berkas PDF</h3>
+          <p style="font-size: 8.5pt; color: #64748b; margin-bottom: 18px;">
+            Unggah berkas PDF Anda, pilih halaman tujuan, lalu <strong>geser (drag &amp; drop) atau klik langsung</strong> pada halaman PDF untuk menempatkan <strong>barcode QR murni</strong> persis di posisi yang diinginkan. Semua diproses di browser Anda (100% aman, tidak diunggah ke server).
           </p>
 
-          <div style="background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 8px; padding: 30px; text-align: center; margin-bottom: 20px;">
-            <input type="file" id="pdfFileInput" accept="application/pdf" style="margin-bottom: 14px;">
-            <p style="font-size: 8pt; color: #64748b;">Mendukung berkas PDF berapapun jumlah halamannya.</p>
-          </div>
-
-          <div class="form-grid">
+          <div class="form-grid" style="margin-bottom: 14px;">
             <div class="form-group">
-              <label for="stampTargetDoc">Pilih Dokumen E-Sign yang Ditempel:</label>
+              <label for="stampTargetDoc">1. Pilih ID TTD / Dokumen E-Sign:</label>
               <select id="stampTargetDoc" onchange="updateStamperDoc()">
                 <?php foreach ($documents as $doc_key => $doc_item): ?>
                   <option value="<?php echo htmlspecialchars($doc_key); ?>" <?php echo ($created_doc && $created_doc['id'] === $doc_key) ? 'selected' : ''; ?>>
-                    <?php echo htmlspecialchars($doc_item['title'] . ' (' . ($doc_item['token'] ?? $doc_key) . ')'); ?>
+                    <?php echo htmlspecialchars(($doc_item['id_ttd'] ?? $doc_item['token'] ?? $doc_key) . ' — ' . $doc_item['title']); ?>
                   </option>
                 <?php endforeach; ?>
               </select>
             </div>
 
             <div class="form-group">
-              <label for="stampPageSelect">Pilih Halaman Penempelan:</label>
-              <select id="stampPageSelect">
-                <option value="last">Halaman Terakhir (Standar Lembar Tanda Tangan)</option>
-                <option value="1">Halaman 1 (Halaman Depan / Surat)</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="stampPositionSelect">Posisi Stempel:</label>
-              <select id="stampPositionSelect">
-                <option value="bottom-right">Kanan Bawah (Standar Surat/Proposal Indonesia)</option>
-                <option value="bottom-left">Kiri Bawah</option>
-                <option value="bottom-center">Tengah Bawah</option>
-              </select>
+              <label for="pdfFileInput">2. Pilih Berkas PDF Anda:</label>
+              <input type="file" id="pdfFileInput" accept="application/pdf" onchange="handlePdfUpload(event)" style="padding: 8px; border: 1px dashed #94a3b8; border-radius: 6px; background: #f8fafc;">
             </div>
           </div>
 
-          <button type="button" class="btn-submit" onclick="stampAndDownloadPdf()" style="background: #059669; width: 100%; justify-content: center; padding: 14px;">
-            🚀 Tempelkan Stempel & Unduh PDF Resmi Sekarang
+          <!-- AREA PRATINJAU PDF INTERAKTIF -->
+          <div id="pdfStageWrapper" class="pdf-stage-wrapper">
+            <div class="pdf-toolbar">
+              <div class="pdf-page-controls">
+                <button type="button" class="pdf-mini-btn" id="btnPrevPage" onclick="changePdfPage(-1)">◀ Sebelumnya</button>
+                <span style="font-weight: 700; color: #092c4c;">
+                  Halaman <select id="pdfPageDropdown" onchange="jumpPdfPage(this.value)" style="width: auto; padding: 4px 8px; font-size: 8.5pt;"></select> dari <span id="pdfTotalPages">1</span>
+                </span>
+                <button type="button" class="pdf-mini-btn" id="btnNextPage" onclick="changePdfPage(1)">Berikutnya ▶</button>
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <label for="qrSizeSlider" style="margin: 0; font-size: 8.2pt; white-space: nowrap;">Ukuran QR: <strong id="qrSizeLabel">80 pt</strong></label>
+                <input type="range" id="qrSizeSlider" min="45" max="150" value="80" oninput="updateQrOverlaySize(this.value)" style="width: 130px; cursor: pointer;">
+              </div>
+            </div>
+
+            <div style="font-size: 8pt; color: #475569; text-align: center;">
+              💡 <strong>Tips:</strong> Geser kotak Barcode QR di bawah ini dengan mouse/jari, atau <strong>klik di titik mana pun</strong> pada dokumen untuk memindahkannya.
+            </div>
+
+            <div class="pdf-canvas-frame" id="pdfCanvasFrame">
+              <canvas id="pdfPreviewCanvas"></canvas>
+              <div id="qrDragOverlay" title="Geser untuk memindahkan posisi Barcode QR">
+                <span class="qr-drag-tag">Geser QR</span>
+                <img id="qrOverlayImg" src="" alt="Barcode QR">
+              </div>
+            </div>
+          </div>
+
+          <button type="button" id="btnSaveSignedPdf" class="btn-submit" onclick="stampAndDownloadPdf()" style="background: #059669; width: 100%; justify-content: center; padding: 14px;" disabled>
+            🚀 Simpan &amp; Unduh PDF Bertanda Tangan QR Sekarang
           </button>
           
           <div id="stamperStatus" style="margin-top: 14px; font-size: 9pt; display: none;"></div>
@@ -873,6 +960,7 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
                     <td style="white-space: nowrap; font-size: 8pt; color: #475569;"><?php echo htmlspecialchars($doc['issue_date'] ?? '-'); ?></td>
                     <td style="white-space: nowrap; font-weight: 700; color: #0f172a; font-size: 8pt;"><?php echo htmlspecialchars($doc['budget_value'] ?? '-'); ?></td>
                     <td style="white-space: nowrap;">
+                      <a href="javascript:void(0)" onclick="downloadQrById('<?php echo htmlspecialchars($key, ENT_QUOTES); ?>')" style="color: #059669; font-weight: 600; text-decoration: none; margin-right: 10px;">📥 Unduh QR</a>
                       <a href="index.php?doc=<?php echo urlencode($key); ?>" target="_blank" style="color: #0284c7; font-weight: 600; text-decoration: none; margin-right: 10px;">Buka ↗</a>
                       <a href="?action=delete&id=<?php echo urlencode($key); ?>&csrf=<?php echo urlencode($_SESSION['csrf_token']); ?>" onclick="return confirm('Yakin ingin menghapus dokumen ini dari sistem verifikasi?');" style="color: #ef4444; text-decoration: none;">Hapus</a>
                     </td>
@@ -962,188 +1050,375 @@ if ($is_authenticated && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
       document.getElementById(tabId).style.display = 'block';
     }
 
+    function getVerifyUrl(doc) {
+      return 'https://dennyjcs.com/e-sign?doc=' + encodeURIComponent(doc.id_ttd || doc.id);
+    }
+
     function renderQrPreview(doc) {
       const qrBox = document.getElementById('qrcodeContainer');
       qrBox.innerHTML = '';
 
-      const verifyUrl = 'https://dennyjcs.com/e-sign?doc=' + encodeURIComponent(doc.id) + 
-                        '&signer=Ir.+Denny+Jean+Cross+Sihombing,+S.T.,+M.T.&issued=' + encodeURIComponent(doc.issue_date || '');
+      const verifyUrl = getVerifyUrl(doc);
 
       new QRCode(qrBox, {
         text: verifyUrl,
-        width: 78,
-        height: 78,
+        width: 160,
+        height: 160,
         colorDark: '#092c4c',
         colorLight: '#ffffff',
         correctLevel: QRCode.CorrectLevel.M
       });
 
-      document.getElementById('previewToken').innerText = doc.token || doc.id;
-      document.getElementById('previewDate').innerText = doc.issue_date || '<?php echo date('d F Y'); ?>';
-      document.getElementById('btnTestVerify').href = 'index.php?doc=' + encodeURIComponent(doc.id);
+      const tokenEl = document.getElementById('previewToken');
+      if (tokenEl) tokenEl.innerText = doc.id_ttd || doc.token || doc.id;
+      const verifyBtn = document.getElementById('btnTestVerify');
+      if (verifyBtn) verifyBtn.href = 'index.php?doc=' + encodeURIComponent(doc.id_ttd || doc.id);
     }
 
-    function drawStampToCanvas(doc, callback) {
-      const canvas = document.getElementById('stampCanvas');
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Render barcode QR murni resolusi tinggi (tanpa teks tambahan) ke canvas
+    function renderPureQrCanvas(doc, callback) {
+      const hiResBox = document.getElementById('qrHighResContainer');
+      hiResBox.innerHTML = '';
 
-      const qrImg = document.querySelector('#qrcodeContainer img') || document.querySelector('#qrcodeContainer canvas');
-      if (!qrImg) {
-        alert('QR Code sedang disiapkan, silakan klik lagi.');
-        return;
-      }
+      const verifyUrl = getVerifyUrl(doc);
+      new QRCode(hiResBox, {
+        text: verifyUrl,
+        width: 512,
+        height: 512,
+        colorDark: '#092c4c',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M
+      });
 
-      const qrSize = 220;
-      const startX = 30;
-      const startY = 70;
+      setTimeout(() => {
+        const qrSource = hiResBox.querySelector('canvas') || hiResBox.querySelector('img');
+        if (!qrSource) {
+          alert('Barcode QR gagal dibuat, silakan coba lagi.');
+          return;
+        }
+        const canvas = document.getElementById('stampCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = 560;
+        canvas.height = 560;
 
-      ctx.drawImage(qrImg, startX, startY, qrSize, qrSize);
+        // Latar putih bersih sebagai quiet-zone agar mudah dipindai kamera di atas dokumen apa pun
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(qrSource, 24, 24, 512, 512);
 
-      const lineX = startX + qrSize + 30;
-      ctx.fillStyle = '#092c4c';
-      ctx.fillRect(lineX, startY + 5, 6, qrSize - 10);
-
-      const textX = lineX + 25;
-      let textY = startY + 28;
-
-      ctx.fillStyle = '#092c4c';
-      ctx.font = 'bold 26px "Plus Jakarta Sans", Arial, sans-serif';
-      ctx.fillText('DITANDATANGANI SECARA ELEKTRONIK', textX, textY);
-
-      textY += 32;
-      ctx.fillStyle = '#475569';
-      ctx.font = '20px "Fira Code", monospace';
-      ctx.fillText('ID TTD: ' + (doc.id_ttd || doc.token || doc.id), textX, textY);
-
-      textY += 28;
-      ctx.font = '19px "Plus Jakarta Sans", Arial, sans-serif';
-      ctx.fillText('Verifikasi Resmi: dennyjcs.com/e-sign', textX, textY);
-
-      textY += 28;
-      ctx.fillText('Waktu Penerbitan: ' + (doc.issue_date || '<?php echo date('d F Y'); ?>'), textX, textY);
-
-      textY += 38;
-      ctx.fillStyle = '#0f172a';
-      ctx.font = 'bold 28px "Plus Jakarta Sans", Arial, sans-serif';
-      ctx.fillText('Ir. Denny Jean Cross Sihombing, S.T., M.T.', textX, textY);
-      
-      ctx.fillRect(textX, textY + 6, 560, 2);
-
-      textY += 34;
-      ctx.fillStyle = '#475569';
-      ctx.font = '20px "Plus Jakarta Sans", Arial, sans-serif';
-      ctx.fillText('Pengembang Sistem Informasi • Arsitek Perangkat Lunak', textX, textY);
-
-      textY += 26;
-      ctx.font = 'italic 18px "Plus Jakarta Sans", Arial, sans-serif';
-      ctx.fillText('Dosen Program Studi Sistem Informasi, Unika Atma Jaya Jakarta', textX, textY);
-
-      textY += 26;
-      ctx.font = 'bold 18px "Plus Jakarta Sans", Arial, sans-serif';
-      ctx.fillStyle = '#0284c7';
-      ctx.fillText('Laman Resmi: dennyjcs.com', textX, textY);
-
-      if (callback) callback(canvas);
+        if (callback) callback(canvas);
+      }, 60);
     }
 
-    function downloadTransparentStamp() {
+    function downloadQrOnly() {
       if (!currentDocData) {
         alert('Silakan daftarkan dokumen terlebih dahulu.');
         return;
       }
-      drawStampToCanvas(currentDocData, (canvas) => {
+      renderPureQrCanvas(currentDocData, (canvas) => {
         const link = document.createElement('a');
-        link.download = 'E-SIGN_' + (currentDocData.id_ttd || currentDocData.token || currentDocData.id) + '.png';
+        link.download = 'QR_' + (currentDocData.id_ttd || currentDocData.token || currentDocData.id) + '.png';
         link.href = canvas.toDataURL('image/png');
         link.click();
       });
     }
 
-    function downloadQrOnly() {
-      const qrImg = document.querySelector('#qrcodeContainer img') || document.querySelector('#qrcodeContainer canvas');
-      if (!qrImg) return;
-      const link = document.createElement('a');
-      link.download = 'QR_' + (currentDocData.token || currentDocData.id) + '.png';
-      link.href = qrImg.src || qrImg.toDataURL('image/png');
-      link.click();
+    function downloadQrById(docId) {
+      const doc = registeredDocs[docId];
+      if (!doc) return;
+      renderPureQrCanvas(doc, (canvas) => {
+        const link = document.createElement('a');
+        link.download = 'QR_' + (doc.id_ttd || doc.token || doc.id) + '.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    }
+
+    // ==================== INTERACTIVE PDF VISUAL PLACER ====================
+    if (typeof pdfjsLib !== 'undefined') {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+
+    let uploadedPdfBytes = null;
+    let uploadedPdfName  = 'dokumen.pdf';
+    let pdfJsDoc         = null;
+    let currentPdfPage   = 1;
+    let totalPdfPages    = 1;
+    let currentPageWidthPt  = 595.28;
+    let currentPageHeightPt = 841.89;
+    let qrSizePt         = 80;
+    let qrPosRatioX      = 0.78; // Default kanan bawah (rasio 0..1 dari lebar halaman)
+    let qrPosRatioY      = 0.80; // Default kanan bawah (rasio 0..1 dari tinggi halaman)
+    let currentQrDataUrl = '';
+
+    function getSelectedStamperDoc() {
+      const sel = document.getElementById('stampTargetDoc');
+      const selectedId = sel ? sel.value : null;
+      return (selectedId && registeredDocs[selectedId]) ? registeredDocs[selectedId] : currentDocData;
     }
 
     function updateStamperDoc() {
-      const selectedId = document.getElementById('stampTargetDoc').value;
-      if (registeredDocs[selectedId]) {
-        currentDocData = registeredDocs[selectedId];
-        renderQrPreview(currentDocData);
+      const doc = getSelectedStamperDoc();
+      if (doc) {
+        currentDocData = doc;
+        refreshStamperQrImage(doc);
       }
     }
 
-    async function stampAndDownloadPdf() {
-      const fileInput = document.getElementById('pdfFileInput');
+    function refreshStamperQrImage(doc, cb) {
+      if (!doc) return;
+      renderPureQrCanvas(doc, (canvas) => {
+        currentQrDataUrl = canvas.toDataURL('image/png');
+        const imgEl = document.getElementById('qrOverlayImg');
+        if (imgEl) imgEl.src = currentQrDataUrl;
+        if (cb) cb();
+      });
+    }
+
+    async function handlePdfUpload(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
       const statusDiv = document.getElementById('stamperStatus');
-      
-      if (!fileInput.files || fileInput.files.length === 0) {
+      statusDiv.style.display = 'block';
+      statusDiv.innerHTML = '<span style="color: #0284c7;">⏳ Membaca dan merender halaman PDF...</span>';
+
+      try {
+        uploadedPdfName = file.name;
+        const buf = await file.arrayBuffer();
+        uploadedPdfBytes = new Uint8Array(buf);
+
+        const loadingTask = pdfjsLib.getDocument({ data: uploadedPdfBytes.slice() });
+        pdfJsDoc = await loadingTask.promise;
+        totalPdfPages = pdfJsDoc.numPages;
+
+        // Isi dropdown halaman
+        const dd = document.getElementById('pdfPageDropdown');
+        dd.innerHTML = '';
+        for (let i = 1; i <= totalPdfPages; i++) {
+          const opt = document.createElement('option');
+          opt.value = i;
+          opt.text = i;
+          dd.appendChild(opt);
+        }
+        document.getElementById('pdfTotalPages').innerText = totalPdfPages;
+
+        // Default buka halaman terakhir (tempat tanda tangan)
+        currentPdfPage = totalPdfPages;
+        dd.value = currentPdfPage;
+
+        document.getElementById('pdfStageWrapper').style.display = 'flex';
+        document.getElementById('btnSaveSignedPdf').disabled = false;
+
+        const doc = getSelectedStamperDoc();
+        refreshStamperQrImage(doc, async () => {
+          await renderPdfPage(currentPdfPage);
+          statusDiv.innerHTML = '<span style="color: #059669;">✅ PDF siap! Geser atau klik posisi Barcode QR pada pratinjau di atas, lalu klik tombol Simpan &amp; Unduh.</span>';
+        });
+      } catch (err) {
+        console.error(err);
+        statusDiv.innerHTML = '<span style="color: #ef4444;">❌ Gagal membaca PDF: ' + err.message + '</span>';
+      }
+    }
+
+    async function renderPdfPage(pageNum) {
+      if (!pdfJsDoc) return;
+      const page = await pdfJsDoc.getPage(pageNum);
+      const unscaledViewport = page.getViewport({ scale: 1 });
+      currentPageWidthPt  = unscaledViewport.width;
+      currentPageHeightPt = unscaledViewport.height;
+
+      // Skala agar nyaman dilihat di layar (maks lebar ~680px)
+      const maxDisplayWidth = Math.min(680, window.innerWidth - 90);
+      const scale = maxDisplayWidth / unscaledViewport.width;
+      const viewport = page.getViewport({ scale: scale });
+
+      const canvas = document.getElementById('pdfPreviewCanvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+
+      await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+
+      document.getElementById('pdfPageDropdown').value = pageNum;
+      document.getElementById('btnPrevPage').disabled = (pageNum <= 1);
+      document.getElementById('btnNextPage').disabled = (pageNum >= totalPdfPages);
+
+      positionQrOverlayFromRatio();
+    }
+
+    function changePdfPage(delta) {
+      const next = currentPdfPage + delta;
+      if (next >= 1 && next <= totalPdfPages) {
+        currentPdfPage = next;
+        renderPdfPage(currentPdfPage);
+      }
+    }
+
+    function jumpPdfPage(val) {
+      const num = parseInt(val, 10);
+      if (num >= 1 && num <= totalPdfPages) {
+        currentPdfPage = num;
+        renderPdfPage(currentPdfPage);
+      }
+    }
+
+    function updateQrOverlaySize(val) {
+      qrSizePt = parseInt(val, 10);
+      document.getElementById('qrSizeLabel').innerText = qrSizePt + ' pt';
+      positionQrOverlayFromRatio();
+    }
+
+    function positionQrOverlayFromRatio() {
+      const canvas = document.getElementById('pdfPreviewCanvas');
+      const overlay = document.getElementById('qrDragOverlay');
+      if (!canvas || !overlay || !canvas.clientWidth) return;
+
+      const displayW = canvas.clientWidth;
+      const displayH = canvas.clientHeight;
+      const qrPx = (qrSizePt / currentPageWidthPt) * displayW;
+
+      overlay.style.width  = qrPx + 'px';
+      overlay.style.height = qrPx + 'px';
+
+      let leftPx = qrPosRatioX * displayW;
+      let topPx  = qrPosRatioY * displayH;
+
+      // Pastikan tetap di dalam batas halaman
+      leftPx = Math.max(0, Math.min(displayW - qrPx, leftPx));
+      topPx  = Math.max(0, Math.min(displayH - qrPx, topPx));
+
+      overlay.style.left = leftPx + 'px';
+      overlay.style.top  = topPx + 'px';
+
+      qrPosRatioX = leftPx / displayW;
+      qrPosRatioY = topPx / displayH;
+    }
+
+    // Event Drag & Drop (Mouse + Touch) dan Klik Langsung di Canvas
+    (function initInteractiveQrPlacer() {
+      let isDragging = false;
+      let dragOffsetX = 0;
+      let dragOffsetY = 0;
+
+      window.addEventListener('DOMContentLoaded', () => {
+        const overlay = document.getElementById('qrDragOverlay');
+        const canvas  = document.getElementById('pdfPreviewCanvas');
+        if (!overlay || !canvas) return;
+
+        // Klik di mana saja pada halaman PDF untuk memindahkan pusat QR langsung ke titik klik
+        canvas.addEventListener('mousedown', (e) => {
+          const rect = canvas.getBoundingClientRect();
+          const qrW = overlay.offsetWidth;
+          const qrH = overlay.offsetHeight;
+          let leftPx = (e.clientX - rect.left) - (qrW / 2);
+          let topPx  = (e.clientY - rect.top) - (qrH / 2);
+          leftPx = Math.max(0, Math.min(rect.width - qrW, leftPx));
+          topPx  = Math.max(0, Math.min(rect.height - qrH, topPx));
+
+          overlay.style.left = leftPx + 'px';
+          overlay.style.top  = topPx + 'px';
+          qrPosRatioX = leftPx / rect.width;
+          qrPosRatioY = topPx / rect.height;
+        });
+
+        // Mulai drag pada kotak QR
+        const startDrag = (clientX, clientY) => {
+          isDragging = true;
+          const ovRect = overlay.getBoundingClientRect();
+          dragOffsetX = clientX - ovRect.left;
+          dragOffsetY = clientY - ovRect.top;
+        };
+
+        const moveDrag = (clientX, clientY) => {
+          if (!isDragging) return;
+          const rect = canvas.getBoundingClientRect();
+          const qrW = overlay.offsetWidth;
+          const qrH = overlay.offsetHeight;
+
+          let leftPx = (clientX - rect.left) - dragOffsetX;
+          let topPx  = (clientY - rect.top) - dragOffsetY;
+
+          leftPx = Math.max(0, Math.min(rect.width - qrW, leftPx));
+          topPx  = Math.max(0, Math.min(rect.height - qrH, topPx));
+
+          overlay.style.left = leftPx + 'px';
+          overlay.style.top  = topPx + 'px';
+          qrPosRatioX = leftPx / rect.width;
+          qrPosRatioY = topPx / rect.height;
+        };
+
+        overlay.addEventListener('mousedown', (e) => {
+          e.preventDefault();
+          startDrag(e.clientX, e.clientY);
+        });
+        window.addEventListener('mousemove', (e) => moveDrag(e.clientX, e.clientY));
+        window.addEventListener('mouseup', () => { isDragging = false; });
+
+        overlay.addEventListener('touchstart', (e) => {
+          if (e.touches.length === 1) {
+            e.preventDefault();
+            startDrag(e.touches[0].clientX, e.touches[0].clientY);
+          }
+        }, { passive: false });
+        window.addEventListener('touchmove', (e) => {
+          if (isDragging && e.touches.length === 1) {
+            moveDrag(e.touches[0].clientX, e.touches[0].clientY);
+          }
+        }, { passive: false });
+        window.addEventListener('touchend', () => { isDragging = false; });
+      });
+
+      window.addEventListener('resize', () => {
+        if (pdfJsDoc) positionQrOverlayFromRatio();
+      });
+    })();
+
+    async function stampAndDownloadPdf() {
+      const statusDiv = document.getElementById('stamperStatus');
+      if (!uploadedPdfBytes) {
         alert('Silakan pilih berkas PDF terlebih dahulu.');
         return;
       }
 
-      const selectedId = document.getElementById('stampTargetDoc').value;
-      const doc = registeredDocs[selectedId] || currentDocData;
+      const doc = getSelectedStamperDoc();
       if (!doc) {
         alert('Silakan pilih data dokumen tanda tangan.');
         return;
       }
 
       statusDiv.style.display = 'block';
-      statusDiv.innerHTML = '<span style="color: #0284c7;">⏳ Memproses penempelan tanda tangan ke PDF...</span>';
+      statusDiv.innerHTML = '<span style="color: #0284c7;">⏳ Menempelkan barcode QR sesuai posisi pilihan Anda...</span>';
 
       try {
-        const file = fileInput.files[0];
-        const arrayBuffer = await file.arrayBuffer();
-
-        const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+        const pdfDoc = await PDFLib.PDFDocument.load(uploadedPdfBytes.slice());
         const pages = pdfDoc.getPages();
-        const totalPages = pages.length;
+        const targetPage = pages[currentPdfPage - 1];
+        const { width: pdfW, height: pdfH } = targetPage.getSize();
 
-        const pageOption = document.getElementById('stampPageSelect').value;
-        let targetPage = pages[totalPages - 1];
-        if (pageOption === '1' && pages[0]) {
-          targetPage = pages[0];
-        }
+        renderPureQrCanvas(doc, async (canvas) => {
+          const qrPngBytes = await fetch(canvas.toDataURL('image/png')).then(res => res.arrayBuffer());
+          const qrImage = await pdfDoc.embedPng(qrPngBytes);
 
-        drawStampToCanvas(doc, async (canvas) => {
-          const stampPngBytes = await fetch(canvas.toDataURL('image/png')).then(res => res.arrayBuffer());
-          const stampImage = await pdfDoc.embedPng(stampPngBytes);
+          // Konversi presisi koordinat visual (kiri-atas) ke koordinat PDF (kiri-bawah)
+          const posX = qrPosRatioX * pdfW;
+          const posY = pdfH - (qrPosRatioY * pdfH) - qrSizePt;
 
-          const stampWidth = 240;
-          const stampHeight = (stampWidth / canvas.width) * canvas.height;
-
-          const { width, height } = targetPage.getSize();
-          const positionOption = document.getElementById('stampPositionSelect').value;
-
-          let posX = width - stampWidth - 45;
-          let posY = 50;
-
-          if (positionOption === 'bottom-left') {
-            posX = 45;
-          } else if (positionOption === 'bottom-center') {
-            posX = (width - stampWidth) / 2;
-          }
-
-          targetPage.drawImage(stampImage, {
+          targetPage.drawImage(qrImage, {
             x: posX,
-            y: posY,
-            width: stampWidth,
-            height: stampHeight,
+            y: Math.max(0, posY),
+            width: qrSizePt,
+            height: qrSizePt,
           });
 
           const pdfBytes = await pdfDoc.save();
           const blob = new Blob([pdfBytes], { type: 'application/pdf' });
           const link = document.createElement('a');
           link.href = URL.createObjectURL(blob);
-          link.download = file.name.replace('.pdf', '') + '_SIGNED.pdf';
+          link.download = uploadedPdfName.replace(/\.pdf$/i, '') + '_SIGNED.pdf';
           link.click();
 
-          statusDiv.innerHTML = '<span style="color: #059669; font-weight: bold;">✅ Berhasil! PDF yang telah bertanda tangan resmi telah diunduh.</span>';
+          statusDiv.innerHTML = '<span style="color: #059669; font-weight: bold;">✅ Berhasil! PDF dengan barcode QR pada posisi pilihan Anda telah diunduh.</span>';
         });
 
       } catch (err) {
